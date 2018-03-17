@@ -2,12 +2,14 @@ package view;
 
 import java.util.List;
 
+import javafx.scene.control.Button;
+
 public class Account implements AccountIf {
 
 	@Override
 	public void mhtEntry() {
 		// TODO 自动生成的方法存根
-
+		MainFrame.top.add(new Button("测试"));
 	}
 
 	@Override
