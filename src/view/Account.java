@@ -2,14 +2,28 @@ package view;
 
 import java.util.List;
 
-import javafx.scene.control.Button;
+import javafx.scene.Node;
+import nodes.TopButton;
 
 public class Account implements AccountIf {
 
 	@Override
 	public void mhtEntry() {
 		// TODO 自动生成的方法存根
-		MainFrame.top.add(new Button("测试"));
+		TopButton add = new TopButton("添加"),
+				  mod = new TopButton("修改"),
+				  del = new TopButton("删除"),
+				  que = new TopButton("查询");
+		MainFrame.top.addAll(add,mod,del,que);
+		
+		//修改顶栏按钮高宽
+		//for each循环遍历
+		for(Node node : MainFrame.top) {
+			TopButton topButton = (TopButton)node;
+			topButton.setPrefWidth(MainFrame.w);
+			//topButton.setPrefHeight(topButton.getPrefHeight()*1.5);
+			System.out.println(topButton.getHeight());
+		}
 	}
 
 	@Override
