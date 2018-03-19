@@ -22,7 +22,6 @@ public class Account implements AccountIf {
 			TopButton topButton = (TopButton)node;
 			topButton.setPrefWidth(MainFrame.w);
 			//topButton.setPrefHeight(topButton.getPrefHeight()*1.5);
-			System.out.println(topButton.getHeight());
 		}
 	}
 
