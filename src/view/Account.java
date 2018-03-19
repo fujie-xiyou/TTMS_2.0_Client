@@ -2,7 +2,6 @@ package view;
 
 import java.util.List;
 
-import javafx.scene.Node;
 import nodes.TopButton;
 
 public class Account implements AccountIf {
@@ -15,14 +14,7 @@ public class Account implements AccountIf {
 				  del = new TopButton("删除"),
 				  que = new TopButton("查询");
 		MainFrame.top.addAll(add,mod,del,que);
-		
-		//修改顶栏按钮高宽
-		//for each循环遍历
-		for(Node node : MainFrame.top) {
-			TopButton topButton = (TopButton)node;
-			topButton.setPrefWidth(MainFrame.w);
-			//topButton.setPrefHeight(topButton.getPrefHeight()*1.5);
-		}
+	
 	}
 
 	@Override

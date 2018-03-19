@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
+import view.MainFrame;
 
 public class TopButton extends Button{
 	
@@ -13,6 +14,7 @@ public class TopButton extends Button{
 	private static EventHandler<ActionEvent> lastEvent = null;
 	
 	private void initButton() {
+		
 		// 设置按钮颜色
 		this.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
 
@@ -51,6 +53,10 @@ public class TopButton extends Button{
 	public TopButton(String value) {
 		super(value);
 		this.initButton();
+		
+		
+		//设置按钮宽度
+		this.setPrefWidth(MainFrame.w);
 	}
 	
 }
