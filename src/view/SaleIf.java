@@ -6,6 +6,9 @@ import service.Seat;
 import service.Ticket;
 
 public interface SaleIf {
+	//入口
+	public void mgtEntry();
+	
 	//根据剧目ID显示演出计划
 	public void showScheduler(int playID);
 	
@@ -15,8 +18,6 @@ public interface SaleIf {
 	//售票
 	public boolean sellTicket(List<Ticket> tickets ,List<Seat> seats);
 	
-	//入口
-	public void mgtEntry();
 	
 	//退票
 	public void retrurnTicket();

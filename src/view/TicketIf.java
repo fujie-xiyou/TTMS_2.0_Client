@@ -2,7 +2,7 @@ package view;
 
 import service.Schedule;
 
-public interface Ticket {
+public interface TicketIf {
 	public boolean update(int id);
 	
 	public boolean query(int id);
