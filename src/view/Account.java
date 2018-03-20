@@ -5,7 +5,6 @@ import java.util.List;
 import nodes.TopButton;
 
 public class Account implements AccountIf {
-
 	@Override
 	public void mhtEntry() {
 		// TODO 自动生成的方法存根
