@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -18,24 +19,36 @@ import nodes.LeftButton;
 
 public class MainFrame implements MainIf {
 	public static  ObservableList<Node> top;
+	public static ObservableList<Node> center;
+	public static ObservableList<Node> bottom;
 	public static double w; //左侧栏宽度
 	@Override
 	public void mainFrame() {
 		Stage stage = new Stage();//新建一个舞台(窗口)
 		stage.setResizable(false);
 		stage.show();//使窗口可见
-		BorderPane centerTop = new BorderPane();
-		HBox topPane = new HBox();
+		BorderPane mainPane = new BorderPane();//用于存放顶栏,中间面板,底栏(消息面板)
+		HBox topPane = new HBox();//顶栏
 		
 		//设置顶栏背景色
 		topPane.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
-		centerTop.setTop(topPane);
-		top = topPane.getChildren();
-		VBox leftPane = new VBox();
-		BorderPane centerPane = new BorderPane();
-		centerPane.setCenter(centerTop);
 		
-		Pane mainPane = new BorderPane(centerPane,null,null,null,leftPane);
+		mainPane.setTop(topPane);//放置顶栏
+		
+		Pane centerPane = new Pane();//中间内容面板
+		center = centerPane.getChildren();//使用静态变量保存中间面板节点列表
+		mainPane.setCenter(centerPane);
+		
+		top = topPane.getChildren();//使用静态变量保存顶栏节点列表
+		VBox leftPane = new VBox();//左栏
+		//设置左栏背景色
+		leftPane.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, null, null)));
+		
+		HBox bottomPane = new HBox();//底栏(用于显示提示消息)
+		mainPane.setBottom(bottomPane);
+		bottom = bottomPane.getChildren();
+		
+		Pane outerPane = new BorderPane(mainPane,null,null,null,leftPane);
 		LeftButton  sch = new LeftButton("演出厅管理"),
 				play = new LeftButton("剧目管理"),
 				sale = new LeftButton("售票"),
@@ -45,11 +58,10 @@ public class MainFrame implements MainIf {
 				acc = new LeftButton("账户管理"),
 				out = new LeftButton("退出登录");
 		leftPane.getChildren().addAll(sch,play,sale,ret,que,ans,acc,out);
-		leftPane.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, null, null)));
 		leftPane.setAlignment(Pos.TOP_CENTER);
 		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
 		double width = bounds.getWidth()*0.5;
-		Scene scene = new Scene(mainPane, width,9.0/16 * width);
+		Scene scene = new Scene(outerPane, width,9.0/16 * width);
 		stage.setScene(scene);
 		
 		//舞台加载完毕后 将左栏中按钮的宽度设置为左栏的宽度
@@ -66,6 +78,19 @@ public class MainFrame implements MainIf {
 			AccountIf account = new Account();
 			account.mhtEntry();
 		});
+	}
+	public static void popupMessage(String message) {
+		Text text = new Text(message);
+		bottom.removeAll(bottom);
+		bottom.add(text);
+		/*
+		try {
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		bottom.removeAll(bottom);
+		*/
 	}
 
 }

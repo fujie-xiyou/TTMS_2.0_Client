@@ -15,6 +15,9 @@ public class TopButton extends Button{
 	
 	private void initButton() {
 		
+		//立即清空底栏消息
+		MainFrame.bottom.removeAll(MainFrame.bottom);
+		
 		// 设置按钮颜色
 		this.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
 
@@ -37,6 +40,7 @@ public class TopButton extends Button{
 	//放入点击事件 实现点击按钮 背景变白  
 	//点击其他按钮 背景恢复 按钮事件恢复
 	public void recover() {
+		MainFrame.center.removeAll(MainFrame.center);
 		if(lastButton != null) {
 			lastButton.initButton();
 			lastButton.setOnAction(lastEvent);

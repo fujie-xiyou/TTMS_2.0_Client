@@ -13,7 +13,14 @@ public class Account implements AccountIf {
 				  del = new TopButton("删除"),
 				  que = new TopButton("查询");
 		MainFrame.top.addAll(add,mod,del,que);
-	
+		add.setOnAction(e -> {
+			add.recover();
+			MainFrame.popupMessage("消息!可是很长的!");
+		});
+		mod.setOnAction(e -> {
+			mod.recover();
+			MainFrame.popupMessage("我咋看着不长呢?");
+		});
 	}
 
 	@Override

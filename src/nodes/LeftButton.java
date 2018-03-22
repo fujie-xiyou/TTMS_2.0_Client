@@ -15,6 +15,10 @@ public class LeftButton extends Button{
 	private static EventHandler<ActionEvent> lastEvent = null;
 	
 	private void initButton() {
+		
+		//立即清空底栏消息
+		MainFrame.bottom.removeAll(MainFrame.bottom);
+		
 		// 设置按钮颜色
 		this.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, null, null)));
 
