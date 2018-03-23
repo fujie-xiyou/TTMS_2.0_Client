@@ -66,6 +66,8 @@ public class Account implements AccountIf {
 		//集合的流式处理 将账户类型数组过滤掉匿名用户并映射成账户类型名数组
 		 * 这句虽然真的很厉害  但是不需要了
 		 */
+		
+		//下拉框选择用户类型
 		ComboBox<ACCOUNT_TYPE> typeBox = new ComboBox<>(FXCollections.
 				observableArrayList(Arrays.stream(ACCOUNT_TYPE.values()).
 						filter(type -> !type.equals(ACCOUNT_TYPE.ANOMT)).
@@ -78,7 +80,7 @@ public class Account implements AccountIf {
 		PasswordField passField = new PasswordField();
 		passField.setPromptText("密码");
 		Button add = new Button("  添加  ");
-		add.getStyleClass().add("my-button");
+		add.getStyleClass().add("my-button");//为按钮添加my-button类型(css类型) 以获得扁平蓝色按钮
 		centerPane.getChildren().addAll(text,typeBox,nameField ,passField,add);
 		
 		add.setOnAction(e -> {
