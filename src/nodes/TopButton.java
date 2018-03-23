@@ -37,8 +37,8 @@ public class TopButton extends Button{
 		});
 	}
 	
-	//放入点击事件 实现点击按钮 背景变白  
-	//点击其他按钮 背景恢复 按钮事件恢复
+	//放入点击事件中 实现点击按钮 按钮背景变白  
+	//点击其他按钮 背景恢复 按钮事件恢复 
 	public void recover() {
 		MainFrame.center.removeAll(MainFrame.center);
 		if(lastButton != null) {

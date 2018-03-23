@@ -12,6 +12,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -29,13 +30,12 @@ public class MainFrame implements MainIf {
 		stage.show();//使窗口可见
 		BorderPane mainPane = new BorderPane();//用于存放顶栏,中间面板,底栏(消息面板)
 		HBox topPane = new HBox();//顶栏
-		
 		//设置顶栏背景色
 		topPane.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
 		
 		mainPane.setTop(topPane);//放置顶栏
 		
-		Pane centerPane = new Pane();//中间内容面板
+		StackPane centerPane = new StackPane();//中间内容面板
 		center = centerPane.getChildren();//使用静态变量保存中间面板节点列表
 		mainPane.setCenter(centerPane);
 		
