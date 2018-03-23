@@ -46,7 +46,7 @@ public class Account implements AccountIf {
 		//centerPane.setAlignment(Pos.TOP_CENTER);//面板内容居中
 		centerPane.prefWidthProperty().bind(MainFrame.centerWidth);//将面板首选宽度与预留面板的宽度绑定
 		double width = centerPane.getPrefWidth();
-		centerPane.setPadding(new Insets(30,width*2.0/7,0,width*2.0/7));//面板左右内边距
+		centerPane.setPadding(new Insets(30,width*2.0/7,0,width*2.0/7));//面板上左右内边距
 		centerPane.setSpacing(30);
 		MainFrame.center.add(centerPane);//将布局添加至预留布局中
 		/* 由于为中部面板预留的布局面板为StackPane类型 可能无法满足实际需求  
@@ -70,14 +70,14 @@ public class Account implements AccountIf {
 				observableArrayList(Arrays.stream(ACCOUNT_TYPE.values()).
 						filter(type -> !type.equals(ACCOUNT_TYPE.ANOMT)).
 						collect(Collectors.toList())));
-		//这句也很厉害 重写ACCOUNT_TYPE的toString类 使其返回name属性 方便直接将TYPE数组添加至下拉框
+		//这句也很厉害 重写ACCOUNT_TYPE的toString方法 使其返回name属性 方便直接将TYPE数组添加至下拉框
 		
 		typeBox.setPromptText("用户类型..");
 		TextField nameField = new TextField();
 		nameField.setPromptText("用户名");
 		PasswordField passField = new PasswordField();
 		passField.setPromptText("密码");
-		Button add = new Button("添加");
+		Button add = new Button("  添加  ");
 		add.getStyleClass().add("my-button");
 		centerPane.getChildren().addAll(text,typeBox,nameField ,passField,add);
 		
@@ -94,6 +94,8 @@ public class Account implements AccountIf {
 				else {
 					MainFrame.popupMessage("新增用户失败");
 				}
+			}else {
+				MainFrame.popupMessage("请检查输入!");
 			}
 			
 		});
