@@ -42,6 +42,7 @@ public class LeftButton extends Button{
 	//点击其他按钮 背景恢复 按钮事件恢复
 	public void recover() {
 		MainFrame.top.removeAll(MainFrame.top);
+		MainFrame.center.removeAll(MainFrame.center);
 		if(lastButton != null) {
 			lastButton.initButton();
 			lastButton.setOnAction(lastEvent);
