@@ -66,6 +66,7 @@ public class MainFrame implements MainIf {
 		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
 		double width = bounds.getWidth()*0.5;
 		Scene scene = new Scene(outerPane, width,9.0/16 * width);
+		scene.getStylesheets().add(getClass().getResource("MainStyle.css").toExternalForm()); 
 		stage.setScene(scene);
 		
 		//舞台加载完毕后 将左栏中按钮的宽度设置为左栏的宽度

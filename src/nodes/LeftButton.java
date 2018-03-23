@@ -62,6 +62,5 @@ public class LeftButton extends Button{
 		
 		initButton();
 		
-
 	}
 }

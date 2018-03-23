@@ -78,7 +78,8 @@ public class Account implements AccountIf {
 		PasswordField passField = new PasswordField();
 		passField.setPromptText("密码");
 		Button add = new Button("添加");
-		centerPane.getChildren().addAll(typeBox,nameField ,passField,add);
+		add.getStyleClass().add("my-button");
+		centerPane.getChildren().addAll(text,typeBox,nameField ,passField,add);
 		
 		add.setOnAction(e -> {
 			String name = nameField.getText();
