@@ -70,7 +70,7 @@ public class Account implements AccountIf {
 				observableArrayList(Arrays.stream(ACCOUNT_TYPE.values()).
 						filter(type -> !type.equals(ACCOUNT_TYPE.ANOMT)).
 						collect(Collectors.toList())));
-		//这句也很厉害
+		//这句也很厉害 重写ACCOUNT_TYPE的toString类 使其返回name属性 方便直接将TYPE数组添加至下拉框
 		
 		typeBox.setPromptText("用户类型..");
 		TextField nameField = new TextField();
