@@ -60,7 +60,7 @@ public class TopButton extends Button{
 		
 		
 		//设置按钮宽度
-		this.setPrefWidth(MainFrame.w);
+		this.setPrefWidth(MainFrame.leftWidth);
 	}
 	
 }

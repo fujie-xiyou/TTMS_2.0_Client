@@ -1,32 +1,17 @@
 package service;
 
-
-enum ACCOUNT_TYPE {
-	ANOMT(1,"匿名用户"),
-	CLERK(2,"售票员"),
-	MANG(3,"经理"),
-	ADMIN(4,"管理员");
-	
-	private String name;
-	private int index;
-	private ACCOUNT_TYPE(int index , String name) {
-		this.index = index;
-		this.name = name;
-	}
-	public String getName() {
-		return name;
-	}
-	public int getIndex() {
-		return index;
-	}
-	
-}
-
 public class Account {
 	private int uid;
 	private ACCOUNT_TYPE type;
 	private String username;
 	private String password;
+	
+	public Account(int uid , ACCOUNT_TYPE type , String username, String password) {
+		this.uid = uid;
+		this.type = type;
+		this.username = username;
+		this.password = password;
+	}
 	public int getUid() {
 		return uid;
 	}

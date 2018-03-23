@@ -1,12 +1,20 @@
 package view;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import nodes.TopButton;
+import service.ACCOUNT_TYPE;
 
 public class Account implements AccountIf {
 	@Override
@@ -30,28 +38,64 @@ public class Account implements AccountIf {
 		});
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public void add(List<service.Account> accounts) {
 		// TODO 自动生成的方法存根
 		VBox centerPane = new VBox();//添加用户界面将使用VBox布局
-		centerPane.setPadding(new Insets(100));//面板内边距
-		
-		centerPane.setAlignment(Pos.CENTER);//面板内容居中
-		
+		//centerPane.setAlignment(Pos.TOP_CENTER);//面板内容居中
+		centerPane.prefWidthProperty().bind(MainFrame.centerWidth);//将面板首选宽度与预留面板的宽度绑定
+		double width = centerPane.getPrefWidth();
+		centerPane.setPadding(new Insets(30,width*2.0/7,0,width*2.0/7));//面板左右内边距
+		centerPane.setSpacing(30);
 		MainFrame.center.add(centerPane);//将布局添加至预留布局中
 		/* 由于为中部面板预留的布局面板为StackPane类型 可能无法满足实际需求  
 		 * 因此在开发具体界面时 应该结合实际情况使用合适的布局面板(比如本界面选择VBox)
 		 * 并且将其添加至MainFrame.center中  即可作为中部面板显示*/
+		Text text = new Text("添加用户:");
+		text.setFill(Color.DARKGREY);
+		text.setFont(new Font(30));
+		/*
+		ComboBox<String> typeBox = 
+				new ComboBox<>(FXCollections.
+						observableArrayList(Arrays.asList(ACCOUNT_TYPE.values()).
+						stream().filter(typ -> !typ.equals(ACCOUNT_TYPE.ANOMT)).
+						map(ACCOUNT_TYPE::getName).
+						collect(Collectors.toList())));
+		//这句就厉害了
+		//集合的流式处理 将账户类型数组过滤掉匿名用户并映射成账户类型名数组
+		 * 这句虽然真的很厉害  但是不需要了
+		 */
+		ComboBox<ACCOUNT_TYPE> typeBox = new ComboBox<>(FXCollections.
+				observableArrayList(Arrays.stream(ACCOUNT_TYPE.values()).
+						filter(type -> !type.equals(ACCOUNT_TYPE.ANOMT)).
+						collect(Collectors.toList())));
+		//这句也很厉害
 		
-		TextField name = new TextField();
-		name.setPromptText("用户名");
-		PasswordField pass = new PasswordField();
-		pass.setPromptText("密码");
+		typeBox.setPromptText("用户类型..");
+		TextField nameField = new TextField();
+		nameField.setPromptText("用户名");
+		PasswordField passField = new PasswordField();
+		passField.setPromptText("密码");
+		Button add = new Button("添加");
+		centerPane.getChildren().addAll(typeBox,nameField ,passField,add);
 		
-		centerPane.getChildren().addAll(name ,pass);
-		System.out.println(centerPane.getPrefWidth());
-
-		
+		add.setOnAction(e -> {
+			String name = nameField.getText();
+			String pass = passField.getText();
+			ACCOUNT_TYPE type = typeBox.getValue();
+			//ACCOUNT_TYPE type = 
+			if(!name.isEmpty() && !pass.isEmpty()  && type != null) {
+				service.Account account = new service.Account(-1,type,name,pass);
+				if(/*调用业务逻辑层新增用户的方法成功执行*/ true) {
+					MainFrame.popupMessage("用户 "+name+" 新增成功!");
+				}
+				else {
+					MainFrame.popupMessage("新增用户失败");
+				}
+			}
+			
+		});
 	}
 
 	@Override

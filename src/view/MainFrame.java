@@ -2,6 +2,8 @@ package view;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -22,11 +24,12 @@ public class MainFrame implements MainIf {
 	public static  ObservableList<Node> top;
 	public static ObservableList<Node> center;
 	public static ObservableList<Node> bottom;
-	public static double w; //左侧栏宽度
+	public static double leftWidth; //左侧栏宽度
+	public static DoubleProperty centerWidth;//中部面板宽度
 	@Override
 	public void mainFrame() {
 		Stage stage = new Stage();//新建一个舞台(窗口)
-		stage.setResizable(false);
+		stage.setResizable(false);//使窗口大小固定
 		stage.show();//使窗口可见
 		BorderPane mainPane = new BorderPane();//用于存放顶栏,中间面板,底栏(消息面板)
 		HBox topPane = new HBox();//顶栏
@@ -37,8 +40,9 @@ public class MainFrame implements MainIf {
 		
 		StackPane centerPane = new StackPane();//中间内容面板
 		center = centerPane.getChildren();//使用静态变量保存中间面板节点列表
+		centerWidth = new SimpleDoubleProperty();
+		centerWidth.bind(centerPane.widthProperty());
 		mainPane.setCenter(centerPane);
-		
 		top = topPane.getChildren();//使用静态变量保存顶栏节点列表
 		VBox leftPane = new VBox();//左栏
 		//设置左栏背景色
@@ -65,11 +69,11 @@ public class MainFrame implements MainIf {
 		stage.setScene(scene);
 		
 		//舞台加载完毕后 将左栏中按钮的宽度设置为左栏的宽度
-		w = leftPane.getWidth();
+		leftWidth = leftPane.getWidth();
 		//使用迭代器遍历
 		Iterable<Node> iterable = leftPane.getChildren();
 		iterable.forEach(node -> {
-			((LeftButton)node).setPrefWidth(w);
+			((LeftButton)node).setPrefWidth(leftWidth);
 		});
 		
 		//账号管理
