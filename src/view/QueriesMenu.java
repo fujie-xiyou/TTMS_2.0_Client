@@ -21,7 +21,7 @@ public class QueriesMenu implements QueriesMenuIf {
 	
 		quesch.setOnAction(e->{
 			quesch.recover();
-			queryPlay.queryPlayIf();
+			queryPlay.querysch();
 		});
 
 	}
