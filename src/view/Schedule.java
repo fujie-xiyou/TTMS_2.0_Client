@@ -16,11 +16,6 @@ public class Schedule implements ScheduleIf{
 				  que = new TopButton("查询"),
 		          allplay = new TopButton("全部");
 		MainFrame.top.addAll(add,mod,del,que,allplay);
-//		sch.setOnAction(e->{
-//			sch.recover();
-//			ScheduleIf sche=new Schedule();
-//			sche.mgtEntry(0);
-//		});
 
 	}
 

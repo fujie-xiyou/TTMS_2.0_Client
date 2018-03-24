@@ -97,6 +97,13 @@ public class MainFrame implements MainIf {
 			QueriesMenuIf query = new QueriesMenu();
 			query.queriseMenu();
 		});
+		//演出厅管理
+		sch.setOnAction(e->{
+		sch.recover();
+		ScheduleIf sche=new Schedule();
+		sche.mgtEntry(0);
+	});
+		
 		
 	}
 	public static void popupMessage(String message) {
