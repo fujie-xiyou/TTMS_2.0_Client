@@ -1,6 +1,11 @@
 package view;
 
 import java.util.List;
+
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import nodes.TopButton;
 
 public class Play implements PlayIf {
@@ -27,7 +32,6 @@ public class Play implements PlayIf {
 	public boolean add() {
 		// TODO Auto-generated method stub
 		List<service.Play> plays;
-		
 		
 		return false;
 	}
