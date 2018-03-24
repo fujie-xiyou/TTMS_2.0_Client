@@ -83,6 +83,21 @@ public class MainFrame implements MainIf {
 			AccountIf account = new Account();
 			account.mhtEntry();
 		});
+		
+		//剧目管理
+		play.setOnAction(e -> {
+			play.recover();
+			PlayIf plays  = new Play();
+			plays.mgtEntry();
+		});
+		
+		//查询
+		que.setOnAction(e -> {
+			que.recover();
+			QueriesMenuIf query = new QueriesMenu();
+			query.queriseMenu();
+		});
+		
 	}
 	public static void popupMessage(String message) {
 		Text text = new Text(message);
