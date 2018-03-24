@@ -15,18 +15,18 @@ public class Play implements PlayIf {
 		MainFrame.top.addAll(add,mod,del,que);
 		
 		
-	/*	add.setOnAction(e -> {
+		add.setOnAction(e -> {
 			add.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
 			add();//调用添加用户面板
 		});
-*/
+
 	}
 	
-	//@SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	@Override
 	public boolean add() {
 		// TODO Auto-generated method stub
-	/*	List<service.Play> plays;*/
+		List<service.Play> plays;
 		
 		
 		return false;
