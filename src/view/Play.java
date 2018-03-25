@@ -51,7 +51,9 @@ public class Play implements PlayIf {
 		grid.setPadding(new Insets(30,width*2.0/7,0,width*2.0/7));//面板上左右内边距*/
 		 
 		 Button saveBtn = new Button("保存");
+		 saveBtn.getStyleClass().add("my-button");
 	     Button cleanBtn = new Button("清空");
+	     cleanBtn.getStyleClass().add("my-button");
 		 VBox buttonBox = new VBox(saveBtn, cleanBtn);
 	     saveBtn.setMaxWidth(Double.MAX_VALUE);
 	     cleanBtn.setMaxWidth(Double.MAX_VALUE);
@@ -70,12 +72,14 @@ public class Play implements PlayIf {
 		/* ChoiceBox<String> types = new  ChoiceBox<>();
 		 types.getItems().addAll("电影", "歌剧", "音乐会");*/
 		 ComboBox<PLAY_TYPE> types = new ComboBox<>(FXCollections.observableArrayList(PLAY_TYPE.values()));
+		 types.setPromptText("请选择..");
 		 Label area = new Label("来源地：");
 		 TextField areas = new TextField();
 		 Label rating = new Label("级别：");
 		 ComboBox<PLAY_RATING> ratings = new ComboBox<>(FXCollections.observableArrayList(PLAY_RATING.values()));
 		/* ChoiceBox<String> ratings = new  ChoiceBox<>();
 		 ratings.getItems().addAll("CHILD", "TEENAGE", "ADULT");*/
+		 ratings.setPromptText("请选择..");
 		 Label startDate = new Label("开始时间：");
 		 DatePicker startDates = new DatePicker();
 		 Label endDate = new Label("结束时间：");
