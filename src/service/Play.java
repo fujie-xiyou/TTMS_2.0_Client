@@ -2,7 +2,7 @@ package service;
 
 import java.util.Date;
 
-enum PLAY_TYPE {
+/*enum PLAY_TYPE {
 	FILE(1,"电影"),
 	OPEAR(2,"歌剧"),
 	CONCERT(3,"音乐会");
@@ -19,14 +19,14 @@ enum PLAY_TYPE {
 	public int getIndex() {
 		return index;
 	}
-}
+}*/
 
-enum PLAY_RATING{
+/*enum PLAY_RATING{
 	//演出级别
 	CHILD,//儿童可观看
 	TEENAGE,//青少年可观看
 	ADULT //成人可观看
-}
+}*/
 
 public class Play {
 	private int id;
@@ -38,6 +38,19 @@ public class Play {
 	private Date startDate;//开始日期
 	private Date endDate;//结束日期
 	private int price;
+	
+	public Play(int id , String name, PLAY_TYPE type , String area,PLAY_RATING rating, int duration,
+			/*Date startDate,Date endDate,*/int price) {
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.area = area;
+		this.rating = rating;
+		this.duration = duration;
+	/*	this.startDate = startDate;
+		this.endDate = endDate;*/
+	}
+	
 	public int getId() {
 		return id;
 	}
