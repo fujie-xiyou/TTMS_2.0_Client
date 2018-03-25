@@ -134,7 +134,7 @@ public class Play implements PlayIf {
 	
 		});
 	    cleanBtn.setOnAction(e -> {
-	        //	?????
+	    	add();
 				
 		});
 	 
