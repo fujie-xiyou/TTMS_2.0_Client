@@ -54,7 +54,7 @@ public class Play implements PlayIf {
 	     saveBtn.setMaxWidth(Double.MAX_VALUE);
 	     cleanBtn.setMaxWidth(Double.MAX_VALUE);
 	     
-	     grid.add(buttonBox, 25, 25, 25, 25);
+	     grid.add(buttonBox, 9, 9, 2, 2);
 	        
 		 MainFrame.center.addAll(grid);
 		
