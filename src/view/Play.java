@@ -1,20 +1,15 @@
 package view;
 
-import java.awt.TexturePaint;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import nodes.TopButton;
 import service.PLAY_RATING;
 import service.PLAY_TYPE;
@@ -54,11 +49,11 @@ public class Play implements PlayIf {
 		 saveBtn.getStyleClass().add("my-button");
 	     Button cleanBtn = new Button("清空");
 	     cleanBtn.getStyleClass().add("my-button");
-		 VBox buttonBox = new VBox(saveBtn, cleanBtn);
+		 HBox buttonBox = new HBox(saveBtn, cleanBtn);
 	     saveBtn.setMaxWidth(Double.MAX_VALUE);
 	     cleanBtn.setMaxWidth(Double.MAX_VALUE);
 	     
-	     grid.add(buttonBox, 4, 1, 1, 2);
+	     grid.add(buttonBox, 25, 25, 25, 25);
 	        
 		 MainFrame.center.addAll(grid);
 		
