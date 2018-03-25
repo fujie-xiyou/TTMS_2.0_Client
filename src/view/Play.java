@@ -23,8 +23,8 @@ public class Play implements PlayIf {
 		          mod = new TopButton("修改"),
 		          del = new TopButton("删除"),
 		          que = new TopButton("管理"),
-				  show = new TopButton("全部剧目");
-		MainFrame.top.addAll(add,mod,del,que,show);
+				  showList = new TopButton("全部剧目");
+		MainFrame.top.addAll(add,mod,del,que,showList);
 		
 		
 		add.setOnAction(e -> {
