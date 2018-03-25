@@ -3,6 +3,8 @@ package view;
 import java.util.List;
 
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -10,6 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import nodes.TopButton;
 import service.PLAY_RATING;
 import service.PLAY_TYPE;
@@ -30,6 +36,10 @@ public class Play implements PlayIf {
 		add.setOnAction(e -> {
 			add.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
 			add();//调用添加用户面板
+		});
+		mod.setOnAction(e -> {
+			mod.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
+			modify(-1);//调用修改用户面板
 		});
 
 	}
@@ -54,7 +64,7 @@ public class Play implements PlayIf {
 	     saveBtn.setMaxWidth(Double.MAX_VALUE);
 	     cleanBtn.setMaxWidth(Double.MAX_VALUE);
 	     
-	     grid.add(buttonBox, 9, 9, 2, 2);
+	     grid.add(buttonBox, 25, 9, 2, 2);
 	        
 		 MainFrame.center.addAll(grid);
 		
@@ -86,25 +96,25 @@ public class Play implements PlayIf {
 		 TextField prices = new TextField();
 		 
 	
-	        grid.add(id, 1, 1);  // column=1, row=1
-	        grid.add(name, 1, 2);  // column=1, row=2
-	        grid.add(type, 1, 3);  // column=1, row=3
-	        grid.add(area, 1, 4); // column=1, row=4
-	        grid.add(rating, 1, 5);  // column=1, row=5
-	        grid.add(startDate, 1, 6);  // column=1, row=6
-	        grid.add(endDate, 1, 7);  // column=1, row=7
-	        grid.add(duration, 1, 8); // column=1, row=8
-	        grid.add(price, 1, 9); // column=1, row=9
+	        grid.add(id, 20, 1);  // column=1, row=1
+	        grid.add(name, 20, 2);  // column=1, row=2
+	        grid.add(type, 20, 3);  // column=1, row=3
+	        grid.add(area, 20, 4); // column=1, row=4
+	        grid.add(rating, 20, 5);  // column=1, row=5
+	        grid.add(startDate, 20, 6);  // column=1, row=6
+	        grid.add(endDate, 20, 7);  // column=1, row=7
+	        grid.add(duration, 20, 8); // column=1, row=8
+	        grid.add(price, 20, 9); // column=1, row=9
 	            
-	        grid.add(ids, 2, 1);  // column=2, row=1
-	        grid.add(names, 2, 2);  // column=2, row=2
-	        grid.add(types, 2, 3);  // column=2, row=3
-	        grid.add(areas, 2, 4); // column=2, row=4
-	        grid.add(ratings, 2, 5);  // column=2, row=5
-	        grid.add(startDates, 2, 6);  // column=2, row=6
-	        grid.add(endDates, 2, 7);  // column=2, row=7
-	        grid.add(durations, 2, 8); // column=2, row=8
-	        grid.add(prices, 2, 9); // column=2, row=9
+	        grid.add(ids, 21, 1);  // column=2, row=1
+	        grid.add(names, 21, 2);  // column=2, row=2
+	        grid.add(types, 21, 3);  // column=2, row=3
+	        grid.add(areas, 21, 4); // column=2, row=4
+	        grid.add(ratings, 21, 5);  // column=2, row=5
+	        grid.add(startDates, 21, 6);  // column=2, row=6
+	        grid.add(endDates, 21, 7);  // column=2, row=7
+	        grid.add(durations, 21, 8); // column=2, row=8
+	        grid.add(prices, 21, 9); // column=2, row=9
 
 	        
 	        saveBtn.setOnAction(e -> {
@@ -145,6 +155,26 @@ public class Play implements PlayIf {
 	@Override
 	public boolean modify(int id) {
 		// TODO Auto-generated method stub
+		GridPane grid = new GridPane();
+		grid.setHgap(5);
+	    grid.setVgap(5);
+		Text ModId = new Text("请输入要修改的剧目ID:");
+		ModId.setFill(Color.BLACK);
+		ModId.setFont(new Font(20));
+		TextField IdField=new TextField();
+		IdField.setPromptText("请输入ID:"); 
+		Button Check=new Button("开始查询");
+		Check.getStyleClass().add("my-button");
+		grid.add(ModId, 5, 1);
+		grid.add(IdField, 5, 3);
+		grid.add(Check, 10, 3);
+		
+		MainFrame.center.add(grid);
+		
+		Check.setOnAction(e->{
+	    //??????????????????????????????????????????????????????
+		});
+		
 		return false;
 	}
 
