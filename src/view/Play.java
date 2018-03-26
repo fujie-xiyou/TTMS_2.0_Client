@@ -223,7 +223,7 @@ public class Play implements PlayIf {
 					TextField Prices = new TextField();
 				 
 					
-					Grid.add(ID, 42, 17);  // column=42, row=7
+					Grid.add(ID, 42, 17);  // column=42, row=17
 					Grid.add(NAME, 42, 18);  
 					Grid.add(TYPE, 42, 19);  
 					Grid.add(AREA, 42, 20);
@@ -233,7 +233,7 @@ public class Play implements PlayIf {
 					Grid.add(Duration, 42, 24); 
 					Grid.add(Price, 42, 25);
 			            
-					Grid.add(IDs, 43, 17);  // column=43, row=7
+					Grid.add(IDs, 43, 17);  // column=43, row=17
 					Grid.add(NAMEs, 43, 18);  
 					Grid.add(TYPEs, 43, 19);  
 					Grid.add(AREAs, 43, 20); 
