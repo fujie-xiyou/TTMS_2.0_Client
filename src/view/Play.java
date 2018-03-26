@@ -41,6 +41,11 @@ public class Play implements PlayIf {
 			mod.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
 			modify(-1);//调用修改用户面板
 		});
+		del.setOnAction(e -> {
+			del.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
+			delece(-1);//调用修改用户面板
+		});
+
 
 	}
 	
@@ -64,7 +69,7 @@ public class Play implements PlayIf {
 	     saveBtn.setMaxWidth(Double.MAX_VALUE);
 	     cleanBtn.setMaxWidth(Double.MAX_VALUE);
 	     
-	     grid.add(buttonBox, 25, 9, 2, 2);
+	     grid.add(buttonBox, 25, 13, 2, 2);
 	        
 		 MainFrame.center.addAll(grid);
 		
@@ -96,25 +101,25 @@ public class Play implements PlayIf {
 		 TextField prices = new TextField();
 		 
 	
-	        grid.add(id, 20, 1);  // column=1, row=1
-	        grid.add(name, 20, 2);  // column=1, row=2
-	        grid.add(type, 20, 3);  // column=1, row=3
-	        grid.add(area, 20, 4); // column=1, row=4
-	        grid.add(rating, 20, 5);  // column=1, row=5
-	        grid.add(startDate, 20, 6);  // column=1, row=6
-	        grid.add(endDate, 20, 7);  // column=1, row=7
-	        grid.add(duration, 20, 8); // column=1, row=8
-	        grid.add(price, 20, 9); // column=1, row=9
+	        grid.add(id, 20, 5);  // column=20, row=1
+	        grid.add(name, 20, 6);  
+	        grid.add(type, 20, 7);  
+	        grid.add(area, 20, 8);
+	        grid.add(rating, 20, 9); 
+	        grid.add(startDate, 20, 10); 
+	        grid.add(endDate, 20, 11); 
+	        grid.add(duration, 20, 12); 
+	        grid.add(price, 20, 13);
 	            
-	        grid.add(ids, 21, 1);  // column=2, row=1
-	        grid.add(names, 21, 2);  // column=2, row=2
-	        grid.add(types, 21, 3);  // column=2, row=3
-	        grid.add(areas, 21, 4); // column=2, row=4
-	        grid.add(ratings, 21, 5);  // column=2, row=5
-	        grid.add(startDates, 21, 6);  // column=2, row=6
-	        grid.add(endDates, 21, 7);  // column=2, row=7
-	        grid.add(durations, 21, 8); // column=2, row=8
-	        grid.add(prices, 21, 9); // column=2, row=9
+	        grid.add(ids, 21, 5);  // column=21, row=5
+	        grid.add(names, 21, 6);  
+	        grid.add(types, 21, 7);  
+	        grid.add(areas, 21, 8); 
+	        grid.add(ratings, 21, 9); 
+	        grid.add(startDates, 21, 10); 
+	        grid.add(endDates, 21, 11); 
+	        grid.add(durations, 21, 12); 
+	        grid.add(prices, 21, 13); 
 
 	        
 	        saveBtn.setOnAction(e -> {
@@ -162,7 +167,7 @@ public class Play implements PlayIf {
 		ModId.setFill(Color.BLACK);
 		ModId.setFont(new Font(20));
 		TextField IdField=new TextField();
-		IdField.setPromptText("请输入ID:"); 
+		IdField.setPromptText("请输入剧目ID:"); 
 		Button Check=new Button("开始查询");
 		Check.getStyleClass().add("my-button");
 		grid.add(ModId, 5, 1);
@@ -173,6 +178,14 @@ public class Play implements PlayIf {
 		
 		Check.setOnAction(e->{
 	          //???
+			if(!IdField.getText().isEmpty()) {
+			
+				MainFrame.popupMessage("正在查询!");
+			}else {
+			
+				MainFrame.popupMessage("请检查输入!");
+			}
+		
 		});
 		
 		return false;
@@ -181,6 +194,32 @@ public class Play implements PlayIf {
 	@Override
 	public boolean delece(int id) {
 		// TODO Auto-generated method stub
+		GridPane grid = new GridPane();
+		grid.setHgap(5);
+	    grid.setVgap(5);
+		Text delId = new Text("删除剧目:");
+		delId.setFill(Color.BLACK);
+		delId.setFont(new Font(20));
+		TextField IdField=new TextField();
+		IdField.setPromptText("请输入剧目ID:"); 
+		Button Del=new Button("删除");
+		Del.getStyleClass().add("my-button");
+		grid.add(delId, 40, 40);
+		grid.add(IdField, 45, 40);
+		grid.add(Del, 50, 40);
+		
+		MainFrame.center.add(grid);
+		
+		Del.setOnAction(e->{
+	          //??
+			if(!IdField.getText().isEmpty()) {
+				
+				MainFrame.popupMessage("删除成功!");
+			}else {
+			
+				MainFrame.popupMessage("请检查输入!");
+			}
+		});
 		return false;
 	}
 
