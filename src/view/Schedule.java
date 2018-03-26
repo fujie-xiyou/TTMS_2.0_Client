@@ -22,7 +22,7 @@ public class Schedule implements ScheduleIf{
 				  que = new TopButton("查询"),
 		          all = new TopButton("显示全部");
 		MainFrame.top.addAll(add,mod,del,que,all);
-//      添加事件
+//      添加事件···
 		add.setOnAction(e -> {
 			add.recover();
 			add(-1);
