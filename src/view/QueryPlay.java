@@ -17,13 +17,15 @@ public class QueryPlay implements QueryPlayIf{
 		Text playText = new Text("查询剧目:");
 		playText.setFill(Color.DARKGREY);
 		playText.setFont(new Font(20));
-		TextField idField=new TextField();
-		idField.setPromptText("请输入ID:");
+		TextField fileName=new TextField();
+		
+		fileName.setPromptText("请输入剧目名称:");
+	//	String fileNames=fileName.getText();
 		Button check=new Button("开始查询");
 		check.getStyleClass().add("my-button");
-		play.getChildren().addAll(playText,idField,check);
+		play.getChildren().addAll(playText,fileName,check);
 		playText.setTranslateY(-50);
-		idField.setTranslateY(-20);
+		fileName.setTranslateY(-20);
 		play.setAlignment(Pos.CENTER);
 		play.prefWidthProperty().bind(MainFrame.centerWidth);
 		double width = play.getPrefWidth();
@@ -31,18 +33,32 @@ public class QueryPlay implements QueryPlayIf{
 		play.setSpacing(30);
 		
 		MainFrame.center.add(play);
+
 		check.setOnAction(e->{
-	    //??????????????????????????????????????????????????????
+			
+			if(!fileName.getText().isEmpty())
+			{
+		
+			MainFrame.popupMessage("查询成功!");
+		}
+		else 
+		{
+			MainFrame.popupMessage("请检查输入!");
+		}
 		});
+		
+			
 	}
 	
 	public void querysch() {
 		VBox sch=new VBox(50);
 		Text schText = new Text("查询演出计划:");
+		
 		schText.setFill(Color.DARKGREY);
 		schText.setFont(new Font(20));
 		TextField id=new TextField();
-		id.setPromptText("请输入ID:");
+		id.setPromptText("请输入剧目名称:");
+		//String ids=id.getText();
 		Button check1=new Button("开始查询");
 		check1.getStyleClass().add("my-button");
 		sch.getChildren().addAll(schText,id,check1);
@@ -56,7 +72,15 @@ public class QueryPlay implements QueryPlayIf{
 		
 		MainFrame.center.add(sch);
         check1.setOnAction(e->{
-		//????????????????????????????????????????????????????????
+        	if(!id.getText().isEmpty()) 
+    		{
+    			System.out.println("hhhhh");
+    			MainFrame.popupMessage("查询成功!");
+    		}
+    		else 
+    		{
+    			MainFrame.popupMessage("请检查输入!");
+    		}
 		});
 	}
 
