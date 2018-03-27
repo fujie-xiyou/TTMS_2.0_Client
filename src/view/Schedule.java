@@ -2,14 +2,17 @@ package view;
 
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import nodes.TopButton;
 import service.Play;
+import service.Studio;
 
 public class Schedule implements ScheduleIf{
 	
@@ -51,6 +54,8 @@ public class Schedule implements ScheduleIf{
 	}
 	@Override
 	public boolean add(int playID) {
+		List<service.Studio> studios=new service.Studio().getStdios();
+		
 		// TODO Auto-generated method stub
 	//	TextField stdio_id,
 		GridPane gPane=new GridPane();
@@ -60,27 +65,40 @@ public class Schedule implements ScheduleIf{
 		//设置边距
 		
 	
-		MainFrame.center.add(gPane);getClass();
-		Label playid=new Label("演出厅编号：");
-		Label playdate=new Label("演出日期：");
-		Label playtime=new Label("演出时间：");
-		gPane.add(playid, 0, 0);
-		gPane.add(new TextField(), 1, 0);
-		gPane.add(playdate, 0, 1);
-		gPane.add(new DatePicker(), 1, 1);
-		gPane.add(playtime, 0, 2);
-		gPane.add(new TextField(), 1, 2);
+		MainFrame.center.add(gPane);
+		Label studioid=new Label("演出厅编号：");
+		
+		Label studiodate=new Label("演出日期：");
+		
+		Label studiotime=new Label("演出时间：");
+		
+		DatePicker studiodatepicker=new DatePicker();
+		
+		TextField studiotimefild=new TextField();
+		
+		
+		
+		ComboBox<Studio> studioss=new ComboBox<>(FXCollections.observableArrayList(studios));
+		
+		studioss.setPromptText("请选择演出厅..");
+		gPane.add(studioid, 0, 0); //编号label
+		gPane.add(studioss,1,0);  //编号下拉框
+		gPane.add(studiodate, 0, 1);  //日期label
+		gPane.add(studiodatepicker, 1, 1);  //日期选择
+		gPane.add(studiotime, 0, 2);  //时间label
+		gPane.add(studiotimefild, 1, 2);  //填入时间
 		Button ok=new Button("确认");
 		ok.getStyleClass().add("my-button");
 		gPane.add(ok, 1, 3);
-		String playids =playid.getText();
-		String playdates=playdate.getText();
-		String playtimes=playtime.getText();
+		//类型转换
+	/*	Studio studiostr =studioss.getValue();
+		LocalDate studiodatepickerstr=studiodatepicker.getValue();
+		String studiotimefildstr=studiotimefild.getText();*/
 		
 		
 		ok.setOnAction(e->{
 			//ok按钮
-			if (!playids.isEmpty()&&!playdates.isEmpty()&&!playtimes.isEmpty()) {
+			if (!studiotimefild.getText().isEmpty()) {     //解决不了的问题......
 				MainFrame.popupMessage("添加成功!");
 			}
 			else {

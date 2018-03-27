@@ -21,6 +21,14 @@ public class Schedule {
 	public void setPlayID(int playID) {
 		this.playID = playID;
 	}
+	public Schedule(int id, int playID, int studioID, Date date, int seatCount) {
+		super();
+		this.id = id;
+		this.playID = playID;
+		StudioID = studioID;
+		this.date = date;
+		this.seatCount = seatCount;
+	}
 	public int getStudioID() {
 		return StudioID;
 	}
