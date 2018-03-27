@@ -149,7 +149,7 @@ public class Schedule implements ScheduleIf{
 			vpane.getChildren().addAll(play_id,studioss2,play_date,play_time,mod_ok);
 			
 			mod_ok.setOnAction(Event->{   //历史遗留问题，先粗糙判断一下？？？？？？？？？？？？？？？？？？？？？？？？？？？？
-				if(!play_time.getText().isEmpty()) {
+				if(!play_id.getText().isEmpty()&&!play_time.getText().isEmpty()) {
 					MainFrame.popupMessage("修改成功!");
 				}
 				else {
