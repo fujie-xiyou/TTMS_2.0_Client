@@ -26,9 +26,8 @@ public class Play implements PlayIf {
 		TopButton add = new TopButton("添加"),
 		          mod = new TopButton("修改"),
 		          del = new TopButton("删除"),
-		          que = new TopButton("管理"),
 				  showList = new TopButton("全部剧目");
-		MainFrame.top.addAll(add,mod,del,que,showList);
+		MainFrame.top.addAll(add,mod,del,showList);
 		
 		
 		add.setOnAction(e -> {
@@ -42,10 +41,6 @@ public class Play implements PlayIf {
 		del.setOnAction(e -> {
 			del.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
 			delece(-1);//调用删除面板
-		});
-		que.setOnAction(e -> {
-			que.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
-			query(-1);//调用管理面板
 		});
 
 
@@ -181,7 +176,7 @@ public class Play implements PlayIf {
 		MainFrame.center.add(grid);
 
 		
-		Check.setOnAction(e->{
+		Check.setOnAction(e->{ 
 	          //???
 			if(!IdField.getText().isEmpty()) {
 			
