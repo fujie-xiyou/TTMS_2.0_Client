@@ -1,6 +1,8 @@
 package service;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 
 /*enum PLAY_TYPE {
 	FILE(1,"电影"),
@@ -35,20 +37,21 @@ public class Play {
 	private String area; //来源地区
 	private PLAY_RATING rating;//级别
 	private int duration;//演出时长(分钟)
-	private Date startDate;//开始日期
-	private Date endDate;//结束日期
+	private LocalDate startDate;//开始日期
+	private LocalDate endDate;//结束日期
 	private int price;
 	
 	public Play(int id , String name, PLAY_TYPE type , String area,PLAY_RATING rating, int duration,
-			/*Date startDate,Date endDate,*/int price) {
+			LocalDate startDate,LocalDate endDate,int price) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.area = area;
 		this.rating = rating;
 		this.duration = duration;
-	/*	this.startDate = startDate;
-		this.endDate = endDate;*/
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.price = price;
 	}
 	
 	public int getId() {
@@ -87,16 +90,16 @@ public class Play {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	public int getPrice() {
@@ -105,6 +108,16 @@ public class Play {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+	public List<Play> getPlays() {
+		List<Play> plays = new LinkedList<>();
+		
+		plays.add(new Play(1, "捉妖记1", PLAY_TYPE.FILE, "中国", PLAY_RATING.CHILD, 120, LocalDate.of(2018, 03, 25) ,LocalDate.of(2018,03,30) , 35));
+		plays.add(new Play(2, "捉妖记2", PLAY_TYPE.FILE, "中国", PLAY_RATING.CHILD, 125, LocalDate.of(2018, 04, 25) ,LocalDate.of(2018,04,30) , 35));
+		plays.add(new Play(3, "摔跤吧，爸爸", PLAY_TYPE.FILE, "泰国", PLAY_RATING.CHILD, 140, LocalDate.of(2018, 05, 25) ,LocalDate.of(2018,05,30) , 33));
+		plays.add(new Play(4, "寻梦环游记", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 145, LocalDate.of(2018, 06, 25) ,LocalDate.of(2018,06,30) , 40));
+		plays.add(new Play(2, "奇迹男孩", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 137, LocalDate.of(2018, 07, 25) ,LocalDate.of(2018,07,30) , 38));
+
+		return plays;
+	}
 	
 }

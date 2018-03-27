@@ -1,6 +1,8 @@
 package view;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -129,6 +131,8 @@ public class Play implements PlayIf {
 			String Area = areas.getText();
 			PLAY_RATING Rating = ratings.getValue();
 			String Durations = durations.getText();
+			String StartDate = startDate.getText();
+			String EndDate = endDate.getText();
 			String Prices = prices.getText();
 		
 			if(!Id.isEmpty() && !Name.isEmpty()  && !Area.isEmpty()&& !Durations.isEmpty() && !Prices.isEmpty()) {
@@ -136,7 +140,10 @@ public class Play implements PlayIf {
 				int ID = Integer.valueOf(Id).intValue();
 				int DURATION =  Integer.valueOf(Durations).intValue();
 				int PRICE = Integer.valueOf(Prices).intValue();
-				service.Play play = new service.Play(ID,Name,Type,Area,Rating,DURATION,PRICE);
+				DateTimeFormatter START = DateTimeFormatter.ofPattern(StartDate);
+				DateTimeFormatter END = DateTimeFormatter.ofPattern(EndDate);
+
+				service.Play play = new service.Play(ID,Name,Type,Area,Rating,DURATION,LocalDate.parse(StartDate, START),LocalDate.parse(EndDate, END),PRICE);
 				if( true) {
 					MainFrame.popupMessage("新增成功!");
 				}
@@ -181,7 +188,7 @@ public class Play implements PlayIf {
 			if(!IdField.getText().isEmpty()) {
 			
 					MainFrame.popupMessage("正在查询!");
-			//		int IDS = Integer.valueOf(IdField.getText());
+
 				if(true) {
 					GridPane Grid= new GridPane(); 
 					Grid.setHgap(5);
@@ -244,7 +251,7 @@ public class Play implements PlayIf {
 			        	MainFrame.popupMessage("保存成功(*^▽^*)");
 			        });
 			        agBt.setOnAction(Event -> {
-			        	
+			        	Grid.getChildren().removeAll(Grid.getChildren());
 			        	modify(1);
 
 			        });
@@ -303,7 +310,7 @@ public class Play implements PlayIf {
 		queId.setFont(new Font(20));
 		TextField IdField=new TextField();
 		IdField.setPromptText("请输入剧目ID:"); 
-		Button Que=new Button("查询");
+		Button Que=new Button("管理");
 		Que.getStyleClass().add("my-button");
 		grid.add(queId, 40, 40);
 		grid.add(IdField, 45, 40);
