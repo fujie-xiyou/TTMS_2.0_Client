@@ -2,6 +2,9 @@ package view;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+
+import java.util.List;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
@@ -85,7 +88,8 @@ public class MainFrame implements MainIf {
 		acc.setOnAction(e -> {
 			acc.recover();
 			AccountIf account = new Account();
-			account.mhtEntry();
+			List<service.Account> accounts = service.Account.getAccounts();
+			account.mhtEntry(accounts);
 		});
 		
 		//剧目管理

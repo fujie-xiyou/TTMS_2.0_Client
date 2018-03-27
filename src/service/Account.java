@@ -19,7 +19,7 @@ public class Account {
 		//用与界面开发阶段生成测试数据
 		List<Account> accounts = new LinkedList<>();
 		accounts.add(new Account(1, ACCOUNT_TYPE.MANG, "fujie", "经过加密的密码"));
-		accounts.add(new Account(1, ACCOUNT_TYPE.CLERK, "zqn", "经过加密的密码"));
+		accounts.add(new Account(2, ACCOUNT_TYPE.CLERK, "zqn", "经过加密的密码"));
 		return accounts;
 	}
 	public int getUid() {
