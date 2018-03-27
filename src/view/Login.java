@@ -3,20 +3,22 @@ package view;
 import java.util.List;
 
 import javafx.application.Application;
-import javafx.geometry.Orientation;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class Test extends Application {
+public class Login extends Application {
+	public static Stage login;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		login = primaryStage;
 		// TODO 自动生成的方法存根
 		//Application.setUserAgentStylesheet(getClass().getResource("MainStyle.css").toExternalForm());
 		//设置CSS文件(会清空默认风格)
@@ -24,10 +26,15 @@ public class Test extends Application {
 		//Application.setUserAgentStylesheet(STYLESHEET_CASPIAN);
 		//切换到另一种javafx界面风格
 		primaryStage.setTitle("登录");
-		//VBox pane = new VBox();
-		FlowPane pane = new FlowPane();
-		pane.setOrientation(Orientation.VERTICAL);
-		//pane.setAlignment(Pos.CENTER);
+		VBox pane = new VBox();
+		//FlowPane pane = new FlowPane();
+		//pane.setOrientation(Orientation.VERTICAL);
+		pane.setAlignment(Pos.CENTER);
+		double w = Screen.getPrimary().getBounds().getWidth();
+		pane.setPrefWidth(w/4);
+		pane.setPrefHeight(w/4/4*3);
+		pane.setPadding(new Insets(w/4/4));
+		pane.setSpacing(20);
 		TextField name = new TextField();
 		name.setPromptText("用户名");
 		PasswordField password = new PasswordField();

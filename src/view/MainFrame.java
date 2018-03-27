@@ -55,13 +55,17 @@ public class MainFrame implements MainIf {
 		Pane outerPane = new BorderPane(mainPane,null,null,null,leftPane);
 		LeftButton  sch = new LeftButton("演出厅管理"),
 				play = new LeftButton("剧目管理"),
-				sale = new LeftButton("售票"),
-				ret = new LeftButton("退票"),
+				sale = new LeftButton("    售票    "),
+				ret = new LeftButton("    退票    "),
 				que = new LeftButton("查询"),
 				ans = new LeftButton("排序和统计"),
 				acc = new LeftButton("账户管理"),
 				out = new LeftButton("退出登录");
-		leftPane.getChildren().addAll(sch,play,sale,ret,que,ans,acc,out);
+		if(Account.CurUser.getType().equals(service.ACCOUNT_TYPE.CLERK)) {
+			leftPane.getChildren().addAll(sale,ret,out);
+		}else {
+			leftPane.getChildren().addAll(sch,play,que,ans,acc,out);
+		}
 		leftPane.setAlignment(Pos.TOP_CENTER);
 		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
 		double width = bounds.getWidth()*0.5;
@@ -99,10 +103,14 @@ public class MainFrame implements MainIf {
 		});
 		//演出厅管理
 		sch.setOnAction(e->{
-		sch.recover();
-		ScheduleIf sche=new Schedule();
-		sche.mgtEntry(0);
-	});
+			sch.recover();
+			ScheduleIf sche=new Schedule();
+			sche.mgtEntry(0);
+		});
+		//注销登录
+		out.setOnAction(e -> {
+			new Account().logout(stage);
+		});
 		
 		
 	}

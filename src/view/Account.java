@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import nodes.TopButton;
 import service.ACCOUNT_TYPE;
 
@@ -120,6 +121,12 @@ public class Account implements AccountIf {
 	public void query(List<service.Account> accounts) {
 		// TODO 自动生成的方法存根
 	
+	}
+	@Override
+	public void logout(Stage mainFrame) {
+		Account.CurUser = null;
+		mainFrame.close();
+		Login.login.show();
 	}
 
 }
