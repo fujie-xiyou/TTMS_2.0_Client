@@ -1,5 +1,8 @@
 package service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Account {
 	private int uid;
 	private ACCOUNT_TYPE type;
@@ -11,6 +14,13 @@ public class Account {
 		this.type = type;
 		this.username = username;
 		this.password = password;
+	}
+	public static List<Account> getAccounts() {
+		//用与界面开发阶段生成测试数据
+		List<Account> accounts = new LinkedList<>();
+		accounts.add(new Account(1, ACCOUNT_TYPE.MANG, "fujie", "经过加密的密码"));
+		accounts.add(new Account(1, ACCOUNT_TYPE.CLERK, "zqn", "经过加密的密码"));
+		return accounts;
 	}
 	public int getUid() {
 		return uid;

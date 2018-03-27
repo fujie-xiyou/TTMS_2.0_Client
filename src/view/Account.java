@@ -17,6 +17,7 @@ import nodes.TopButton;
 import service.ACCOUNT_TYPE;
 
 public class Account implements AccountIf {
+	public static service.Account CurUser;
 	@Override
 	public void mhtEntry() {
 		// TODO 自动生成的方法存根
