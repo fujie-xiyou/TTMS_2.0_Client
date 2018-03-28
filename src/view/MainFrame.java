@@ -95,8 +95,9 @@ public class MainFrame implements MainIf {
 		//剧目管理
 		play.setOnAction(e -> {
 			play.recover();
-			PlayIf plays  = new Play();
-			plays.mgtEntry();
+			PlayIf playif  = new Play();
+			List<service.Play> plays = service.Play.getPlays();
+			playif.mgtEntry(plays);
 		});
 		
 		//查询

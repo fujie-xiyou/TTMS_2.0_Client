@@ -5,10 +5,10 @@ import java.util.List;
 import service.Play;
 
 public interface PlayIf {
-	public void mgtEntry();
+	public void mgtEntry(List<Play> plays);
 	public boolean add(List<Play> plays);
-	public boolean modify(Play play);
+	public boolean modify(List<Play> plays ,Play play);
 	public boolean delece(List<Play> plays ,Play play);
-	public boolean query(Play play);			
+	public boolean query(List<Play> plays,Play play);			
 	public void showList(List<Play> plays);
 }

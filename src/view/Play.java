@@ -3,11 +3,6 @@ package view;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import javax.sound.midi.MidiChannel;
-
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,7 +14,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -34,13 +28,14 @@ import service.PLAY_TYPE;
 public class Play implements PlayIf {
 
 	@Override
-	public void mgtEntry() {
+	public void mgtEntry(List<service.Play> plays) {
 		// TODO Auto-generated method stub
-		TopButton/* add = new TopButton("添加"),
-		          mod = new TopButton("修改"),
-		          del = new TopButton("删除"),*/
-				  showList = new TopButton("全部剧目");
-		MainFrame.top.addAll(/*add,mod,del,*/showList);
+		TopButton add = new TopButton("添加");
+		          /*mod = new TopButton("修改"),
+		          del = new TopButton("删除"),
+				  showList = new TopButton("全部剧目");*/
+		MainFrame.top.removeAll(MainFrame.top);
+		MainFrame.top.addAll(add/*,mod,del,showList*/);
 		MainFrame.center.removeAll(MainFrame.center);
 		ScrollPane centerPane = new ScrollPane();
 		FlowPane flowPane = new FlowPane();
@@ -51,12 +46,12 @@ public class Play implements PlayIf {
 		flowPane.setPadding(new Insets(w/30));
 		centerPane.setFitToWidth(true);
 		centerPane.setContent(flowPane);
-		List<service.Play> plays = service.Play.getPlays();
+		
 		for(service.Play play : plays) {
 			VBox vBox = new VBox();
 			ImageView image = new ImageView(new Image(play.getImgUrl(), w/5, w/5*16/9, true, true));
 			image.setOnMouseClicked(e -> {
-				query(play);
+				query(plays ,play);
 			});
 			Text text = new Text(play.getName());
 			vBox.getChildren().addAll(image,text);
@@ -199,105 +194,72 @@ public class Play implements PlayIf {
 	}
 
 	@Override
-	public boolean modify(service.Play play) {
+	public boolean modify(List<service.Play> plays ,service.Play play) {
 		// TODO Auto-generated method stub
+		MainFrame.center.removeAll(MainFrame.center);
 		GridPane grid = new GridPane();
-		grid.setHgap(5);
-	    grid.setVgap(5);
-		Text ModId = new Text("请输入要修改的剧目ID:");
-		ModId.setFill(Color.BLACK);
-		ModId.setFont(new Font(20));
-		TextField IdField=new TextField();
-		IdField.setPromptText("请输入剧目ID:"); 
-		Button Check=new Button("开始查询");
-		Check.getStyleClass().add("my-button");
-		grid.add(ModId, 20, 5);
-		grid.add(IdField, 22, 5);
-		grid.add(Check, 24, 5);
+		grid.setHgap(10);
+	    grid.setVgap(10);
+		grid.setAlignment(Pos.CENTER);
+		VBox outer = new VBox();
+		outer.setSpacing(40);
+		outer.setAlignment(Pos.CENTER);
+		MainFrame.center.add(outer);
+		grid.add(new Text("剧目ID:"), 0, 0);
+		grid.add(new Text("剧目名称:"), 0, 1);
+		grid.add(new Text("剧目类型:"), 0, 2);
+		grid.add(new Text("来源地区:"),0,3);
+		grid.add(new Text("影片级别:"), 0, 4);
+		grid.add(new Text("时长:"), 0, 5);
+		grid.add(new Text("开始时间:"), 0, 6);
+		grid.add(new Text("结束时间:"), 0, 7);
+		grid.add(new Text("票价:"), 0, 8);
+		grid.add(new Text("封面"), 0, 9);
+		grid.add(new Text(play.getId()+""), 1, 0);
+		TextField name = new TextField(play.getName());
+		grid.add(name, 1, 1);
+		ComboBox<PLAY_TYPE> type = new ComboBox<>(FXCollections.observableArrayList(PLAY_TYPE.values()));
+		type.setValue(play.getType());
+		grid.add(type, 1, 2);
+		TextField area = new TextField(play.getArea());
+		grid.add(area, 1, 3);
+		ComboBox<PLAY_RATING> rating = new ComboBox<>(FXCollections.observableArrayList(PLAY_RATING.values()));
+		rating.setValue(play.getRating());
+		grid.add(rating, 1, 4);
+		TextField dura = new TextField(play.getDuration()+"");
+		grid.add(dura, 1, 5);
+		DatePicker strDate = new DatePicker(play.getStartDate());
+		grid.add(strDate, 1, 6);
+		DatePicker endDate = new DatePicker(play.getEndDate());
+		grid.add(endDate, 1,7);
+		TextField price = new TextField(play.getPrice()+"");
+		grid.add(price, 1, 8);
+		TextField imgUrl = new TextField(play.getImgUrl());
+		grid.add(imgUrl, 1, 9);
+		Button save = new Button("保存");
+		Button ret = new Button("返回");
+		save.getStyleClass().add("my-button");
+		ret.getStyleClass().add("my-button");
+		HBox hBoxButt = new HBox();
+		hBoxButt.setAlignment(Pos.CENTER);
+		hBoxButt.setSpacing(50);
+		hBoxButt.getChildren().addAll(save,ret);
+		outer.getChildren().addAll(grid,hBoxButt);
 		
-		MainFrame.center.add(grid);
-
-		
-		Check.setOnAction(e->{ 
-	          //???
-			if(!IdField.getText().isEmpty()) {
-			
-					MainFrame.popupMessage("正在查询!");
-
-				if(true) {
-					GridPane Grid= new GridPane(); 
-					Grid.setHgap(5);
-					Grid.setVgap(5);
-					Button saveBt = new Button("保存");
-					saveBt.getStyleClass().add("my-button");
-					Button agBt = new Button("重新输入");
-					agBt.getStyleClass().add("my-button");
-					HBox buttonBox = new HBox(saveBt, agBt);
-				/*	saveBt.setMaxWidth(Double.MAX_VALUE);
-					agBt.setMaxWidth(Double.MAX_VALUE);*/
-					
-					Grid.add(buttonBox, 50, 25, 5, 5);
-			      
-					Label ID = new Label("ID：");
-					TextField IDs = new TextField();
-					Label NAME = new Label("剧目名字：");
-					TextField NAMEs = new TextField();
-					Label TYPE = new Label("剧目类型：");
-					ComboBox<PLAY_TYPE> TYPEs = new ComboBox<>(FXCollections.observableArrayList(PLAY_TYPE.values()));
-					TYPEs.setPromptText("请选择..");
-					Label AREA = new Label("来源地：");
-					TextField AREAs = new TextField();
-					Label RATING = new Label("级别：");
-					ComboBox<PLAY_RATING> RATINGs = new ComboBox<>(FXCollections.observableArrayList(PLAY_RATING.values()));
-					RATINGs.setPromptText("请选择..");
-					Label StartDate = new Label("开始时间：");
-					DatePicker StartDates = new DatePicker();
-					Label EndDate = new Label("结束时间：");
-					DatePicker EndDates = new DatePicker();
-					Label Duration = new Label("演出时长：");
-					TextField Durations = new TextField();
-					Label Price = new Label("价钱：");
-					TextField Prices = new TextField();
-				 
-					
-					Grid.add(ID, 42, 17);  // column=42, row=17
-					Grid.add(NAME, 42, 18);  
-					Grid.add(TYPE, 42, 19);  
-					Grid.add(AREA, 42, 20);
-					Grid.add(RATING, 42, 21); 
-					Grid.add(StartDate, 42, 22); 
-					Grid.add(EndDate, 42, 23); 
-					Grid.add(Duration, 42, 24); 
-					Grid.add(Price, 42, 25);
-			            
-					Grid.add(IDs, 43, 17);  // column=43, row=17
-					Grid.add(NAMEs, 43, 18);  
-					Grid.add(TYPEs, 43, 19);  
-					Grid.add(AREAs, 43, 20); 
-					Grid.add(RATINGs, 43, 21); 
-					Grid.add(StartDates, 43, 22); 
-					Grid.add(EndDates, 43, 23); 
-					Grid.add(Durations, 43, 24); 
-					Grid.add(Prices, 43, 25); 
-					MainFrame.center.add(Grid);
-			        
-			        saveBt.setOnAction(Event ->{
-			        	//??
-			        	MainFrame.popupMessage("保存成功(*^▽^*)");
-			        });
-			        agBt.setOnAction(Event -> {
-			        	Grid.getChildren().removeAll(Grid.getChildren());
-			        	modify(play);
-
-			        });
-				}
-
-			}else {
-			
-				MainFrame.popupMessage("请检查输入!");
-			}
-		
+		save.setOnAction(e -> {
+			play.setName(name.getText());
+			play.setType(type.getValue());
+			play.setArea(area.getText());
+			play.setRating(play.getRating());
+			play.setDuration(Integer.valueOf(dura.getText()));
+			play.setStartDate(strDate.getValue());
+			play.setEndDate(endDate.getValue());
+			play.setPrice(Integer.valueOf(price.getText()));
+			play.setImgUrl(imgUrl.getText());
+			MainFrame.popupMessage("修改剧目成功！");
+			query(plays, play);
 		});
+		ret.setOnAction(e -> query(plays, play));
 		
 		return false;
 	}
@@ -335,16 +297,19 @@ public class Play implements PlayIf {
 	}
 
 	@Override
-	public boolean query(service.Play play) {
+	public boolean query(List<service.Play> plays, service.Play play) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 	    grid.setVgap(10);
 		
-		BorderPane outer = new BorderPane();
-		//outer.setHgap(30);
-		//outer.setAlignment(Pos.CENTER);
+		VBox outer = new VBox();
+		outer.setSpacing(40);
+		outer.setAlignment(Pos.CENTER);
+		HBox hBox = new HBox();
+		hBox.setAlignment(Pos.CENTER);
+		hBox.setSpacing(30);
 		MainFrame.center.add(outer);
 		grid.add(new Text("剧目ID:"), 0, 0);
 		grid.add(new Text("剧目名称:"), 0, 1);
@@ -368,21 +333,27 @@ public class Play implements PlayIf {
 		
 		ImageView image = new ImageView( new Image(play.getImgUrl()));
 		image.setPreserveRatio(true);
-		//image.setFitHeight(100);
-		//outer.add(image, 0, 0);
-		//outer.add(grid, 2, 0);
-		outer.setLeft(image);
-		outer.setRight(grid);
+
+		hBox.getChildren().addAll(image,grid);
 		Button mod = new Button("修改");
 		Button del = new Button("删除");
 		Button ret = new Button("返回");
 		mod.getStyleClass().add("my-button");
 		del.getStyleClass().add("my-button");
 		ret.getStyleClass().add("my-button");
-		HBox hBox = new HBox();
-		hBox.getChildren().addAll(mod,del,ret);
-		outer.setBottom(hBox);
-		
+		HBox hBoxButt = new HBox();
+		hBoxButt.setAlignment(Pos.CENTER);
+		hBoxButt.setSpacing(50);
+		hBoxButt.getChildren().addAll(mod,del,ret);
+		outer.getChildren().addAll(hBox,hBoxButt);
+		mod.setOnAction(e -> {
+			modify(plays ,play);
+		});
+		del.setOnAction(e -> {
+			plays.remove(play);
+			mgtEntry(plays);
+		});
+		ret.setOnAction(e -> mgtEntry(plays));
 		return false;
 	}
 
