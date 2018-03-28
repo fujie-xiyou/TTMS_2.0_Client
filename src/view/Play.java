@@ -308,7 +308,7 @@ public class Play implements PlayIf {
 		grid.setHgap(5);
 	    grid.setVgap(5);
 		Text delId = new Text("删除剧目:");
-		delId.setFill(Color.BLACK);
+		delId.setFill(Color.BLACK); 
 		delId.setFont(new Font(20));
 		TextField IdField=new TextField();
 		IdField.setPromptText("请输入剧目ID:"); 
