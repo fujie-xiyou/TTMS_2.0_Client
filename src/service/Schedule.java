@@ -1,6 +1,11 @@
 package service;
 
+import java.security.Provider.Service;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.naming.LinkLoopException;
 
 public class Schedule {
 	//演出计划类型
@@ -47,6 +52,25 @@ public class Schedule {
 	public void setSeatCount(int seatCount) {
 		this.seatCount = seatCount;
 	}
+	public static List<service.Schedule> getSchedules(){
+		List<service.Schedule> schedules = new LinkedList<>();
+		schedules.add(new service.Schedule(1, 1, 1, new Date(), 0));
+		return schedules;
+	}
 	
-	
+	public Studio getStudioByID(List<Studio> studios ,int id) {
+		//根据ID获取演出厅
+		for(Studio studio : studios) {
+			if(studio.getId() == id)
+				return studio;
+		}
+		return null;
+	}
+	public Play getPlayByID(List<Play> plays ,int id) {
+		for(Play play : plays) {
+			if(play.getId() == id)
+				return play;
+		}
+		return null;
+	}
 }

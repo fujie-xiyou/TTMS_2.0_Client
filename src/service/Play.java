@@ -118,6 +118,7 @@ public class Play {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
 	public static List<Play> getPlays() {
 		List<Play> plays = new LinkedList<>();
 		

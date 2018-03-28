@@ -88,7 +88,8 @@ public class MainFrame implements MainIf {
 			sale.recover();
 			SaleIf saIf = new Sale();
 			List<service.Play> plays = service.Play.getPlays();
-			saIf.mgtEntry(plays);
+			List<service.Studio> studios = null;
+			saIf.mgtEntry(studios ,plays);
 			
 		});
 		//账号管理

@@ -1,5 +1,6 @@
 package view;
 
+import java.security.Provider.Service;
 import java.util.List;
 
 import javafx.geometry.Insets;
@@ -10,11 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -24,7 +24,7 @@ import service.Ticket;
 public class Sale implements SaleIf {
 
 	@Override
-	public void mgtEntry(List<service.Play> plays) {
+	public void mgtEntry(List<service.Studio> studios,List<service.Play> plays) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
 		ScrollPane centerPane = new ScrollPane();
@@ -41,7 +41,7 @@ public class Sale implements SaleIf {
 			VBox vBox = new VBox();
 			ImageView image = new ImageView(new Image(play.getImgUrl(), w/5, 0, true, true));
 			image.setOnMouseClicked(e -> {
-				showScheduler(plays ,play);
+				showScheduler(studios ,plays ,play);
 			});
 			Text text = new Text(play.getName());
 			vBox.getChildren().addAll(image,text);
@@ -52,12 +52,12 @@ public class Sale implements SaleIf {
 	}
 
 	@Override
-	public void showScheduler(List<service.Play> plays, service.Play play) {
+	public void showScheduler(List<service.Studio> studios,List<service.Play> plays, service.Play play) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
 
 		VBox outer = new VBox();
-		outer.setSpacing(40);
+		//outer.setSpacing(40);
 		outer.setAlignment(Pos.BASELINE_LEFT);
 		//outer.setPadding(new Insets(30));
 		MainFrame.center.add(outer);
@@ -86,7 +86,7 @@ public class Sale implements SaleIf {
 		image.setPreserveRatio(true);
 		Button ret = new Button("返回");
 		ret.getStyleClass().add("my-button");
-		ret.setOnAction(e -> mgtEntry(plays));
+		ret.setOnAction(e -> mgtEntry(studios ,plays));
 		FlowPane retButtPane = new FlowPane();
 		//FlowPane是膨胀式面板，它会占据上级面板所有剩余空间
 		retButtPane.setAlignment(Pos.BOTTOM_RIGHT);
@@ -99,7 +99,26 @@ public class Sale implements SaleIf {
 		hBox.getChildren().addAll(image,grid,retButtPane);
 		ScrollPane schPane = new ScrollPane();
 		outer.getChildren().addAll(hBox,schPane);
+		GridPane schListPane = new GridPane();
 		
+		schPane.setContent(schListPane);
+		schListPane.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, null, null)));
+		//根据剧目ID获得演出计划
+		List<service.Schedule> schs = null; 
+		schListPane.add(new Text("演出厅"), 0, 0);
+		schListPane.add(new Text("演出时间")	,1,0);
+		schListPane.add(new Text("剩余票数"), 2, 0);
+		schListPane.add(new Text("票价"), 3, 0);
+		int row = 1;
+		for(service.Schedule schedule : schs) {
+			schListPane.add(new Text(schedule.getStudioByID(studios, schedule.getStudioID()).getName()),0,row);
+			schListPane.add(new Text(schedule.getDate().toString()), 1, row);
+			schListPane.add(new Text(schedule.getSeatCount()+""), 2, row);
+			schListPane.add(new Text("￥"+schedule.getPlayByID(plays, schedule.getId()).getPrice()+""), 3, row);
+			Button buy = new Button("购买");
+			buy.getStyleClass().add("my-button");
+			schListPane.add(buy, 4, row);
+		}
 
 	}
 
