@@ -1,4 +1,5 @@
 package view;
+
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -25,9 +26,9 @@ public class Schedule implements ScheduleIf{
 		TopButton add = new TopButton("添加"),
 				  mod = new TopButton("修改"),
 				  del = new TopButton("删除"),
-				  que = new TopButton("查询"),
-		          all = new TopButton("显示全部");
-		MainFrame.top.addAll(add,mod,del,que,all);
+				  que = new TopButton("查询");
+		         // all = new TopButton("显示全部");
+		MainFrame.top.addAll(add,mod,del,que);
 //      添加事件···1
 		add.setOnAction(e -> {
 			add.recover();
@@ -48,11 +49,11 @@ public class Schedule implements ScheduleIf{
 			que.recover();
 			query(-1);
 		});
-		//显示所有演出计划信息
+		/*//显示所有演出计划信息
 		all.setOnAction(e->{
 			all.recover();
 			listAll();
-		});
+		});*/
 		
 	}
 	@Override
@@ -63,7 +64,7 @@ public class Schedule implements ScheduleIf{
 	//	TextField stdio_id,
 		GridPane gPane=new GridPane();
 		gPane.setHgap(5);
-		gPane.setVgap(5);
+		gPane.setVgap(30);
 		gPane.setAlignment(Pos.CENTER);
 		//设置边距
 		
@@ -85,9 +86,9 @@ public class Schedule implements ScheduleIf{
 		
 		studioss.setPromptText("请选择演出厅..");
 		gPane.add(studioid, 0, 0); //编号label
-		gPane.add(studioss,1,0);  //编号下拉框
+		gPane.add(studioss,1,0);  //演出厅编号下拉框。。。。。。。。。。。。
 		gPane.add(studiodate, 0, 1);  //日期label
-		gPane.add(studiodatepicker, 1, 1);  //日期选择
+		gPane.add(studiodatepicker, 1, 1);  //日期选择。。。。。。。。。。。
 		gPane.add(studiotime, 0, 2);  //时间label
 		gPane.add(studiotimefild, 1, 2);  //填入时间
 		Button ok=new Button("确认");
@@ -101,8 +102,8 @@ public class Schedule implements ScheduleIf{
 		
 		ok.setOnAction(e->{
 			//ok按钮
-			if (!studiotimefild.getText().isEmpty()) {     //解决不了的问题......
-				MainFrame.popupMessage("添加成功!");
+			if (!studiotimefild.getText().isEmpty()) {     //未判断studioss演出厅id和studiodatepicker日期......
+				MainFrame.popupMessage("添加成功!");        //???????????????????????????????????????????????????????????????????
 			}
 			else {
 				MainFrame.popupMessage("请检查输入!");
@@ -148,17 +149,14 @@ public class Schedule implements ScheduleIf{
 			mod_ok.getStyleClass().add("my-button");
 			vpane.getChildren().addAll(play_id,studioss2,play_date,play_time,mod_ok);
 			
-			mod_ok.setOnAction(Event->{   //历史遗留问题，先粗糙判断一下？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+			mod_ok.setOnAction(Event->{   //
 				if(!play_id.getText().isEmpty()&&!play_time.getText().isEmpty()) {
-					MainFrame.popupMessage("修改成功!");
+					MainFrame.popupMessage("修改成功!");//未判断演出厅ID和演出日期?????????????????????????????????????????????????
 				}
 				else {
 					MainFrame.popupMessage("请检查输入!");
 				}
 			});
-			
-			
-			
 			
 			}
 			else {
@@ -196,7 +194,7 @@ public class Schedule implements ScheduleIf{
 		vBox.getChildren().addAll(text1,studioss1,ok1);
 		ok1.setOnAction(e->{
 			MainFrame.popupMessage("删除成功!");
-			/*if() {  //??????????????????????????????????????????????????????????????
+			/*if() {                                       //未判断??????????????????????????????????????????????????????????????
 				
 			}
 			else {
@@ -211,19 +209,38 @@ public class Schedule implements ScheduleIf{
 	@Override
 	public boolean query(int id) {
 		// TODO Auto-generated method stub
+		VBox quepane=new VBox();
+        MainFrame.center.add(quepane);
+        quepane.setAlignment(Pos.TOP_LEFT);
+		quepane.prefWidthProperty().bind(MainFrame.centerWidth);//将面板首选宽度与预留面板的宽度绑定
+		double width = quepane.getPrefWidth();
+		quepane.setPadding(new Insets(30,width*2.0/7,0,width*2.0/7));//面板上左右内边距
+		quepane.setSpacing(50);
+		Text quetext=new Text("查询演出计划：");
+		quetext.setFill(Color.DARKGRAY);
+		quetext.setFont(new Font(25));
+		List<service.Studio> delstud=new service.Studio().getStdios();
+		ComboBox<Studio> delstuds=new ComboBox<>(FXCollections.observableArrayList(delstud));
+		delstuds.setPromptText("请选择演出厅..");
+		Button del_bt=new Button("查询");
+		del_bt.getStyleClass().add("my-button");
+		quepane.getChildren().addAll(quetext,delstuds,del_bt);
+		del_bt.setOnAction(Event->{      //不能显示所选演出厅剧目信息??????????????????????????????????????????????????????????????
+			                             //咋显示出来啊。。。
+		});
 		return false;
 	}
 
 	@Override
 	public List<service.Schedule> listByPlay(Play play) {
 		// TODO Auto-generated method stub
-		return null;
+		return null;         //what???????????????????????????????????????????????????
 	}
 
 	@Override
 	public void listAll() {
 		// TODO Auto-generated method stub
-		
+		                     //what???????????????????????????????????????????????????
 	}
 
 }
