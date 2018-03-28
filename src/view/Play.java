@@ -31,6 +31,10 @@ public class Play implements PlayIf {
 	public void mgtEntry(List<service.Play> plays) {
 		// TODO Auto-generated method stub
 		TopButton add = new TopButton("添加剧目");
+		add.setOnAction(e -> {
+			add.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
+			add(plays);//调用添加用户面板
+		});
 		          /*mod = new TopButton("修改"),
 		          del = new TopButton("删除"),
 				  showList = new TopButton("全部剧目");*/
@@ -39,9 +43,11 @@ public class Play implements PlayIf {
 		MainFrame.center.removeAll(MainFrame.center);
 		ScrollPane centerPane = new ScrollPane();
 		FlowPane flowPane = new FlowPane();
-		flowPane.prefWidthProperty().bind(MainFrame.centerWidth);
-		double w = flowPane.getPrefWidth();
-		flowPane.setHgap(w/25);
+		centerPane.prefWidthProperty().bind(MainFrame.centerWidth);
+		//flowPane.prefWidthProperty().bind(MainFrame.centerWidth);
+		//System.out.println(centerPane.getBoundsInParent());
+		double w = centerPane.getPrefWidth();
+		flowPane.setHgap(w/30);
 		flowPane.setVgap(20);
 		flowPane.setPadding(new Insets(w/30));
 		centerPane.setFitToWidth(true);
@@ -49,7 +55,7 @@ public class Play implements PlayIf {
 		
 		for(service.Play play : plays) {
 			VBox vBox = new VBox();
-			ImageView image = new ImageView(new Image(play.getImgUrl(), w/5, w/5*16/9, true, true));
+			ImageView image = new ImageView(new Image(play.getImgUrl(), w/5,0, true, false));
 			image.setOnMouseClicked(e -> {
 				query(plays ,play);
 			});
@@ -250,7 +256,7 @@ public class Play implements PlayIf {
 			play.setName(name.getText());
 			play.setType(type.getValue());
 			play.setArea(area.getText());
-			play.setRating(play.getRating());
+			play.setRating(rating.getValue());
 			play.setDuration(Integer.valueOf(dura.getText()));
 			play.setStartDate(strDate.getValue());
 			play.setEndDate(endDate.getValue());

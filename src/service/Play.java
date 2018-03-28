@@ -121,11 +121,11 @@ public class Play {
 	public static List<Play> getPlays() {
 		List<Play> plays = new LinkedList<>();
 		
-		plays.add(new Play(1, "捉妖记1", PLAY_TYPE.FILE, "中国", PLAY_RATING.CHILD, 120, LocalDate.of(2018, 03, 25) ,LocalDate.of(2018,03,30) , 35,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
+		plays.add(new Play(1, "捉妖记1", PLAY_TYPE.FILE, "中国", PLAY_RATING.CHILD, 120, LocalDate.of(2018, 03, 25) ,LocalDate.of(2018,03,30) , 35,"http://p0.meituan.net/movie/07ff76fad57b70b4f863152cb8772dc27607409.jpg@160w_220h_1e_1c"));
 		plays.add(new Play(2, "捉妖记2", PLAY_TYPE.FILE, "中国", PLAY_RATING.CHILD, 125, LocalDate.of(2018, 04, 25) ,LocalDate.of(2018,04,30) , 35,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
-		plays.add(new Play(3, "摔跤吧，爸爸", PLAY_TYPE.FILE, "泰国", PLAY_RATING.CHILD, 140, LocalDate.of(2018, 05, 25) ,LocalDate.of(2018,05,30) , 33,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
-		plays.add(new Play(4, "寻梦环游记", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 145, LocalDate.of(2018, 06, 25) ,LocalDate.of(2018,06,30) , 40,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
-		plays.add(new Play(5, "奇迹男孩", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 137, LocalDate.of(2018, 07, 25) ,LocalDate.of(2018,07,30) , 38,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
+		plays.add(new Play(3, "摔跤吧，爸爸", PLAY_TYPE.FILE, "泰国", PLAY_RATING.CHILD, 140, LocalDate.of(2018, 05, 25) ,LocalDate.of(2018,05,30) , 33,"http://p0.meituan.net/movie/aeb864fa21d578d845b9cefc056e40cb2874891.jpg@160w_220h_1e_1c"));
+		plays.add(new Play(4, "寻梦环游记", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 145, LocalDate.of(2018, 06, 25) ,LocalDate.of(2018,06,30) , 40,"http://p1.meituan.net/movie/bd5233ec3a39d4799c3521007bc74b4938450.jpg@160w_220h_1e_1c"));
+		plays.add(new Play(5, "奇迹男孩", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 137, LocalDate.of(2018, 07, 25) ,LocalDate.of(2018,07,30) , 38,"http://p0.meituan.net/movie/862563dfea65ac947a149ce466f7f1771014432.jpg@160w_220h_1e_1c"));
 
 		return plays;
 	}

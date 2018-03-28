@@ -83,7 +83,14 @@ public class MainFrame implements MainIf {
 		iterable.forEach(node -> {
 			((LeftButton)node).setPrefWidth(leftWidth);
 		});
-		
+		//售票
+		sale.setOnAction(e -> {
+			sale.recover();
+			SaleIf saIf = new Sale();
+			List<service.Play> plays = service.Play.getPlays();
+			saIf.mgtEntry(plays);
+			
+		});
 		//账号管理
 		acc.setOnAction(e -> {
 			acc.recover();
