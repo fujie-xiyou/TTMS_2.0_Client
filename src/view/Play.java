@@ -30,7 +30,7 @@ public class Play implements PlayIf {
 	@Override
 	public void mgtEntry(List<service.Play> plays) {
 		// TODO Auto-generated method stub
-		TopButton add = new TopButton("添加");
+		TopButton add = new TopButton("添加剧目");
 		          /*mod = new TopButton("修改"),
 		          del = new TopButton("删除"),
 				  showList = new TopButton("全部剧目");*/
