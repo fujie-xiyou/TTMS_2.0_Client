@@ -1,22 +1,29 @@
 package view;
 
-
-import java.security.Provider.Service;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
 import java.util.List;
 
+import javax.sound.midi.MidiChannel;
+
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -34,32 +41,26 @@ public class Play implements PlayIf {
 		          del = new TopButton("删除"),*/
 				  showList = new TopButton("全部剧目");
 		MainFrame.top.addAll(/*add,mod,del,*/showList);
-		
-		GridPane centerPane = new GridPane();
-		centerPane.setVgap(20);
-		centerPane.setHgap(30);
-		centerPane.setPadding(new Insets(30));
-		centerPane.add(new Text("剧目ID"), 0, 0);
-		centerPane.add(new Text("用户名"), 1, 0);
-		centerPane.add(new Text("剧目类型"), 2, 0);
-		centerPane.add(new Text("级别"), 3, 0);
-		centerPane.add(new Text("时长"), 4, 0);
-		centerPane.add(new Text("用户类型"), 5, 0);
-		int row = 1;
-		List<service.Play> plays= service.Play.getPlays();
-		for(service.Play Plays : plays) {
-			centerPane.add(new Text(Plays.getId()+""),0 , row);
-			centerPane.add(new Text(Plays.getName()),1 , row);
-			centerPane.add(new Text(Plays.getType().toString()),2 , row);
-			//centerPane.add(new Text(account.getPassword()),3 , row);
-			Button mod = new Button("修改") , del = new Button("删除");
-			mod.getStyleClass().add("my-button");
-			mod.setOnAction(e -> modify(plays, Plays));
-			del.getStyleClass().add("my-button");
-			del.setOnAction(e -> delete(plays, Plays));
-			centerPane.add(mod, 4, row);
-			centerPane.add(del, 5, row);
-			row++;
+		MainFrame.center.removeAll(MainFrame.center);
+		ScrollPane centerPane = new ScrollPane();
+		FlowPane flowPane = new FlowPane();
+		flowPane.prefWidthProperty().bind(MainFrame.centerWidth);
+		double w = flowPane.getPrefWidth();
+		flowPane.setHgap(w/25);
+		flowPane.setVgap(20);
+		flowPane.setPadding(new Insets(w/30));
+		centerPane.setFitToWidth(true);
+		centerPane.setContent(flowPane);
+		List<service.Play> plays = service.Play.getPlays();
+		for(service.Play play : plays) {
+			VBox vBox = new VBox();
+			ImageView image = new ImageView(new Image(play.getImgUrl(), w/5, w/5*16/9, true, true));
+			image.setOnMouseClicked(e -> {
+				query(play);
+			});
+			Text text = new Text(play.getName());
+			vBox.getChildren().addAll(image,text);
+			flowPane.getChildren().add(vBox);
 		}
 		MainFrame.center.add(centerPane);
 	}
@@ -84,9 +85,9 @@ public class Play implements PlayIf {
 	
 	@SuppressWarnings("unused")
 	@Override
-	public boolean add() {
+	public boolean add(List<service.Play> plays) {
 		// TODO Auto-generated method stub
-		List<service.Play> plays;
+		
 		 GridPane grid = new GridPane();
 		 grid.setHgap(5);
 	     grid.setVgap(5);
@@ -177,7 +178,7 @@ public class Play implements PlayIf {
 				DateTimeFormatter START = DateTimeFormatter.ofPattern(StartDate);
 				DateTimeFormatter END = DateTimeFormatter.ofPattern(EndDate);
 
-				service.Play play = new service.Play(ID,Name,Type,Area,Rating,DURATION,LocalDate.parse(StartDate, START),LocalDate.parse(EndDate, END),PRICE);
+				service.Play play = new service.Play(ID,Name,Type,Area,Rating,DURATION,LocalDate.parse(StartDate, START),LocalDate.parse(EndDate, END),PRICE,"");
 				if( true) {
 					MainFrame.popupMessage("新增成功!");
 				}
@@ -190,7 +191,7 @@ public class Play implements PlayIf {
 	
 		});
 	    cleanBtn.setOnAction(e -> {
-	    	add();
+	    	add(plays);
 				
 		});
 	 
@@ -198,7 +199,7 @@ public class Play implements PlayIf {
 	}
 
 	@Override
-	public boolean modify(int id) {
+	public boolean modify(service.Play play) {
 		// TODO Auto-generated method stub
 		GridPane grid = new GridPane();
 		grid.setHgap(5);
@@ -286,7 +287,7 @@ public class Play implements PlayIf {
 			        });
 			        agBt.setOnAction(Event -> {
 			        	Grid.getChildren().removeAll(Grid.getChildren());
-			        	modify(1);
+			        	modify(play);
 
 			        });
 				}
@@ -302,7 +303,7 @@ public class Play implements PlayIf {
 	}
 
 	@Override
-	public boolean delece(int id) {
+	public boolean delece(List<service.Play> plays ,service.Play play) {
 		// TODO Auto-generated method stub
 		GridPane grid = new GridPane();
 		grid.setHgap(5);
@@ -334,34 +335,54 @@ public class Play implements PlayIf {
 	}
 
 	@Override
-	public boolean query(int id) {
+	public boolean query(service.Play play) {
 		// TODO Auto-generated method stub
+		MainFrame.center.removeAll(MainFrame.center);
 		GridPane grid = new GridPane();
-		grid.setHgap(5);
-	    grid.setVgap(5);
-		Text queId = new Text("管理剧目:");
-		queId.setFill(Color.BLACK);
-		queId.setFont(new Font(20));
-		TextField IdField=new TextField();
-		IdField.setPromptText("请输入剧目ID:"); 
-		Button Que=new Button("管理");
-		Que.getStyleClass().add("my-button");
-		grid.add(queId, 40, 40);
-		grid.add(IdField, 45, 40);
-		grid.add(Que, 50, 40);
+		grid.setHgap(10);
+	    grid.setVgap(10);
 		
-		MainFrame.center.add(grid);
+		BorderPane outer = new BorderPane();
+		//outer.setHgap(30);
+		//outer.setAlignment(Pos.CENTER);
+		MainFrame.center.add(outer);
+		grid.add(new Text("剧目ID:"), 0, 0);
+		grid.add(new Text("剧目名称:"), 0, 1);
+		grid.add(new Text("剧目类型:"), 0, 2);
+		grid.add(new Text("来源地区:"),0,3);
+		grid.add(new Text("影片级别:"), 0, 4);
+		grid.add(new Text("时长:"), 0, 5);
+		grid.add(new Text("开始时间:"), 0, 6);
+		grid.add(new Text("结束时间:"), 0, 7);
+		grid.add(new Text("票价:"), 0, 8);
 		
-		Que.setOnAction(e->{
-	          //??
-			if(!IdField.getText().isEmpty()) {
-				
-				MainFrame.popupMessage("正在查询!");
-			}else {
-			
-				MainFrame.popupMessage("请检查输入!");
-			}
-		});
+		grid.add(new Text(play.getId()+""), 1, 0);
+		grid.add(new Text(play.getName()), 1, 1);
+		grid.add(new Text(play.getType().toString()), 1, 2);
+		grid.add(new Text(play.getArea()), 1, 3);
+		grid.add(new Text(play.getRating().toString()), 1, 4);
+		grid.add(new Text(play.getDuration()+""), 1, 5);
+		grid.add(new Text(play.getStartDate().toString()), 1, 6);
+		grid.add(new Text(play.getEndDate().toString()), 1, 7);
+		grid.add(new Text(play.getPrice()+""), 1, 8);
+		
+		ImageView image = new ImageView( new Image(play.getImgUrl()));
+		image.setPreserveRatio(true);
+		//image.setFitHeight(100);
+		//outer.add(image, 0, 0);
+		//outer.add(grid, 2, 0);
+		outer.setLeft(image);
+		outer.setRight(grid);
+		Button mod = new Button("修改");
+		Button del = new Button("删除");
+		Button ret = new Button("返回");
+		mod.getStyleClass().add("my-button");
+		del.getStyleClass().add("my-button");
+		ret.getStyleClass().add("my-button");
+		HBox hBox = new HBox();
+		hBox.getChildren().addAll(mod,del,ret);
+		outer.setBottom(hBox);
+		
 		return false;
 	}
 

@@ -42,6 +42,14 @@ public class Play {
 	private int price;
 	private String imgUrl;
 	
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
 	public Play(int id , String name, PLAY_TYPE type , String area,PLAY_RATING rating, int duration,
 			LocalDate startDate,LocalDate endDate,int price,String imgUrl) {
 		this.id = id;
@@ -113,11 +121,11 @@ public class Play {
 	public static List<Play> getPlays() {
 		List<Play> plays = new LinkedList<>();
 		
-		plays.add(new Play(1, "捉妖记1", PLAY_TYPE.FILE, "中国", PLAY_RATING.CHILD, 120, LocalDate.of(2018, 03, 25) ,LocalDate.of(2018,03,30) , 35,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@464w_644h_1e_1c"));
-		plays.add(new Play(2, "捉妖记2", PLAY_TYPE.FILE, "中国", PLAY_RATING.CHILD, 125, LocalDate.of(2018, 04, 25) ,LocalDate.of(2018,04,30) , 35,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@464w_644h_1e_1c"));
-		plays.add(new Play(3, "摔跤吧，爸爸", PLAY_TYPE.FILE, "泰国", PLAY_RATING.CHILD, 140, LocalDate.of(2018, 05, 25) ,LocalDate.of(2018,05,30) , 33,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@464w_644h_1e_1c"));
-		plays.add(new Play(4, "寻梦环游记", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 145, LocalDate.of(2018, 06, 25) ,LocalDate.of(2018,06,30) , 40,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@464w_644h_1e_1c"));
-		plays.add(new Play(5, "奇迹男孩", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 137, LocalDate.of(2018, 07, 25) ,LocalDate.of(2018,07,30) , 38,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@464w_644h_1e_1c"));
+		plays.add(new Play(1, "捉妖记1", PLAY_TYPE.FILE, "中国", PLAY_RATING.CHILD, 120, LocalDate.of(2018, 03, 25) ,LocalDate.of(2018,03,30) , 35,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
+		plays.add(new Play(2, "捉妖记2", PLAY_TYPE.FILE, "中国", PLAY_RATING.CHILD, 125, LocalDate.of(2018, 04, 25) ,LocalDate.of(2018,04,30) , 35,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
+		plays.add(new Play(3, "摔跤吧，爸爸", PLAY_TYPE.FILE, "泰国", PLAY_RATING.CHILD, 140, LocalDate.of(2018, 05, 25) ,LocalDate.of(2018,05,30) , 33,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
+		plays.add(new Play(4, "寻梦环游记", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 145, LocalDate.of(2018, 06, 25) ,LocalDate.of(2018,06,30) , 40,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
+		plays.add(new Play(5, "奇迹男孩", PLAY_TYPE.FILE, "美国", PLAY_RATING.CHILD, 137, LocalDate.of(2018, 07, 25) ,LocalDate.of(2018,07,30) , 38,"http://p1.meituan.net/movie/ddbaa3f31cdbdfa6cd72721de63545021032555.jpg@160w_220h_1e_1c"));
 
 		return plays;
 	}

@@ -6,9 +6,9 @@ import service.Play;
 
 public interface PlayIf {
 	public void mgtEntry();
-	public boolean add();
-	public boolean modify(int id);
-	public boolean delece(int id);
-	public boolean query(int id);
+	public boolean add(List<Play> plays);
+	public boolean modify(Play play);
+	public boolean delece(List<Play> plays ,Play play);
+	public boolean query(Play play);			
 	public void showList(List<Play> plays);
 }
