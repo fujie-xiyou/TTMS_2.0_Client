@@ -1,11 +1,15 @@
 package view;
 
 
+import java.security.Provider.Service;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -25,14 +29,42 @@ public class Play implements PlayIf {
 	@Override
 	public void mgtEntry() {
 		// TODO Auto-generated method stub
-		TopButton add = new TopButton("添加"),
+		TopButton/* add = new TopButton("添加"),
 		          mod = new TopButton("修改"),
-		          del = new TopButton("删除"),
+		          del = new TopButton("删除"),*/
 				  showList = new TopButton("全部剧目");
-		MainFrame.top.addAll(add,mod,del,showList);
+		MainFrame.top.addAll(/*add,mod,del,*/showList);
 		
-		
-		add.setOnAction(e -> {
+		GridPane centerPane = new GridPane();
+		centerPane.setVgap(20);
+		centerPane.setHgap(30);
+		centerPane.setPadding(new Insets(30));
+		centerPane.add(new Text("剧目ID"), 0, 0);
+		centerPane.add(new Text("用户名"), 1, 0);
+		centerPane.add(new Text("剧目类型"), 2, 0);
+		centerPane.add(new Text("级别"), 3, 0);
+		centerPane.add(new Text("时长"), 4, 0);
+		centerPane.add(new Text("用户类型"), 5, 0);
+		int row = 1;
+		List<service.Play> plays= service.Play.getPlays();
+		for(service.Play Plays : plays) {
+			centerPane.add(new Text(Plays.getId()+""),0 , row);
+			centerPane.add(new Text(Plays.getName()),1 , row);
+			centerPane.add(new Text(Plays.getType().toString()),2 , row);
+			//centerPane.add(new Text(account.getPassword()),3 , row);
+			Button mod = new Button("修改") , del = new Button("删除");
+			mod.getStyleClass().add("my-button");
+			mod.setOnAction(e -> modify(plays, Plays));
+			del.getStyleClass().add("my-button");
+			del.setOnAction(e -> delete(plays, Plays));
+			centerPane.add(mod, 4, row);
+			centerPane.add(del, 5, row);
+			row++;
+		}
+		MainFrame.center.add(centerPane);
+	}
+	//	List<service.Play> Play = service.Play.this.getPlays();
+	/*	add.setOnAction(e -> {
 			add.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
 			add();//调用添加用户面板
 		});
@@ -44,9 +76,11 @@ public class Play implements PlayIf {
 			del.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
 			delece(-1);//调用删除面板
 		});
+		showList.setOnAction(e -> {
+			showList.recover();
+	//		showList(service.Play.this.getPlays()); 
+		});*/
 
-
-	}
 	
 	@SuppressWarnings("unused")
 	@Override
@@ -335,7 +369,11 @@ public class Play implements PlayIf {
 	public void showList(List<service.Play> plays) {
 		
 		// TODO Auto-generated method stub
-
+	/*	for(int i = 0; i<plays.size();i++) {
+			System.out.println(plays);
+		}
+*/
+		System.out.println(plays);
 	}
 
 }
