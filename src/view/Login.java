@@ -26,6 +26,7 @@ public class Login extends Application {
 		//Application.setUserAgentStylesheet(STYLESHEET_CASPIAN);
 		//切换到另一种javafx界面风格
 		primaryStage.setTitle("登录");
+		primaryStage.setResizable(false);
 		VBox pane = new VBox();
 		//FlowPane pane = new FlowPane();
 		//pane.setOrientation(Orientation.VERTICAL);

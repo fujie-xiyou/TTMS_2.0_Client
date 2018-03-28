@@ -7,7 +7,7 @@ import service.Ticket;
 
 public interface SaleIf {
 	//入口
-	public void mgtEntry();
+	public void mgtEntry(List<Play> plays , List<Schedule> schs);
 	
 	//根据剧目ID显示演出计划
 	public void showScheduler(int playID);
