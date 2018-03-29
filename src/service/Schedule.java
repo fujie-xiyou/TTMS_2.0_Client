@@ -1,19 +1,17 @@
 package service;
 
-import java.security.Provider.Service;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.naming.LinkLoopException;
 
 public class Schedule {
 	//演出计划类型
 	private int id;
 	private int playID;//剧目id
-	private int StudioID; //演出厅ID
+	private int studioID; //演出厅ID
 	private Date date; //演出时间
-	private int seatCount;//座位数量
+	private int seatCount;//剩余座位数量
+	private Ticket[][] tickets;
 	public int getId() {
 		return id;
 	}
@@ -26,19 +24,18 @@ public class Schedule {
 	public void setPlayID(int playID) {
 		this.playID = playID;
 	}
-	public Schedule(int id, int playID, int studioID, Date date, int seatCount) {
+	public Schedule(int id, int playID, int studioID, Date date) {
 		super();
 		this.id = id;
 		this.playID = playID;
-		StudioID = studioID;
+		this.studioID = studioID;
 		this.date = date;
-		this.seatCount = seatCount;
 	}
 	public int getStudioID() {
-		return StudioID;
+		return studioID;
 	}
 	public void setStudioID(int studioID) {
-		StudioID = studioID;
+		this.studioID = studioID;
 	}
 	public Date getDate() {
 		return date;
@@ -53,8 +50,36 @@ public class Schedule {
 		this.seatCount = seatCount;
 	}
 	public static List<service.Schedule> getSchedules(){
+		int id = 1;
 		List<service.Schedule> schedules = new LinkedList<>();
-		schedules.add(new service.Schedule(1, 1, 1, new Date(), 0));
+		Schedule schedule = new service.Schedule(1, 1, 1, new Date());
+		Studio studio = schedule.getStudioByID(Studio.getStdios(),schedule.getStudioID());
+		schedule.setSeatCount(studio.getCount());
+		Play play = schedule.getPlayByID(Play.getPlays(), schedule.getPlayID());
+		Seat[][] seats = studio.getSeats();
+		Ticket[][] tickets = new Ticket[studio.getRow()][studio.getCol()];
+		for(int i = 0; i < seats.length; i++) {
+			for(int j = 0; j < seats[0].length; j++) {
+				tickets[i][j] = new Ticket(id, schedule.getId(), studio.getSeats()[i][j].getId(), play.getPrice(), TICKET_STATUS.AVL);
+				id++;
+			}
+		}
+		schedule.setTickets(tickets);
+		schedules.add(schedule);
+		schedule = new service.Schedule(2, 1, 2, new Date());
+		studio = schedule.getStudioByID(Studio.getStdios(),schedule.getStudioID());
+		schedule.setSeatCount(studio.getCount());
+		play = schedule.getPlayByID(Play.getPlays(), schedule.getPlayID());
+		seats = studio.getSeats();
+		tickets = new Ticket[studio.getRow()][studio.getCol()];
+		for(int i = 0; i < seats.length; i++) {
+			for(int j = 0; j < seats[0].length; j++) {
+				tickets[i][j] = new Ticket(id, schedule.getId(), studio.getSeats()[i][j].getId(), play.getPrice(), TICKET_STATUS.AVL);
+				id++;
+			}
+		}
+		schedule.setTickets(tickets);
+		schedules.add(schedule);
 		return schedules;
 	}
 	
@@ -72,5 +97,11 @@ public class Schedule {
 				return play;
 		}
 		return null;
+	}
+	public Ticket[][] getTickets() {
+		return tickets;
+	}
+	public void setTickets(Ticket[][] tickets) {
+		this.tickets = tickets;
 	}
 }

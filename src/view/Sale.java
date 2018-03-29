@@ -1,8 +1,7 @@
 package view;
 
-import java.security.Provider.Service;
+import java.util.LinkedList;
 import java.util.List;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,14 +10,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import nodes.SeatRectangle;
+import service.SEAT_STATUS;
 import service.Seat;
+import service.TICKET_STATUS;
 import service.Ticket;
 
 public class Sale implements SaleIf {
@@ -36,12 +37,12 @@ public class Sale implements SaleIf {
 		flowPane.setPadding(new Insets(w/30));
 		centerPane.setFitToWidth(true);
 		centerPane.setContent(flowPane);
-		
+		List<service.Schedule> schs = service.Schedule.getSchedules();
 		for(service.Play play : plays) {
 			VBox vBox = new VBox();
 			ImageView image = new ImageView(new Image(play.getImgUrl(), w/5, 0, true, true));
 			image.setOnMouseClicked(e -> {
-				showScheduler(studios ,plays ,play);
+				showScheduler(schs,studios ,plays ,play);
 			});
 			Text text = new Text(play.getName());
 			vBox.getChildren().addAll(image,text);
@@ -52,10 +53,10 @@ public class Sale implements SaleIf {
 	}
 
 	@Override
-	public void showScheduler(List<service.Studio> studios,List<service.Play> plays, service.Play play) {
+	public void showScheduler(List<service.Schedule> schs,List<service.Studio> studios,List<service.Play> plays, service.Play play) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
-
+		MainFrame.bottom.removeAll(MainFrame.bottom);
 		VBox outer = new VBox();
 		//outer.setSpacing(40);
 		outer.setAlignment(Pos.BASELINE_LEFT);
@@ -92,19 +93,22 @@ public class Sale implements SaleIf {
 		retButtPane.setAlignment(Pos.BOTTOM_RIGHT);
 		retButtPane.getChildren().add(ret);
 		HBox hBox = new HBox();
-		//hBox.setAlignment(Pos.CENTER);
+		//hBox.setAlignment(Pos.BASELINE_LEFT);
 		hBox.setSpacing(60);
 		hBox.setPadding(new Insets(20));
 		hBox.setBackground(new Background(new BackgroundFill(Color.ANTIQUEWHITE	, null, null)));
 		hBox.getChildren().addAll(image,grid,retButtPane);
 		ScrollPane schPane = new ScrollPane();
+		schPane.setFitToWidth(true);
 		outer.getChildren().addAll(hBox,schPane);
 		GridPane schListPane = new GridPane();
 		
 		schPane.setContent(schListPane);
-		schListPane.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, null, null)));
+		//schListPane.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, null, null)));
+		schListPane.setHgap(40);
+		schListPane.setVgap(10);
+		schListPane.setPadding(new Insets(20));
 		//根据剧目ID获得演出计划
-		List<service.Schedule> schs = null; 
 		schListPane.add(new Text("演出厅"), 0, 0);
 		schListPane.add(new Text("演出时间")	,1,0);
 		schListPane.add(new Text("剩余票数"), 2, 0);
@@ -117,17 +121,86 @@ public class Sale implements SaleIf {
 			schListPane.add(new Text("￥"+schedule.getPlayByID(plays, schedule.getId()).getPrice()+""), 3, row);
 			Button buy = new Button("购买");
 			buy.getStyleClass().add("my-button");
-			schListPane.add(buy, 4, row);
+			FlowPane buyButt = new FlowPane();
+			buyButt.setAlignment(Pos.BASELINE_RIGHT);
+			buyButt.getChildren().add(buy);
+			buy.setOnAction(e -> showTicket(studios,schedule,schs,plays,play));
+			schListPane.add(buyButt, 4, row);
+			row++;
 		}
 
 	}
 
 	@Override
-	public void showTicket(service.Schedule sch) {
+	public void showTicket(List<service.Studio> studios, service.Schedule sch ,List<service.Schedule> schs ,List<service.Play> plays , service.Play play) {
 		// TODO Auto-generated method stub
-
+		service.Studio studio = sch.getStudioByID(studios, sch.getStudioID());
+		service.Seat[][] seats = studio.getSeats();
+		VBox outer = new VBox();
+		MainFrame.center.removeAll(MainFrame.center);
+		MainFrame.center.add(outer);
+		outer.setAlignment(Pos.CENTER);
+		GridPane gridPane = new GridPane();
+		gridPane.setAlignment(Pos.CENTER);
+		gridPane.setVgap(20);
+		gridPane.setHgap(20);
+		outer.getChildren().add(gridPane);
+		List<service.Ticket> chosedTicket = new LinkedList<>();
+		for(int i= 0; i< seats.length; i++) {
+			gridPane.add(new Text((i+1)+""), 0, i+1);
+			for(int j=0; j < seats[0].length; j++) {
+				gridPane.add(new Text((j+1)+""), j+1, 0);
+				if(!seats[i][j].getStatus().equals(SEAT_STATUS.BROKEN)) {
+					SeatRectangle seat = new SeatRectangle(seats[i][j],30, 20);
+					seat.setTicket(sch.getTickets()[i][j]);
+					if(seat.getTicket().getStatus().equals(TICKET_STATUS.AVL)) {
+						seat.setFill(Color.WHITE);
+						chosed(seat,chosedTicket);
+					}else {
+						seat.setFill(Color.RED);
+					}
+					gridPane.add(seat, j+1, i+1);
+					
+				}
+			}
+		}
+		HBox hBox = new HBox();
+		hBox.setAlignment(Pos.CENTER);
+		hBox.setSpacing(50);
+		outer.setSpacing(30);
+		outer.getChildren().add(hBox);
+		Button buy = new Button("确认");
+		buy.getStyleClass().add("my-button");
+		Button cal = new Button("返回");
+		cal.getStyleClass().add("my-button");
+		hBox.getChildren().addAll(buy,cal);
+		buy.setOnAction(e -> {
+			if(!chosedTicket.isEmpty()) {
+				StringBuffer msg = new StringBuffer("出票成功! 票ID列表: ");
+				for(Ticket ticket : chosedTicket) {
+					ticket.setStatus(TICKET_STATUS.SOLD);
+					msg.append(ticket.getId()+",");
+					showTicket(studios, sch,schs,plays,play);
+				}
+				MainFrame.popupMessage(msg.toString());
+			}
+		});
+		cal.setOnAction(e -> showScheduler(schs,studios,plays,play));
 	}
-
+	private void chosed(SeatRectangle seat ,List<Ticket> chosedTicket) {
+		seat.setOnMouseClicked(e -> {
+			seat.setFill(Color.LIMEGREEN);
+			chosedTicket.add(seat.getTicket());
+			calened(seat, chosedTicket);
+		});
+	}
+	private void calened(SeatRectangle seat , List<Ticket> chosedTicket) {
+		seat.setOnMouseClicked(e -> {
+			seat.setFill(Color.WHITE);
+			chosedTicket.remove(seat.getTicket());
+			chosed(seat, chosedTicket);
+		});
+	}
 	@Override
 	public boolean sellTicket(List<Ticket> tickets, List<Seat> seats) {
 		// TODO Auto-generated method stub

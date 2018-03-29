@@ -1,24 +1,15 @@
 package service;
-enum SEAT_STATUS{
-	NONE(1,"空位"),
-	GOOD(2,"有座位"),
-	BROKEN(3,"损坏");
-	
-	private String name;
-	private int index;
-	private SEAT_STATUS(int index , String name) {
-		this.index = index;
-		this.name = name;
-	}
-	public String getName() {
-		return name;
-	}
-	public int getIndex() {
-		return index;
-	}
-}
+
 
 public class Seat {
+	public Seat(int id, int roomID, int row, int col, SEAT_STATUS status) {
+		super();
+		this.id = id;
+		this.roomID = roomID;
+		this.row = row;
+		this.col = col;
+		this.status = status;
+	}
 	private int id;
 	private int roomID;
 	private int row;//行号

@@ -1,24 +1,5 @@
 package service;
 
-enum TICKET_STATUS{
-	AVL(1,"待售"),
-	SOLD(2,"已售"),
-	RESV(3,"预留");
-	
-	private String name;
-	private int index;
-	private TICKET_STATUS(int index , String name) {
-		this.index = index;
-		this.name = name;
-	}
-	public String getName() {
-		return name;
-	}
-	public int getIndex() {
-		return index;
-	}
-}
-
 public class Ticket {
 	private int id;
 	private int scheduleID;
@@ -55,6 +36,15 @@ public class Ticket {
 	public void setStatus(TICKET_STATUS status) {
 		this.status = status;
 	}
+	public Ticket(int id, int scheduleID, int seatID, int price, TICKET_STATUS status) {
+		super();
+		this.id = id;
+		this.scheduleID = scheduleID;
+		this.seatID = seatID;
+		this.price = price;
+		this.status = status;
+	}
+	
 	
 	
 }

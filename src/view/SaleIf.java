@@ -12,10 +12,10 @@ public interface SaleIf {
 	public void mgtEntry(List<Studio> studios,List<service.Play> plays);
 	
 	//根据剧目ID显示演出计划
-	public void showScheduler(List<Studio> studios,List<service.Play> plays,Play play);
+	public void showScheduler(List<service.Schedule> schs,List<Studio> studios,List<service.Play> plays,Play play);
 	
 	//根据计划ID显示演出票
-	public void showTicket(service.Schedule sch);
+	public void showTicket(List<service.Studio> studios, service.Schedule sch ,List<service.Schedule> schs ,List<service.Play> plays , service.Play play);
 	
 	//售票
 	public boolean sellTicket(List<Ticket> tickets ,List<Seat> seats);
@@ -23,4 +23,5 @@ public interface SaleIf {
 	
 	//退票
 	public void retrurnTicket();
+
 }
