@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -100,11 +101,14 @@ public class Play implements PlayIf {
 		 saveBtn.getStyleClass().add("my-button");
 	     Button cleanBtn = new Button("清空");
 	     cleanBtn.getStyleClass().add("my-button");
-		 HBox buttonBox = new HBox(saveBtn, cleanBtn);
+	     Button backBtn = new Button("返回");
+	     backBtn.getStyleClass().add("my-button");
+		 HBox buttonBox = new HBox(saveBtn, cleanBtn,backBtn);
 	     saveBtn.setMaxWidth(Double.MAX_VALUE);
 	     cleanBtn.setMaxWidth(Double.MAX_VALUE);
+	     backBtn.setMaxWidth(Double.MAX_VALUE);
 	     
-	     grid.add(buttonBox, 45, 15, 2, 2);
+	     grid.add(buttonBox, 45, 16, 2, 2);
 	        
 		 MainFrame.center.addAll(grid);
 
@@ -138,7 +142,10 @@ public class Play implements PlayIf {
 		 durations.setPromptText("按分钟计算");
 		 Label price = new Label("价钱：");
 		 TextField prices = new TextField();
-		 prices.setPromptText("价钱/元");		 
+		 prices.setPromptText("价钱/元");		
+		 Label cover = new Label("封面：");
+		 TextField covers = new TextField();
+		 covers.setPromptText("输入网址");
 	
 	        grid.add(id, 42, 7);  // column=42, row=7
 	        grid.add(name, 42, 8);  
@@ -149,6 +156,7 @@ public class Play implements PlayIf {
 	        grid.add(endDate, 42, 13); 
 	        grid.add(duration, 42, 14); 
 	        grid.add(price, 42, 15);
+	        grid.add(cover, 42, 16);
 	            
 	        grid.add(ids, 43, 7);  // column=43, row=7
 	        grid.add(names, 43, 8);  
@@ -159,6 +167,7 @@ public class Play implements PlayIf {
 	        grid.add(endDates, 43, 13); 
 	        grid.add(durations, 43, 14); 
 	        grid.add(prices, 43, 15); 
+	        grid.add(covers, 43, 16);
       
 	        saveBtn.setOnAction(e -> {
 			String Id = ids.getText();
@@ -170,6 +179,7 @@ public class Play implements PlayIf {
 			String StartDate = startDate.getText();
 			String EndDate = endDate.getText();
 			String Prices = prices.getText();
+	//		String Cover = covers.getText();
 		
 			if(!Id.isEmpty() && !Name.isEmpty()  && !Area.isEmpty()&& !Durations.isEmpty() && !Prices.isEmpty()) {
 				
@@ -195,6 +205,10 @@ public class Play implements PlayIf {
 	    	add(plays);
 				
 		});
+	    backBtn.setOnAction(e -> {
+	    	MainFrame.center.removeAll();
+	    	mgtEntry(plays);
+	    });
 	 
 	        return true;	
 	}
