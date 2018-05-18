@@ -1,9 +1,9 @@
 package service.enums;
 
 public enum SEAT_STATUS{
-	NONE(1,"空位"),
-	GOOD(2,"有座位"),
-	BROKEN(3,"损坏");
+	NONE(0,"空位"),
+	GOOD(1,"有座位"),
+	BROKEN(2,"损坏");
 	
 	private String name;
 	private int index;

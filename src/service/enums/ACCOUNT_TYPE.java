@@ -1,10 +1,10 @@
 package service.enums;
 
 public enum ACCOUNT_TYPE {
-	ANOMT(1,"匿名用户"),
-	CLERK(2,"售票员"),
-	MANG(3,"经理"),
-	ADMIN(4,"管理员");
+	ANOMT(0,"匿名用户"),
+	CLERK(1,"售票员"),
+	MANG(2,"经理"),
+	ADMIN(3,"管理员");
 	
 	private String name;
 	private int index;

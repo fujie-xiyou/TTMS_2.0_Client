@@ -1,9 +1,9 @@
 package service.enums;
 
 public enum TICKET_STATUS{
-	AVL(1,"待售"),
-	SOLD(2,"已售"),
-	RESV(3,"预留");
+	AVL(0,"待售"),
+	SOLD(1,"已售"),
+	RESV(2,"预留");
 	
 	private String name;
 	private int index;

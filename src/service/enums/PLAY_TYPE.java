@@ -2,9 +2,9 @@ package service.enums;
 
 public enum PLAY_TYPE {
 
-	FILE(1,"电影"),
-	OPEAR(2,"歌剧"),
-	CONCERT(3,"音乐会");
+	FILE(0,"电影"),
+	OPEAR(1,"歌剧"),
+	CONCERT(2,"音乐会");
 	
 	private String name;
 	private int index;

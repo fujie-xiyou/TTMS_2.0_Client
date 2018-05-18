@@ -3,9 +3,9 @@ package service.enums;
 public enum PLAY_RATING {
 	
 	//演出级别
-		CHILD(1,"儿童"),//儿童可观看
-		TEENAGE(2,"青少年"),//青少年可观看
-		ADULT(3,"成人"); //成人可观看
+		CHILD(0,"儿童"),//儿童可观看
+		TEENAGE(1,"青少年"),//青少年可观看
+		ADULT(2,"成人"); //成人可观看
 		
 		private String name;
 		public String getName() {
