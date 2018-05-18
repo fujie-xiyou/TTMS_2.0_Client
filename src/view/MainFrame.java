@@ -64,7 +64,7 @@ public class MainFrame implements MainIf {
 				ans = new LeftButton("排序和统计"),
 				acc = new LeftButton("账户管理"),
 				out = new LeftButton("退出登录");
-		if(Account.CurUser.getType().equals(service.ACCOUNT_TYPE.CLERK)) {
+		if(Account.CurUser.getType().equals(service.enums.ACCOUNT_TYPE.CLERK)) {
 			leftPane.getChildren().addAll(sale,ret,out);
 		}else {
 			leftPane.getChildren().addAll(sch,play,que,ans,acc,out);

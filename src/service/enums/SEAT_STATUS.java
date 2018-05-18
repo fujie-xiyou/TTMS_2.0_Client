@@ -1,4 +1,4 @@
-package service;
+package service.enums;
 
 public enum SEAT_STATUS{
 	NONE(1,"空位"),

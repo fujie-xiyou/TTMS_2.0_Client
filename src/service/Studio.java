@@ -3,6 +3,8 @@ package service;
 import java.util.LinkedList;
 import java.util.List;
 
+import service.enums.SEAT_STATUS;
+
 public class Studio {
 	private int id ;
 	private String name ;

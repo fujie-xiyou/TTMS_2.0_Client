@@ -17,10 +17,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nodes.SeatRectangle;
-import service.SEAT_STATUS;
 import service.Seat;
-import service.TICKET_STATUS;
 import service.Ticket;
+import service.enums.SEAT_STATUS;
+import service.enums.TICKET_STATUS;
 
 public class Sale implements SaleIf {
 

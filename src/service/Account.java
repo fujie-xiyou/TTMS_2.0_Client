@@ -3,6 +3,8 @@ package service;
 import java.util.LinkedList;
 import java.util.List;
 
+import service.enums.ACCOUNT_TYPE;
+
 public class Account {
 	private int uid;
 	private ACCOUNT_TYPE type;

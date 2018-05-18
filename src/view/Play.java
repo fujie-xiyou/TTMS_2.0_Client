@@ -22,8 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nodes.TopButton;
-import service.PLAY_RATING;
-import service.PLAY_TYPE;
+import service.enums.PLAY_RATING;
+import service.enums.PLAY_TYPE;
 
 public class Play implements PlayIf {
 

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import service.enums.TICKET_STATUS;
+
 public class Schedule {
 	//演出计划类型
 	private int id;

@@ -1,5 +1,7 @@
 package service;
 
+import service.enums.TICKET_STATUS;
+
 public class Ticket {
 	private int id;
 	private int scheduleID;

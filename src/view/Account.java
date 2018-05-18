@@ -17,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nodes.TopButton;
-import service.ACCOUNT_TYPE;
+import service.enums.ACCOUNT_TYPE;
 public class Account implements AccountIf {
 	public static service.Account CurUser;
 	@Override
@@ -152,7 +152,7 @@ public class Account implements AccountIf {
 		TextField name = new TextField(account.getUsername());
 		centerPane.add(name, 1, 1);
 		centerPane.add(new Text("用户类型:"), 0, 2);
-		ComboBox<service.ACCOUNT_TYPE> type = new ComboBox<>(FXCollections.observableArrayList(service.ACCOUNT_TYPE.values()));
+		ComboBox<service.enums.ACCOUNT_TYPE> type = new ComboBox<>(FXCollections.observableArrayList(service.enums.ACCOUNT_TYPE.values()));
 		type.setValue(account.getType());
 		centerPane.add(type, 1, 2);
 		centerPane.add(new Text("新密码:"), 0, 3);
