@@ -1,6 +1,6 @@
 package view;
 
-import service.Seat;
+import model.Seat;
 
 public interface SeatIf {
 	//座位管理接口

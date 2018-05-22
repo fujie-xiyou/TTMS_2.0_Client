@@ -1,4 +1,4 @@
-package service.enums;
+package model.enums;
 
 public enum PLAY_TYPE {
 

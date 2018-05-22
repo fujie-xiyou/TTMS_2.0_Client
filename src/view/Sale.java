@@ -16,16 +16,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import model.Seat;
+import model.Ticket;
+import model.enums.SEAT_STATUS;
+import model.enums.TICKET_STATUS;
 import nodes.SeatRectangle;
-import service.Seat;
-import service.Ticket;
-import service.enums.SEAT_STATUS;
-import service.enums.TICKET_STATUS;
 
 public class Sale implements SaleIf {
 
 	@Override
-	public void mgtEntry(List<service.Studio> studios,List<service.Play> plays) {
+	public void mgtEntry(List<model.Studio> studios,List<model.Play> plays) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
 		ScrollPane centerPane = new ScrollPane();
@@ -37,8 +37,8 @@ public class Sale implements SaleIf {
 		flowPane.setPadding(new Insets(w/30));
 		centerPane.setFitToWidth(true);
 		centerPane.setContent(flowPane);
-		List<service.Schedule> schs = service.Schedule.getSchedules();
-		for(service.Play play : plays) {
+		List<model.Schedule> schs = model.Schedule.getSchedules();
+		for(model.Play play : plays) {
 			VBox vBox = new VBox();
 			ImageView image = new ImageView(new Image(play.getImgUrl(), w/5, 0, true, true));
 			image.setOnMouseClicked(e -> {
@@ -53,7 +53,7 @@ public class Sale implements SaleIf {
 	}
 
 	@Override
-	public void showScheduler(List<service.Schedule> schs,List<service.Studio> studios,List<service.Play> plays, service.Play play) {
+	public void showScheduler(List<model.Schedule> schs,List<model.Studio> studios,List<model.Play> plays, model.Play play) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
 		MainFrame.bottom.removeAll(MainFrame.bottom);
@@ -114,7 +114,7 @@ public class Sale implements SaleIf {
 		schListPane.add(new Text("剩余票数"), 2, 0);
 		schListPane.add(new Text("票价"), 3, 0);
 		int row = 1;
-		for(service.Schedule schedule : schs) {
+		for(model.Schedule schedule : schs) {
 			schListPane.add(new Text(schedule.getStudioByID(studios, schedule.getStudioID()).getName()),0,row);
 			schListPane.add(new Text(schedule.getDate().toString()), 1, row);
 			schListPane.add(new Text(schedule.getSeatCount()+""), 2, row);
@@ -132,10 +132,10 @@ public class Sale implements SaleIf {
 	}
 
 	@Override
-	public void showTicket(List<service.Studio> studios, service.Schedule sch ,List<service.Schedule> schs ,List<service.Play> plays , service.Play play) {
+	public void showTicket(List<model.Studio> studios, model.Schedule sch ,List<model.Schedule> schs ,List<model.Play> plays , model.Play play) {
 		// TODO Auto-generated method stub
-		service.Studio studio = sch.getStudioByID(studios, sch.getStudioID());
-		service.Seat[][] seats = studio.getSeats();
+		model.Studio studio = sch.getStudioByID(studios, sch.getStudioID());
+		model.Seat[][] seats = studio.getSeats();
 		VBox outer = new VBox();
 		MainFrame.center.removeAll(MainFrame.center);
 		MainFrame.center.add(outer);
@@ -145,7 +145,7 @@ public class Sale implements SaleIf {
 		gridPane.setVgap(20);
 		gridPane.setHgap(20);
 		outer.getChildren().add(gridPane);
-		List<service.Ticket> chosedTicket = new LinkedList<>();
+		List<model.Ticket> chosedTicket = new LinkedList<>();
 		for(int i= 0; i< seats.length; i++) {
 			gridPane.add(new Text((i+1)+""), 0, i+1);
 			for(int j=0; j < seats[0].length; j++) {

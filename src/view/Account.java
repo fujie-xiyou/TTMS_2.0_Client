@@ -16,12 +16,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.enums.ACCOUNT_TYPE;
 import nodes.TopButton;
-import service.enums.ACCOUNT_TYPE;
 public class Account implements AccountIf {
-	public static service.Account CurUser;
+	public static model.Account CurUser;
 	@Override
-	public void mhtEntry(List<service.Account> accounts) {
+	public void mhtEntry(List<model.Account> accounts) {
 		// TODO 自动生成的方法存根
 		MainFrame.center.removeAll(MainFrame.center);
 		MainFrame.top.removeAll(MainFrame.top);
@@ -52,7 +52,7 @@ public class Account implements AccountIf {
 		centerPane.add(new Text("用户类型"), 2, 0);
 		//centerPane.add(new Text("密码"), 3, 0);
 		int row = 1;
-		for(service.Account account : accounts) {
+		for(model.Account account : accounts) {
 			centerPane.add(new Text(account.getUid()+""),0 , row);
 			centerPane.add(new Text(account.getUsername()),1 , row);
 			centerPane.add(new Text(account.getType().toString()),2 , row);
@@ -71,7 +71,7 @@ public class Account implements AccountIf {
 
 	@SuppressWarnings("unused")
 	@Override
-	public void add(List<service.Account> accounts) {
+	public void add(List<model.Account> accounts) {
 		// TODO 自动生成的方法存根
 		VBox centerPane = new VBox();//添加用户界面将使用VBox布局
 		//centerPane.setAlignment(Pos.TOP_CENTER);//面板内容居中
@@ -122,7 +122,7 @@ public class Account implements AccountIf {
 			ACCOUNT_TYPE type = typeBox.getValue();
 			//ACCOUNT_TYPE type = 
 			if(!name.isEmpty() && !pass.isEmpty()  && type != null) {
-				service.Account account = new service.Account(-1,type,name,/*用md5加密*/pass);
+				model.Account account = new model.Account(-1,type,name,/*用md5加密*/pass);
 				if(/*调用业务逻辑层新增用户的方法成功执行*/ true) {
 					accounts.add(account);
 					MainFrame.popupMessage("用户 "+name+" 新增成功!");
@@ -139,7 +139,7 @@ public class Account implements AccountIf {
 	}
 
 	@Override
-	public void modify(List<service.Account> accounts, service.Account account) {
+	public void modify(List<model.Account> accounts, model.Account account) {
 		// TODO 自动生成的方法存根
 		MainFrame.center.removeAll(MainFrame.center);
 		GridPane centerPane = new GridPane();
@@ -152,7 +152,7 @@ public class Account implements AccountIf {
 		TextField name = new TextField(account.getUsername());
 		centerPane.add(name, 1, 1);
 		centerPane.add(new Text("用户类型:"), 0, 2);
-		ComboBox<service.enums.ACCOUNT_TYPE> type = new ComboBox<>(FXCollections.observableArrayList(service.enums.ACCOUNT_TYPE.values()));
+		ComboBox<model.enums.ACCOUNT_TYPE> type = new ComboBox<>(FXCollections.observableArrayList(model.enums.ACCOUNT_TYPE.values()));
 		type.setValue(account.getType());
 		centerPane.add(type, 1, 2);
 		centerPane.add(new Text("新密码:"), 0, 3);
@@ -177,14 +177,14 @@ public class Account implements AccountIf {
 	}
 
 	@Override
-	public void delete(List<service.Account> accounts, service.Account account) {
+	public void delete(List<model.Account> accounts, model.Account account) {
 		// TODO 自动生成的方法存根
 		accounts.remove(account);
 		mhtEntry(accounts);
 	}
 
 	@Override
-	public void query(List<service.Account> accounts, service.Account account) {
+	public void query(List<model.Account> accounts, model.Account account) {
 		// TODO 自动生成的方法存根
 	
 	}

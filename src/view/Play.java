@@ -21,14 +21,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.enums.PLAY_RATING;
+import model.enums.PLAY_TYPE;
 import nodes.TopButton;
-import service.enums.PLAY_RATING;
-import service.enums.PLAY_TYPE;
 
 public class Play implements PlayIf {
 
 	@Override
-	public void mgtEntry(List<service.Play> plays) {
+	public void mgtEntry(List<model.Play> plays) {
 		// TODO Auto-generated method stub
 		TopButton add = new TopButton("添加剧目");
 		add.setOnAction(e -> {
@@ -53,7 +53,7 @@ public class Play implements PlayIf {
 		centerPane.setFitToWidth(true);
 		centerPane.setContent(flowPane);
 		
-		for(service.Play play : plays) {
+		for(model.Play play : plays) {
 			VBox vBox = new VBox();
 			ImageView image = new ImageView(new Image(play.getImgUrl(), w/5,0, true, false));
 			image.setOnMouseClicked(e -> {
@@ -86,7 +86,7 @@ public class Play implements PlayIf {
 	
 	@SuppressWarnings("unused")
 	@Override
-	public boolean add(List<service.Play> plays) {
+	public boolean add(List<model.Play> plays) {
 		// TODO Auto-generated method stub
 		
 		 GridPane grid = new GridPane();
@@ -188,7 +188,7 @@ public class Play implements PlayIf {
 				DateTimeFormatter START = DateTimeFormatter.ofPattern(StartDate);
 				DateTimeFormatter END = DateTimeFormatter.ofPattern(EndDate);
 
-				service.Play play = new service.Play(ID,Name,Type,Area,Rating,DURATION,LocalDate.parse(StartDate, START),LocalDate.parse(EndDate, END),PRICE,"");
+				model.Play play = new model.Play(ID,Name,Type,Area,Rating,DURATION,LocalDate.parse(StartDate, START),LocalDate.parse(EndDate, END),PRICE,"");
 				if( true) {
 					MainFrame.popupMessage("新增成功!");
 				}
@@ -213,7 +213,7 @@ public class Play implements PlayIf {
 	}
 
 	@Override
-	public boolean modify(List<service.Play> plays ,service.Play play) {
+	public boolean modify(List<model.Play> plays ,model.Play play) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
 		GridPane grid = new GridPane();
@@ -284,7 +284,7 @@ public class Play implements PlayIf {
 	}
 
 	@Override
-	public boolean delece(List<service.Play> plays ,service.Play play) {
+	public boolean delece(List<model.Play> plays ,model.Play play) {
 		// TODO Auto-generated method stub
 		GridPane grid = new GridPane();
 		grid.setHgap(5);
@@ -316,7 +316,7 @@ public class Play implements PlayIf {
 	}
 
 	@Override
-	public boolean query(List<service.Play> plays, service.Play play) {
+	public boolean query(List<model.Play> plays, model.Play play) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
 		GridPane grid = new GridPane();
@@ -377,7 +377,7 @@ public class Play implements PlayIf {
 	}
 
 	@Override
-	public void showList(List<service.Play> plays) {
+	public void showList(List<model.Play> plays) {
 		
 		// TODO Auto-generated method stub
 	/*	for(int i = 0; i<plays.size();i++) {

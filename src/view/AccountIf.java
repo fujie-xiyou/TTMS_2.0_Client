@@ -3,7 +3,7 @@ package view;
 import java.util.List;
 
 import javafx.stage.Stage;
-import service.Account;
+import model.Account;
 
 public interface AccountIf {
 	public void mhtEntry(List<Account> accounts);

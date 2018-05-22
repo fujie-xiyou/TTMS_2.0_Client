@@ -1,8 +1,9 @@
 package view;
 
 import java.util.List;
-import service.Play;
-import service.Schedule;
+
+import model.Play;
+import model.Schedule;
 
 public interface ScheduleIf {
 	//演出计划接口

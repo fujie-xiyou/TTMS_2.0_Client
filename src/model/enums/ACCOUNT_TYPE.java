@@ -1,4 +1,4 @@
-package service.enums;
+package model.enums;
 
 public enum ACCOUNT_TYPE {
 	ANOMT(0,"匿名用户"),

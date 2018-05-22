@@ -1,11 +1,11 @@
-package service;
+package model;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-import service.enums.PLAY_RATING;
-import service.enums.PLAY_TYPE;
+import model.enums.PLAY_RATING;
+import model.enums.PLAY_TYPE;
 
 /*enum PLAY_TYPE {
 	FILE(1,"电影"),

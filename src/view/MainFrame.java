@@ -64,7 +64,7 @@ public class MainFrame implements MainIf {
 				ans = new LeftButton("排序和统计"),
 				acc = new LeftButton("账户管理"),
 				out = new LeftButton("退出登录");
-		if(Account.CurUser.getType().equals(service.enums.ACCOUNT_TYPE.CLERK)) {
+		if(Account.CurUser.getType().equals(model.enums.ACCOUNT_TYPE.CLERK)) {
 			leftPane.getChildren().addAll(sale,ret,out);
 		}else {
 			leftPane.getChildren().addAll(sch,play,que,ans,acc,out);
@@ -87,8 +87,8 @@ public class MainFrame implements MainIf {
 		sale.setOnAction(e -> {
 			sale.recover();
 			SaleIf saIf = new Sale();
-			List<service.Play> plays = service.Play.getPlays();
-			List<service.Studio> studios = service.Studio.getStdios();
+			List<model.Play> plays = model.Play.getPlays();
+			List<model.Studio> studios = model.Studio.getStdios();
 			saIf.mgtEntry(studios ,plays);
 			
 		});
@@ -96,7 +96,7 @@ public class MainFrame implements MainIf {
 		acc.setOnAction(e -> {
 			acc.recover();
 			AccountIf account = new Account();
-			List<service.Account> accounts = service.Account.getAccounts();
+			List<model.Account> accounts = model.Account.getAccounts();
 			account.mhtEntry(accounts);
 		});
 		
@@ -104,7 +104,7 @@ public class MainFrame implements MainIf {
 		play.setOnAction(e -> {
 			play.recover();
 			PlayIf playif  = new Play();
-			List<service.Play> plays = service.Play.getPlays();
+			List<model.Play> plays = model.Play.getPlays();
 			playif.mgtEntry(plays);
 		});
 		

@@ -1,10 +1,10 @@
-package service;
+package model;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import service.enums.TICKET_STATUS;
+import model.enums.TICKET_STATUS;
 
 public class Schedule {
 	//演出计划类型
@@ -51,10 +51,10 @@ public class Schedule {
 	public void setSeatCount(int seatCount) {
 		this.seatCount = seatCount;
 	}
-	public static List<service.Schedule> getSchedules(){
+	public static List<model.Schedule> getSchedules(){
 		int id = 1;
-		List<service.Schedule> schedules = new LinkedList<>();
-		Schedule schedule = new service.Schedule(1, 1, 1, new Date());
+		List<model.Schedule> schedules = new LinkedList<>();
+		Schedule schedule = new model.Schedule(1, 1, 1, new Date());
 		Studio studio = schedule.getStudioByID(Studio.getStdios(),schedule.getStudioID());
 		schedule.setSeatCount(studio.getCount());
 		Play play = schedule.getPlayByID(Play.getPlays(), schedule.getPlayID());
@@ -68,7 +68,7 @@ public class Schedule {
 		}
 		schedule.setTickets(tickets);
 		schedules.add(schedule);
-		schedule = new service.Schedule(2, 1, 2, new Date());
+		schedule = new model.Schedule(2, 1, 2, new Date());
 		studio = schedule.getStudioByID(Studio.getStdios(),schedule.getStudioID());
 		schedule.setSeatCount(studio.getCount());
 		play = schedule.getPlayByID(Play.getPlays(), schedule.getPlayID());

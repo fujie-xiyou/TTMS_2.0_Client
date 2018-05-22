@@ -48,9 +48,9 @@ public class Login extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		login.setOnAction(e ->{
-			List<service.Account> accounts = service.Account.getAccounts();
+			List<model.Account> accounts = model.Account.getAccounts();
 			if(!name.getText().isEmpty()) {
-				for(service.Account account : accounts) {
+				for(model.Account account : accounts) {
 					if(account.getUsername().equals(name.getText())) {
 						Account.CurUser = account;
 						primaryStage.close();

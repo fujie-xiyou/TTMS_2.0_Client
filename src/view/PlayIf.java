@@ -2,7 +2,7 @@ package view;
 
 import java.util.List;
 
-import service.Play;
+import model.Play;
 
 public interface PlayIf {
 	public void mgtEntry(List<Play> plays);

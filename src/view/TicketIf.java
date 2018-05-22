@@ -1,6 +1,6 @@
 package view;
 
-import service.Schedule;
+import model.Schedule;
 
 public interface TicketIf {
 	public boolean update(int id);

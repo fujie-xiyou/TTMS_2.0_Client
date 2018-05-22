@@ -14,9 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.Play;
+import model.Studio;
 import nodes.TopButton;
-import service.Play;
-import service.Studio;
 //
 public class Schedule implements ScheduleIf{
 	
@@ -58,7 +58,7 @@ public class Schedule implements ScheduleIf{
 	}
 	@Override
 	public boolean add(int playID) {
-		List<service.Studio> studios= service.Studio.getStdios();
+		List<model.Studio> studios= model.Studio.getStdios();
 		
 		// TODO Auto-generated method stub
 	//	TextField stdio_id,
@@ -138,7 +138,7 @@ public class Schedule implements ScheduleIf{
 			vpane.getChildren().removeAll(text2,plan,ok2);
 			TextField play_id=new TextField();
 			play_id.setPromptText("请输入剧目ID：");
-			List<service.Studio> studios2 = service.Studio.getStdios();
+			List<model.Studio> studios2 = model.Studio.getStdios();
 			ComboBox<Studio> studioss2=new ComboBox<>(FXCollections.observableArrayList(studios2));
 			studioss2.setPromptText("请选择演出厅：");
 			DatePicker play_date=new DatePicker();
@@ -171,7 +171,7 @@ public class Schedule implements ScheduleIf{
 	@Override
 	public boolean delete(int id) {
 		// TODO Auto-generated method stub
-		List<service.Studio> studios1= service.Studio.getStdios();
+		List<model.Studio> studios1= model.Studio.getStdios();
 		ComboBox<Studio> studioss1=new ComboBox<>(FXCollections.observableArrayList(studios1));
 		VBox vBox=new VBox();
 		
@@ -219,7 +219,7 @@ public class Schedule implements ScheduleIf{
 		Text quetext=new Text("查询演出计划：");
 		quetext.setFill(Color.DARKGRAY);
 		quetext.setFont(new Font(25));
-		List<service.Studio> delstud= service.Studio.getStdios();
+		List<model.Studio> delstud= model.Studio.getStdios();
 		ComboBox<Studio> delstuds=new ComboBox<>(FXCollections.observableArrayList(delstud));
 		delstuds.setPromptText("请选择演出厅..");
 		Button del_bt=new Button("查询");
@@ -232,7 +232,7 @@ public class Schedule implements ScheduleIf{
 	}
 
 	@Override
-	public List<service.Schedule> listByPlay(Play play) {
+	public List<model.Schedule> listByPlay(Play play) {
 		// TODO Auto-generated method stub
 		return null;         //what???????????????????????????????????????????????????
 	}

@@ -1,9 +1,9 @@
-package service;
+package model;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import service.enums.SEAT_STATUS;
+import model.enums.SEAT_STATUS;
 
 public class Studio {
 	private int id ;

@@ -1,6 +1,6 @@
-package service;
+package model;
 
-import service.enums.SEAT_STATUS;
+import model.enums.SEAT_STATUS;
 
 public class Seat {
 	public Seat(int id, int roomID, int row, int col, SEAT_STATUS status) {

@@ -1,9 +1,9 @@
-package service;
+package model;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import service.enums.ACCOUNT_TYPE;
+import model.enums.ACCOUNT_TYPE;
 
 public class Account {
 	private int uid;

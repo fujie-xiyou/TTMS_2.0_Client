@@ -1,6 +1,6 @@
-package service;
+package model;
 
-import service.enums.TICKET_STATUS;
+import model.enums.TICKET_STATUS;
 
 public class Ticket {
 	private int id;

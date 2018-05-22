@@ -1,4 +1,4 @@
-package service.enums;
+package model.enums;
 
 public enum TICKET_STATUS{
 	AVL(0,"待售"),

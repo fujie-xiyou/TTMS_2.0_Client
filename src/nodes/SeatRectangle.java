@@ -1,8 +1,8 @@
 package nodes;
 
 import javafx.scene.shape.Rectangle;
-import service.Seat;
-import service.Ticket;
+import model.Seat;
+import model.Ticket;
 
 public class SeatRectangle extends Rectangle {
 	private Seat seat;
