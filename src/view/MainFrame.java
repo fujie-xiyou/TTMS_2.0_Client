@@ -131,6 +131,7 @@ public class MainFrame implements MainIf {
 		Text text = new Text(message);
 		bottom.removeAll(bottom);
 		bottom.add(text);
+		
 		/*
 		try {
 			Thread.sleep(2000);
@@ -139,6 +140,7 @@ public class MainFrame implements MainIf {
 		}
 		bottom.removeAll(bottom);
 		*/
+		
 	}
 
 }

@@ -1,10 +1,6 @@
 package view;
-
-import java.util.List;
-
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -60,7 +56,7 @@ public class Login extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		login.setOnAction(e -> {
-			//pane.getChildren().add(msg);
+//			pane.getChildren().add(msg);
 //			msg.setFill(Color.GREEN);
 //			msg.setText("正在登录.....");
 			if (!name.getText().isEmpty()) {
