@@ -7,10 +7,10 @@ import model.Account;
 
 public interface AccountIf {
 	public void mhtEntry();
-	public void add(List<Account> accounts);
-	public void modify(List<Account> accounts, Account account);
-	public void delete(List<Account> accounts, Account account);
-	public void query(List<Account> accounts, Account account);
+	public void add();
+	public void modify(Account account);
+	public void delete(Account account);
+	public void query(Account account);
 	public void logout(Stage mainFrame);
 	
 }

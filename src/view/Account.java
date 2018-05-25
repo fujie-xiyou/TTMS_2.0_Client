@@ -31,7 +31,7 @@ public class Account implements AccountIf {
 	private AccountSer accountSer = new AccountSer(); 
 	@Override
 	public void mhtEntry() {
-		List<model.Account> accounts = accountSer.fetchAll();
+		List<model.Account> accounts = accountSer.fetchAll(false);
 		// TODO 自动生成的方法存根
 		MainFrame.center.removeAll(MainFrame.center);
 		MainFrame.top.removeAll(MainFrame.top);
@@ -46,7 +46,7 @@ public class Account implements AccountIf {
 		*/
 		add.setOnAction(e -> {
 			add.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
-			add(accounts);//调用添加用户面板
+			add();//调用添加用户面板
 		});
 		/*
 		mod.setOnAction(e -> {
@@ -69,9 +69,9 @@ public class Account implements AccountIf {
 			//centerPane.add(new Text(account.getPassword()),3 , row);
 			Button mod = new Button("修改") , del = new Button("删除");
 			mod.getStyleClass().add("my-button");
-			mod.setOnAction(e -> modify(accounts, account));
+			mod.setOnAction(e -> modify(account));
 			del.getStyleClass().add("my-button");
-			del.setOnAction(e -> delete(accounts, account));
+			del.setOnAction(e -> delete( account));
 			centerPane.add(mod, 4, row);
 			centerPane.add(del, 5, row);
 			row++;
@@ -81,7 +81,7 @@ public class Account implements AccountIf {
 
 	@SuppressWarnings("unused")
 	@Override
-	public void add(List<model.Account> accounts) {
+	public void add() {
 		// TODO 自动生成的方法存根
 		VBox centerPane = new VBox();//添加用户界面将使用VBox布局
 		//centerPane.setAlignment(Pos.TOP_CENTER);//面板内容居中
@@ -136,7 +136,6 @@ public class Account implements AccountIf {
 				model.Account account = new model.Account(-1,type,name,pass);
 				Result result = accountSer.add(account);
 				if(result.isStatus()) {
-					accounts.add(account);
 					MainFrame.popupMessage("用户 "+name+" 新增成功!");
 				}
 				else {
@@ -151,7 +150,7 @@ public class Account implements AccountIf {
 	}
 
 	@Override
-	public void modify(List<model.Account> accounts, model.Account account) {
+	public void modify(model.Account account) {
 		// TODO 自动生成的方法存根
 		MainFrame.center.removeAll(MainFrame.center);
 		GridPane centerPane = new GridPane();
@@ -181,7 +180,11 @@ public class Account implements AccountIf {
 		ok.setOnAction(e -> {
 			account.setUsername(name.getText());
 			account.setType(type.getValue());
-			if(!password.getText().isEmpty()) account.setPassword(password.getText());
+			String pass = password.getText();
+			if(!pass.isEmpty()) {
+				pass = Hashing.md5().newHasher().putString(password.getText(), Charsets.UTF_8).hash().toString();
+				account.setPassword(pass);
+			}
 			//后续要调用业务逻辑层的修改方法
 			mhtEntry();
 		});
@@ -189,14 +192,14 @@ public class Account implements AccountIf {
 	}
 
 	@Override
-	public void delete(List<model.Account> accounts, model.Account account) {
+	public void delete(model.Account account) {
 		// TODO 自动生成的方法存根
-		accounts.remove(account);
+		accountSer.fetchAll(false).remove(account);
 		mhtEntry();
 	}
 
 	@Override
-	public void query(List<model.Account> accounts, model.Account account) {
+	public void query(model.Account account) {
 		// TODO 自动生成的方法存根
 	
 	}

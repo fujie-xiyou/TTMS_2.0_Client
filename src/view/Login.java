@@ -2,6 +2,7 @@ package view;
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -62,6 +63,12 @@ public class Login extends Application {
 			if (!name.getText().isEmpty()) {
 				String pass = Hashing.md5().newHasher().putString(password.getText(), Charsets.UTF_8).hash().toString();
 				model.Account account = new model.Account(-1, null, name.getText(), pass);
+				new Thread(new Task<Result>() {
+					@Override
+					protected Result call() {
+						return new AccountSer().login(account);
+					}
+				}).start();
 				Result result = new AccountSer().login(account);
 				if (result.isStatus()) {
 					primaryStage.close();
