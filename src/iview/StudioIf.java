@@ -1,4 +1,4 @@
-package view;
+package iview;
 
 public interface StudioIf {
 	public void mgtEntry();

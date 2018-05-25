@@ -1,4 +1,4 @@
-package view;
+package iview;
 
 import model.Seat;
 

@@ -1,5 +1,6 @@
 package view;
 
+import iview.QueriesMenuIf;
 import nodes.TopButton;
 
 public class QueriesMenu implements QueriesMenuIf {

@@ -11,31 +11,15 @@ import java.net.URL;
 
 import com.google.gson.Gson;
 
+import model.CustomResp;
 import model.Result;
-class CustomResp{
-	private String resultJSON;
-	private String objectJSON;
-	public CustomResp(String resultJSON ,String objectJSON) {
-		this.resultJSON = resultJSON;
-		this.objectJSON = objectJSON;
-	}
-	public String getResultJSON() {
-		return resultJSON;
-	}
-	public void setResultJSON(String resultJSON) {
-		this.resultJSON = resultJSON;
-	}
-	public String getObjectJSON() {
-		return objectJSON;
-	}
-	public void setObjectJSON(String objectJSON) {
-		this.objectJSON = objectJSON;
-	}
-	
-}
+
 public class HttpCommon {
 	private static final String url = "http://localhost:8080"; 
 	private static String cookie = null;
+	public static void setCookie(String cookie) {
+		HttpCommon.cookie = cookie;
+	}
 	public CustomResp doHttp(String path ,String method, String data) {
 		path = url + path;
 		try {
@@ -68,7 +52,7 @@ public class HttpCommon {
 				
 				//如果获取到的Cookie和预计的不一致有可能抛出空指针异常
 				cookie = cookie.split(";\40")[0];
-				System.out.println(cookie);
+				//System.out.println(cookie);
             }
 			int code = conn.getResponseCode();
 			if(code == 200) {

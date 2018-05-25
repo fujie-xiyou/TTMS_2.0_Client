@@ -3,6 +3,11 @@ package view;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
+
+import iview.AccountIf;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,12 +21,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Result;
 import model.enums.ACCOUNT_TYPE;
 import nodes.TopButton;
+import service.AccountSer;
+import service.HttpCommon;
 public class Account implements AccountIf {
 	public static model.Account CurUser;
+	private AccountSer accountSer = new AccountSer(); 
 	@Override
-	public void mhtEntry(List<model.Account> accounts) {
+	public void mhtEntry() {
+		List<model.Account> accounts = accountSer.fetchAll();
 		// TODO 自动生成的方法存根
 		MainFrame.center.removeAll(MainFrame.center);
 		MainFrame.top.removeAll(MainFrame.top);
@@ -118,24 +128,26 @@ public class Account implements AccountIf {
 		
 		add.setOnAction(e -> {
 			String name = nameField.getText();
-			String pass = passField.getText();
+			String pass = Hashing.md5().newHasher().putString(passField.getText(), Charsets.UTF_8).hash().toString();
 			ACCOUNT_TYPE type = typeBox.getValue();
 			//ACCOUNT_TYPE type = 
 			if(!name.isEmpty() && !pass.isEmpty()  && type != null) {
-				model.Account account = new model.Account(-1,type,name,/*用md5加密*/pass);
-				if(/*调用业务逻辑层新增用户的方法成功执行*/ true) {
+				
+				model.Account account = new model.Account(-1,type,name,pass);
+				Result result = accountSer.add(account);
+				if(result.isStatus()) {
 					accounts.add(account);
 					MainFrame.popupMessage("用户 "+name+" 新增成功!");
 				}
 				else {
-					MainFrame.popupMessage("新增用户失败");
+					MainFrame.popupMessage("新增用户失败:"+result.getReasons());
 				}
 			}else {
 				MainFrame.popupMessage("请检查输入!");
 			}
 			
 		});
-		cla.setOnAction(e -> mhtEntry(accounts));
+		cla.setOnAction(e -> mhtEntry());
 	}
 
 	@Override
@@ -171,16 +183,16 @@ public class Account implements AccountIf {
 			account.setType(type.getValue());
 			if(!password.getText().isEmpty()) account.setPassword(password.getText());
 			//后续要调用业务逻辑层的修改方法
-			mhtEntry(accounts);
+			mhtEntry();
 		});
-		cla.setOnAction(e -> mhtEntry(accounts));
+		cla.setOnAction(e -> mhtEntry());
 	}
 
 	@Override
 	public void delete(List<model.Account> accounts, model.Account account) {
 		// TODO 自动生成的方法存根
 		accounts.remove(account);
-		mhtEntry(accounts);
+		mhtEntry();
 	}
 
 	@Override
@@ -191,6 +203,7 @@ public class Account implements AccountIf {
 	@Override
 	public void logout(Stage mainFrame) {
 		Account.CurUser = null;
+		HttpCommon.setCookie(null);
 		mainFrame.close();
 		Login.login.show();
 	}

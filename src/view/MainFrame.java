@@ -5,6 +5,12 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
+import iview.AccountIf;
+import iview.MainIf;
+import iview.PlayIf;
+import iview.QueriesMenuIf;
+import iview.SaleIf;
+import iview.ScheduleIf;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
@@ -96,8 +102,7 @@ public class MainFrame implements MainIf {
 		acc.setOnAction(e -> {
 			acc.recover();
 			AccountIf account = new Account();
-			List<model.Account> accounts = model.Account.getAccounts();
-			account.mhtEntry(accounts);
+			account.mhtEntry();
 		});
 		
 		//剧目管理

@@ -2,6 +2,8 @@ package view;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import iview.SaleIf;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
