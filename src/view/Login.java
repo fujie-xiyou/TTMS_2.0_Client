@@ -63,12 +63,20 @@ public class Login extends Application {
 			if (!name.getText().isEmpty()) {
 				String pass = Hashing.md5().newHasher().putString(password.getText(), Charsets.UTF_8).hash().toString();
 				model.Account account = new model.Account(-1, null, name.getText(), pass);
-				new Thread(new Task<Result>() {
+				
+				Task<Result> task = new Task<Result>() {
 					@Override
 					protected Result call() {
-						return new AccountSer().login(account);
+						return new AccountSer().login(account);					
 					}
-				}).start();
+					@Override
+					protected void running() {
+						msg.setFill(Color.GREEN);
+						msg.setText("正在登录......");
+						super.running();
+					}
+				};
+				new Thread(task).start();
 				Result result = new AccountSer().login(account);
 				if (result.isStatus()) {
 					primaryStage.close();

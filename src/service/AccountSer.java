@@ -28,7 +28,12 @@ public class AccountSer {
 		//若isReload为true 则强制从服务器重新获取数据
 		if(accounts == null || isReload) {
 			CustomResp cr = httpCommon.doHttp("/account/fetchAll", "GET", null);
-			accounts = json.fromJson(cr.getObjectJSON(), new TypeToken<List<Account>>(){}.getType());
+			accounts = json.fromJson(cr.getObjectJSON(), new TypeToken<List<Account>>(){
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;}.getType());
 		}
 		return accounts;
 	}
