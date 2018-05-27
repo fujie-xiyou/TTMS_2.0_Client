@@ -94,7 +94,6 @@ public class Schedule implements ScheduleIf{
 		gPane.add(studiotime, 0, 2);  //时间label
 		gPane.add(studiotimefild, 1, 2);  //填入时间
 		Button ok=new Button("确认");
-		ok.getStyleClass().add("my-button");
 		gPane.add(ok, 1, 3);
 		//类型转换
 	/*	Studio studiostr =studioss.getValue();
@@ -130,7 +129,6 @@ public class Schedule implements ScheduleIf{
 		TextField plan=new TextField();
 		plan.setPromptText("演出计划ID：");
 		Button ok2=new Button("修改");
-		ok2.getStyleClass().add("my-button");
 		vpane.getChildren().addAll(text2,plan,ok2);
 		ok2.setOnAction(e->{
 			//具体修改内容
@@ -148,7 +146,6 @@ public class Schedule implements ScheduleIf{
 			TextField play_time=new TextField();
 			play_time.setPromptText("请输入演出时间：");
 			Button mod_ok=new Button("确认修改");
-			mod_ok.getStyleClass().add("my-button");
 			vpane.getChildren().addAll(play_id,studioss2,play_date,play_time,mod_ok);
 			
 			mod_ok.setOnAction(Event->{   //
@@ -192,7 +189,6 @@ public class Schedule implements ScheduleIf{
 		studioss1.setPromptText("请选择演出厅..");
 		
 		Button ok1=new Button("确定");
-		ok1.getStyleClass().add("my-button");
 		vBox.getChildren().addAll(text1,studioss1,ok1);
 		ok1.setOnAction(e->{
 			MainFrame.popupMessage("删除成功!");
@@ -225,7 +221,6 @@ public class Schedule implements ScheduleIf{
 		ComboBox<Studio> delstuds=new ComboBox<>(FXCollections.observableArrayList(delstud));
 		delstuds.setPromptText("请选择演出厅..");
 		Button del_bt=new Button("查询");
-		del_bt.getStyleClass().add("my-button");
 		quepane.getChildren().addAll(quetext,delstuds,del_bt);
 		del_bt.setOnAction(Event->{      //不能显示所选演出厅剧目信息??????????????????????????????????????????????????????????????
 			                             //咋显示出来啊。。。

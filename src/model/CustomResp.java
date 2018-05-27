@@ -1,32 +1,45 @@
 package model;
+
 import com.google.gson.Gson;
 
-public class CustomResp{
+public class CustomResp {
 	private String resultJSON;
 	private String objectJSON;
-	public CustomResp(String resultJSON ,String objectJSON) {
+	private Gson json = new Gson();
+
+	public CustomResp(String resultJSON, String objectJSON) {
 		this.resultJSON = resultJSON;
 		this.objectJSON = objectJSON;
 	}
-	public CustomResp(){
+
+	public CustomResp(Result result, Object object) {
+		this.resultJSON = json.toJson(result);
+		this.objectJSON = json.toJson(object);
+	}
+
+	public CustomResp() {
 
 	}
+
 	@Override
-	public String toString(){
-		return this.resultJSON+"\n"+objectJSON;
+	public String toString() {
+		return this.resultJSON + "\n" + objectJSON;
 	}
 
 	public String getResultJSON() {
 		return resultJSON;
 	}
+
 	public void setResultJSON(Result result) {
-		this.resultJSON = new Gson().toJson(result);
+		this.resultJSON = json.toJson(result);
 	}
+
 	public String getObjectJSON() {
 		return objectJSON;
 	}
+
 	public void setObjectJSON(Object object) {
-		this.objectJSON = new Gson().toJson(object);
+		this.objectJSON = json.toJson(object);
 	}
-	
+
 }

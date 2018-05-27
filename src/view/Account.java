@@ -3,18 +3,18 @@ package view;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
-
 import iview.AccountIf;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -31,8 +31,6 @@ public class Account implements AccountIf {
 	private AccountSer accountSer = new AccountSer(); 
 	@Override
 	public void mhtEntry() {
-		List<model.Account> accounts = accountSer.fetchAll(false);
-		// TODO 自动生成的方法存根
 		MainFrame.center.removeAll(MainFrame.center);
 		MainFrame.top.removeAll(MainFrame.top);
 		TopButton add = new TopButton("添加用户");
@@ -40,43 +38,59 @@ public class Account implements AccountIf {
 		/*		  mod = new TopButton("修改"),
 				  del = new TopButton("删除"),
 				  que = new TopButton("查询");
-		MainFrame.top.addAll(add,mod,del,que);
+		MainFrame.top.addAll(add,mod,del,que);*/
 		
-		List<service.Account> accounts = null;//假的用户列表
-		*/
-		add.setOnAction(e -> {
-			add.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
-			add();//调用添加用户面板
-		});
-		/*
-		mod.setOnAction(e -> {
-			mod.recover();
-			modify(accounts);
-		});*/
-		GridPane centerPane = new GridPane();
-		centerPane.setVgap(20);
-		centerPane.setHgap(30);
-		centerPane.setPadding(new Insets(30));
-		centerPane.add(new Text("用户ID"), 0, 0);
-		centerPane.add(new Text("用户名"), 1, 0);
-		centerPane.add(new Text("用户类型"), 2, 0);
-		//centerPane.add(new Text("密码"), 3, 0);
-		int row = 1;
-		for(model.Account account : accounts) {
-			centerPane.add(new Text(account.getUid()+""),0 , row);
-			centerPane.add(new Text(account.getUsername()),1 , row);
-			centerPane.add(new Text(account.getType().toString()),2 , row);
-			//centerPane.add(new Text(account.getPassword()),3 , row);
-			Button mod = new Button("修改") , del = new Button("删除");
-			mod.getStyleClass().add("my-button");
-			mod.setOnAction(e -> modify(account));
-			del.getStyleClass().add("my-button");
-			del.setOnAction(e -> delete( account));
-			centerPane.add(mod, 4, row);
-			centerPane.add(del, 5, row);
-			row++;
-		}
-		MainFrame.center.add(centerPane);
+		new Thread(new Task<List<model.Account>>() {
+			@Override
+			public List<model.Account> call(){
+				return accountSer.fetchAll();
+			}
+			@Override
+			public void running() {
+				MainFrame.center.add(new ImageView("file:Resource/loading1.gif"));
+			}
+			@Override 
+			public void succeeded() {
+				MainFrame.center.removeAll(MainFrame.center);
+				List<model.Account> accounts = getValue();
+				add.setOnAction(e -> {
+					add.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
+					add();//调用添加用户面板
+				});
+				/*
+				mod.setOnAction(e -> {
+					mod.recover();
+					modify(accounts);
+				});*/
+				GridPane centerPane = new GridPane();
+				centerPane.setVgap(20);
+				centerPane.setHgap(30);
+				centerPane.setPadding(new Insets(30));
+				centerPane.add(new Text("用户ID"), 0, 0);
+				centerPane.add(new Text("用户名"), 1, 0);
+				centerPane.add(new Text("用户类型"), 2, 0);
+				//centerPane.add(new Text("密码"), 3, 0);
+				int row = 1;
+				for(model.Account account : accounts) {
+					centerPane.add(new Text(account.getUid()+""),0 , row);
+					centerPane.add(new Text(account.getUsername()),1 , row);
+					centerPane.add(new Text(account.getType().toString()),2 , row);
+					//centerPane.add(new Text(account.getPassword()),3 , row);
+					Button mod = new Button("修改") , del = new Button("删除");
+					mod.setOnAction(e -> modify(account));
+					del.setOnAction(e -> delete( account));
+					centerPane.add(mod, 4, row);
+					centerPane.add(del, 5, row);
+					row++;
+				}
+				MainFrame.center.add(centerPane);
+			}
+		}).start();
+
+		
+	//	List<service.Account> accounts = null;//假的用户列表
+		
+		
 	}
 
 	@SuppressWarnings("unused")
@@ -122,8 +136,6 @@ public class Account implements AccountIf {
 		passField.setPromptText("密码");
 		Button add = new Button("  添加  ");
 		Button cla = new Button("  返回  ");
-		add.getStyleClass().add("my-button");//为按钮添加my-button类型(css类型) 以获得扁平蓝色按钮
-		cla.getStyleClass().add("my-button");
 		centerPane.getChildren().addAll(text,typeBox,nameField ,passField,add,cla);
 		
 		add.setOnAction(e -> {
@@ -172,8 +184,6 @@ public class Account implements AccountIf {
 		centerPane.add(password, 1, 3);
 		Button ok = new Button("确认");
 		Button cla = new Button("返回");
-		ok.getStyleClass().add("my-button");
-		cla.getStyleClass().add("my-button");
 		centerPane.add(ok, 0, 4);
 		centerPane.add(cla, 1, 4);
 		MainFrame.center.add(centerPane);
@@ -194,7 +204,7 @@ public class Account implements AccountIf {
 	@Override
 	public void delete(model.Account account) {
 		// TODO 自动生成的方法存根
-		accountSer.fetchAll(false).remove(account);
+		accountSer.fetchAll().remove(account);
 		mhtEntry();
 	}
 

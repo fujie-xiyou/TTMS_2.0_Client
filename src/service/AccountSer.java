@@ -23,10 +23,12 @@ public class AccountSer {
 		}
 		return result;
 	}
-
-	public List<Account> fetchAll(boolean isReload){
+	public static void cleanList() {
+		accounts = null;
+	}
+	public List<Account> fetchAll(){
 		//若isReload为true 则强制从服务器重新获取数据
-		if(accounts == null || isReload) {
+		if(accounts == null) {
 			CustomResp cr = httpCommon.doHttp("/account/fetchAll", "GET", null);
 			accounts = json.fromJson(cr.getObjectJSON(), new TypeToken<List<Account>>(){
 

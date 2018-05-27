@@ -23,7 +23,6 @@ public class QueryPlay implements QueryPlayIf{
 		fileName.setPromptText("请输入剧目名称:");
 	//	String fileNames=fileName.getText();
 		Button check=new Button("开始查询");
-		check.getStyleClass().add("my-button");
 		play.getChildren().addAll(playText,fileName,check);
 		playText.setTranslateY(-50);
 		fileName.setTranslateY(-20);
@@ -61,7 +60,6 @@ public class QueryPlay implements QueryPlayIf{
 		id.setPromptText("请输入剧目名称:");
 		//String ids=id.getText();
 		Button check1=new Button("开始查询");
-		check1.getStyleClass().add("my-button");
 		sch.getChildren().addAll(schText,id,check1);
 		schText.setTranslateY(-50);
 		id.setTranslateY(-20);

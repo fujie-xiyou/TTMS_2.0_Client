@@ -99,11 +99,8 @@ public class Play implements PlayIf {
 		grid.setPadding(new Insets(30,width*2.0/7,0,width*2.0/7));//面板上左右内边距*/
 		 
 		 Button saveBtn = new Button("保存");
-		 saveBtn.getStyleClass().add("my-button");
 	     Button cleanBtn = new Button("清空");
-	     cleanBtn.getStyleClass().add("my-button");
 	     Button backBtn = new Button("返回");
-	     backBtn.getStyleClass().add("my-button");
 		 HBox buttonBox = new HBox(saveBtn, cleanBtn,backBtn);
 	     saveBtn.setMaxWidth(Double.MAX_VALUE);
 	     cleanBtn.setMaxWidth(Double.MAX_VALUE);
@@ -259,8 +256,6 @@ public class Play implements PlayIf {
 		grid.add(imgUrl, 1, 9);
 		Button save = new Button("保存");
 		Button ret = new Button("返回");
-		save.getStyleClass().add("my-button");
-		ret.getStyleClass().add("my-button");
 		HBox hBoxButt = new HBox();
 		hBoxButt.setAlignment(Pos.CENTER);
 		hBoxButt.setSpacing(50);
@@ -297,7 +292,6 @@ public class Play implements PlayIf {
 		TextField IdField=new TextField();
 		IdField.setPromptText("请输入剧目ID:"); 
 		Button Del=new Button("删除");
-		Del.getStyleClass().add("my-button");
 		grid.add(delId, 40, 40);
 		grid.add(IdField, 45, 40);
 		grid.add(Del, 50, 40);
@@ -359,9 +353,6 @@ public class Play implements PlayIf {
 		Button mod = new Button("修改");
 		Button del = new Button("删除");
 		Button ret = new Button("返回");
-		mod.getStyleClass().add("my-button");
-		del.getStyleClass().add("my-button");
-		ret.getStyleClass().add("my-button");
 		HBox hBoxButt = new HBox();
 		hBoxButt.setAlignment(Pos.CENTER);
 		hBoxButt.setSpacing(50);

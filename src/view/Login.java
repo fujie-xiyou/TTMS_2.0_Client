@@ -1,4 +1,5 @@
 package view;
+
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import javafx.application.Application;
@@ -9,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -38,8 +41,8 @@ public class Login extends Application {
 		pane.setAlignment(Pos.CENTER);
 		double w = Screen.getPrimary().getBounds().getWidth();
 		pane.setPrefWidth(w / 4);
-		pane.setPrefHeight(w / 4 / 4 * 3);
-		pane.setPadding(new Insets(w / 4 / 4));
+		//pane.setPrefHeight(w / 4 / 4 * 3);
+		pane.setPadding(new Insets(w / 4 / 5,w/4/5,w/4/7,w/4/5));
 		pane.setSpacing(30);
 		Text title = new Text("HLW剧院票务管理系统");
 		title.setFont(new Font(25));
@@ -48,47 +51,59 @@ public class Login extends Application {
 		PasswordField password = new PasswordField();
 		password.setPromptText("密码");
 		Button login = new Button("登录");
-		login.getStyleClass().add("my-button");
+		login.setDefaultButton(true);
+		login.getStyleClass().add("login-button");
 		Text msg = new Text();
 		msg.setFill(Color.RED);
 		pane.getChildren().addAll(title ,name, password, login,msg);
 		Scene scene = new Scene(pane);
-		scene.getStylesheets().add(getClass().getResource("MainStyle.css").toExternalForm());
+		//scene.getStylesheets().add(getClass().getResource("MainStyle.css").toExternalForm());
+		scene.getStylesheets().add("file:Resource/MainStyle.css");
+
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		login.setOnAction(e -> {
-//			pane.getChildren().add(msg);
-//			msg.setFill(Color.GREEN);
-//			msg.setText("正在登录.....");
+		login.setOnAction(e -> {		
 			if (!name.getText().isEmpty()) {
+				login.setDisable(true);
 				String pass = Hashing.md5().newHasher().putString(password.getText(), Charsets.UTF_8).hash().toString();
 				model.Account account = new model.Account(-1, null, name.getText(), pass);
 				
 				Task<Result> task = new Task<Result>() {
 					@Override
-					protected Result call() {
-						return new AccountSer().login(account);					
+					protected Result call() throws Exception{
+						try {
+							return new AccountSer().login(account);
+						}catch(Exception e) {
+							e.printStackTrace();
+						}
+						return null;
 					}
 					@Override
 					protected void running() {
-						msg.setFill(Color.GREEN);
-						msg.setText("正在登录......");
+						login.setGraphic(new ImageView(new Image("file:Resource/loading2.gif", 12, 12, true, true)));
+						login.setText("登录中");
 						super.running();
+					}
+					@Override
+					protected void succeeded() {
+						login.setGraphic(null);
+						login.setText("登录");
+						login.setDisable(false);
+						Result result = getValue();
+						if (result.isStatus()) {
+							primaryStage.close();
+							msg.setText(null);
+							new MainFrame().mainFrame();
+						}else {
+							msg.setText(null);
+							for(String str : result.getReasons()) {
+								msg.setText(msg.getText()+"\n●"+str);
+							}
+						}	
 					}
 				};
 				new Thread(task).start();
-				Result result = new AccountSer().login(account);
-				if (result.isStatus()) {
-					primaryStage.close();
-					msg.setText(null);
-					new MainFrame().mainFrame();
-				}else {
-					//msg.setText(null);
-					
-					for(String str : result.getReasons()) {
-						msg.setText(msg.getText()+"\n●"+str);
-					}
-				}
+				
 				//pane.getChildren().remove(msg);
 			}
 		});

@@ -88,7 +88,6 @@ public class Sale implements SaleIf {
 		ImageView image = new ImageView( new Image(play.getImgUrl(),w/10,0,true,false));
 		image.setPreserveRatio(true);
 		Button ret = new Button("返回");
-		ret.getStyleClass().add("my-button");
 		ret.setOnAction(e -> mgtEntry(studios ,plays));
 		FlowPane retButtPane = new FlowPane();
 		//FlowPane是膨胀式面板，它会占据上级面板所有剩余空间
@@ -122,7 +121,6 @@ public class Sale implements SaleIf {
 			schListPane.add(new Text(schedule.getSeatCount()+""), 2, row);
 			schListPane.add(new Text("￥"+schedule.getPlayByID(plays, schedule.getId()).getPrice()+""), 3, row);
 			Button buy = new Button("购买");
-			buy.getStyleClass().add("my-button");
 			FlowPane buyButt = new FlowPane();
 			buyButt.setAlignment(Pos.BASELINE_RIGHT);
 			buyButt.getChildren().add(buy);
@@ -172,9 +170,7 @@ public class Sale implements SaleIf {
 		outer.setSpacing(30);
 		outer.getChildren().add(hBox);
 		Button buy = new Button("确认");
-		buy.getStyleClass().add("my-button");
 		Button cal = new Button("返回");
-		cal.getStyleClass().add("my-button");
 		hBox.getChildren().addAll(buy,cal);
 		buy.setOnAction(e -> {
 			if(!chosedTicket.isEmpty()) {
