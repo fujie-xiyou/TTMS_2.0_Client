@@ -1,11 +1,13 @@
 package nodes;
 
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import view.MainFrame;
 
 public class LeftButton extends Button{
@@ -20,6 +22,22 @@ public class LeftButton extends Button{
 		MainFrame.bottom.removeAll(MainFrame.bottom);
 		this.getStyleClass().remove("left-clicked");
 		this.getStyleClass().add("left--button");
+		ScaleTransition enteredScaleTransition =   
+                new ScaleTransition(Duration.millis(200), this);  
+		enteredScaleTransition.setToX(1.5f);  
+		enteredScaleTransition.setToY(1.5f);  
+		//enteredScaleTransition.setCycleCount(1);
+		ScaleTransition exitedScaleTransition = new ScaleTransition(Duration.millis(200),this);
+		exitedScaleTransition.setToX(1);
+		exitedScaleTransition.setToY(1);
+            //scaleTransition.setAutoReverse(true);  
+            this.setOnMouseEntered(e -> {
+            	enteredScaleTransition.play();
+            });
+            this.setOnMouseExited(e -> {
+            	exitedScaleTransition.play();
+            });
+        //scaleTransition.play();  
 //		// 设置按钮颜色
 //		this.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, null, null)));
 //
