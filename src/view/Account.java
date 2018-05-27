@@ -16,6 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -136,7 +137,9 @@ public class Account implements AccountIf {
 		passField.setPromptText("密码");
 		Button add = new Button("  添加  ");
 		Button cla = new Button("  返回  ");
-		centerPane.getChildren().addAll(text,typeBox,nameField ,passField,add,cla);
+		HBox hBox = new HBox(add,cla);
+		hBox.setSpacing(20);
+		centerPane.getChildren().addAll(text,typeBox,nameField ,passField,hBox);
 		
 		add.setOnAction(e -> {
 			String name = nameField.getText();
