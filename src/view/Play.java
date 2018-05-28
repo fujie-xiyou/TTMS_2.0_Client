@@ -3,8 +3,6 @@ package view;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import iview.PlayIf;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,9 +25,8 @@ import model.enums.PLAY_RATING;
 import model.enums.PLAY_TYPE;
 import nodes.TopButton;
 
-public class Play implements PlayIf {
+public class Play{
 
-	@Override
 	public void mgtEntry(List<model.Play> plays) {
 		// TODO Auto-generated method stub
 		TopButton add = new TopButton("添加剧目");
@@ -85,9 +82,8 @@ public class Play implements PlayIf {
 	//		showList(service.Play.this.getPlays()); 
 		});*/
 
-	
+
 	@SuppressWarnings("unused")
-	@Override
 	public boolean add(List<model.Play> plays) {
 		// TODO Auto-generated method stub
 		
@@ -211,7 +207,7 @@ public class Play implements PlayIf {
 	        return true;	
 	}
 
-	@Override
+
 	public boolean modify(List<model.Play> plays ,model.Play play) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
@@ -280,7 +276,7 @@ public class Play implements PlayIf {
 		return false;
 	}
 
-	@Override
+
 	public boolean delece(List<model.Play> plays ,model.Play play) {
 		// TODO Auto-generated method stub
 		GridPane grid = new GridPane();
@@ -311,7 +307,6 @@ public class Play implements PlayIf {
 		return false;
 	}
 
-	@Override
 	public boolean query(List<model.Play> plays, model.Play play) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
@@ -369,7 +364,7 @@ public class Play implements PlayIf {
 		return false;
 	}
 
-	@Override
+
 	public void showList(List<model.Play> plays) {
 		
 		// TODO Auto-generated method stub

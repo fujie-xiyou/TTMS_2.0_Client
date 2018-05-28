@@ -1,5 +1,4 @@
 package view;
-import iview.QueryPlayIf;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,9 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class QueryPlay implements QueryPlayIf{
+public class QueryPlay{
 
-	@Override
 	public void queryPlayIf() {
 		VBox play=new VBox(50);
 		// TODO Auto-generated method stub

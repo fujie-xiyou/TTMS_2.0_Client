@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
-import iview.AccountIf;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
@@ -22,15 +21,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.LoginUser;
 import model.Result;
 import model.enums.ACCOUNT_TYPE;
 import nodes.TopButton;
 import service.AccountSer;
 import service.HttpCommon;
-public class Account implements AccountIf {
+import tools.LoadingButton;
+public class Account {
 	public static model.Account CurUser;
 	private AccountSer accountSer = new AccountSer(); 
-	@Override
+
 	public void mhtEntry() {
 		MainFrame.center.removeAll(MainFrame.center);
 		MainFrame.top.removeAll(MainFrame.top);
@@ -79,7 +80,7 @@ public class Account implements AccountIf {
 					//centerPane.add(new Text(account.getPassword()),3 , row);
 					Button mod = new Button("修改") , del = new Button("删除");
 					mod.setOnAction(e -> modify(account));
-					del.setOnAction(e -> delete( account));
+					del.setOnAction(e -> delete( account,del));
 					centerPane.add(mod, 4, row);
 					centerPane.add(del, 5, row);
 					row++;
@@ -94,8 +95,6 @@ public class Account implements AccountIf {
 		
 	}
 
-	@SuppressWarnings("unused")
-	@Override
 	public void add() {
 		// TODO 自动生成的方法存根
 		VBox centerPane = new VBox();//添加用户界面将使用VBox布局
@@ -136,7 +135,9 @@ public class Account implements AccountIf {
 		PasswordField passField = new PasswordField();
 		passField.setPromptText("密码");
 		Button add = new Button("  添加  ");
+		add.setDefaultButton(true);
 		Button cla = new Button("  返回  ");
+		cla.setCancelButton(true);
 		HBox hBox = new HBox(add,cla);
 		hBox.setSpacing(20);
 		centerPane.getChildren().addAll(text,typeBox,nameField ,passField,hBox);
@@ -147,15 +148,31 @@ public class Account implements AccountIf {
 			ACCOUNT_TYPE type = typeBox.getValue();
 			//ACCOUNT_TYPE type = 
 			if(!name.isEmpty() && !pass.isEmpty()  && type != null) {
-				
 				model.Account account = new model.Account(-1,type,name,pass);
-				Result result = accountSer.add(account);
-				if(result.isStatus()) {
-					MainFrame.popupMessage("用户 "+name+" 新增成功!");
-				}
-				else {
-					MainFrame.popupMessage("新增用户失败:"+result.getReasons());
-				}
+				new Thread( new Task<Result>() {
+					@Override
+					public Result call() {
+						return accountSer.add(account);
+					}
+					@Override 
+					public void running() {
+						LoadingButton.setLoading(add);
+					}
+					@Override 
+					public void succeeded() {
+						LoadingButton.setNormal(add);
+						mhtEntry();
+						Result result = getValue();
+						if (result.isStatus()) {
+							MainFrame.popupMessage("用户 " + name + " 新增成功!");
+							return;
+						} else {
+							MainFrame.popupMessage("新增用户失败:" + result.getReasons());
+						}
+						
+					}
+				}).start();
+
 			}else {
 				MainFrame.popupMessage("请检查输入!");
 			}
@@ -164,7 +181,6 @@ public class Account implements AccountIf {
 		cla.setOnAction(e -> mhtEntry());
 	}
 
-	@Override
 	public void modify(model.Account account) {
 		// TODO 自动生成的方法存根
 		MainFrame.center.removeAll(MainFrame.center);
@@ -186,7 +202,9 @@ public class Account implements AccountIf {
 		password.setPromptText("[未更改]");
 		centerPane.add(password, 1, 3);
 		Button ok = new Button("确认");
+		ok.setDefaultButton(true);
 		Button cla = new Button("返回");
+		cla.setCancelButton(true);
 		centerPane.add(ok, 0, 4);
 		centerPane.add(cla, 1, 4);
 		MainFrame.center.add(centerPane);
@@ -204,19 +222,44 @@ public class Account implements AccountIf {
 		cla.setOnAction(e -> mhtEntry());
 	}
 
-	@Override
-	public void delete(model.Account account) {
-		// TODO 自动生成的方法存根
-		accountSer.fetchAll().remove(account);
-		mhtEntry();
+	public void delete(model.Account account,Button delButton) {
+		if(account.equals(LoginUser.getLoginUser())) {
+			MainFrame.popupMessage("这个世界虽然不完美，但我们仍然可以疗愈自己。");
+			return;
+		}
+		new Thread(new Task<Result>() {
+			@Override
+			public Result call() {
+				return accountSer.delete(account);
+			}
+			@Override
+			public void running() {
+				LoadingButton.setLoading(delButton);
+			}
+			@Override
+			public void succeeded() {
+				mhtEntry();
+				LoadingButton.setNormal(delButton);
+				Result result = getValue();
+				if(result.isStatus()) {
+					MainFrame.popupMessage("已删除用户: "+account.getUsername());
+				}
+				else {
+					MainFrame.popupMessage("删除失败: "+result.getReasons());
+				}
+				
+			}
+		}).start();
+		
+		
 	}
 
-	@Override
+
 	public void query(model.Account account) {
 		// TODO 自动生成的方法存根
 	
 	}
-	@Override
+
 	public void logout(Stage mainFrame) {
 		Account.CurUser = null;
 		HttpCommon.setCookie(null);

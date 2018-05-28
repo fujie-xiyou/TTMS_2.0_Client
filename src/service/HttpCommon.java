@@ -16,14 +16,20 @@ import model.CustomResp;
 import model.Result;
 
 public class HttpCommon {
-	private static final String url = "http://localhost:8080";
+	public static String url = "http://localhost:8080";
 	private static String cookie = null;
 
 	public static void setCookie(String cookie) {
 		HttpCommon.cookie = cookie;
 	}
-
-	public CustomResp doHttp(String path, String method, String data) {
+	public CustomResp doHttp(String path) {
+		return doHttp(path,"GET",null);
+	}
+	public CustomResp doHttp(String path, Object object) {
+		return doHttp(path,"POST",object);
+	}
+	public CustomResp doHttp(String path, String method, Object object) {
+		String data = new Gson().toJson(object);
 		path = url + path;
 		try {
 			HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();

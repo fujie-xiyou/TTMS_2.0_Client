@@ -13,6 +13,13 @@ public class Account {
 		this.username = username;
 		this.password = password;
 	}
+	@Override
+	public boolean equals(Object object) {
+		if(this == object) return true;
+		if(object == null) return false;
+		if(this.getUid() == ((Account)object).getUid()) return true;
+		return false;
+	}
 //	public static List<Account> getAccounts() {
 //		//用与界面开发阶段生成测试数据
 //		List<Account> accounts = new LinkedList<>();

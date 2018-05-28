@@ -1,0 +1,14 @@
+
+.root {
+	/*-fx-background-image: url("loginBackground.jpg");*/ /*全局背景图*/
+}
+/*登录按钮*/
+.login-button {
+	-fx-padding: 5 80 5 80;
+	-fx-background-radius: 25; /*圆角弧度*/
+}
+
+.text-field {
+	-fx-background-radius: 25; /*圆角弧度*/
+	-fx-border-radius: 25;
+}

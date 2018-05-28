@@ -1,74 +1,98 @@
+
+/*全局*/
+.root {
+	/*-fx-background-color: #520;  */ /*全局背景色*/
+	-fx-background-image: url("background.jpg"); /*全局背景图*/
+	-fx-background-size: cover;
+}
+
+/*全局按钮*/
 .button {
-    -fx-text-fill: #fff;
-    -fx-background-color: linear-gradient(to right,#63b8ff,#9932cc); /*渐变色*/
-    -fx-background-radius: 10; /*圆角弧度*/
+	-fx-text-fill: #fff;
+	-fx-background-color: linear-gradient(to right, #63b8ff, #9932cc);
+	/*渐变色*/
+	-fx-background-radius: 10; /*圆角弧度*/
 }
+
 .button:hover {
-    -fx-text-fill: #fff;
-    -fx-background-color: linear-gradient(to right,#9932cc,#63b8ff);;
+	-fx-text-fill: #fff;
+	-fx-background-color: linear-gradient(to right, #9932cc, #63b8ff);;
 }
 
-
+/*左栏*/
+.left-bar{
+	-fx-background-color: rgb(220,220,220,0.5);
+	-fx-padding: 0;
+}
 /*左栏按钮的属性*/
 .left--button {
 	-fx-background-radius: 0;
-	-fx-background-color: #DCDCDC;
+	-fx-background-color: rgb(255,255,255,0);
 	-fx-text-fill: #000;
-	-fx-border-color: #DCDCDC;
+	-fx-border-color: rgb(255,255,255,0);
 }
+
 .left--button:hover {
 	-fx-background-color: #808080;
 	-fx-text-fill: #fff;
 	-fx-border-color: #808080;
 }
 /*左栏按钮被点击后*/
-.left-clicked{
-	-fx-background-radius: 0;
-	-fx-background-color: #fff;
-	-fx-text-fill: #000;
-	-fx-border-color: #fff;
-}
-.left-clicked:hover{
+.left-clicked {
 	-fx-background-radius: 0;
 	-fx-background-color: #fff;
 	-fx-text-fill: #000;
 	-fx-border-color: #fff;
 }
 
+.left-clicked:hover {
+	-fx-background-radius: 0;
+	-fx-background-color: #fff;
+	-fx-text-fill: #000;
+	-fx-border-color: #fff;
+}
+
+
+/*顶栏*/
+.top-bar{
+	-fx-background-color: rgb(169,169,169,0.5);
+}
 /*顶栏按钮属性*/
 .top-button {
 	-fx-background-radius: 0;
-	-fx-background-color: #a9a9a9;
+	-fx-background-color: rgb(255,255,255,0);
 	-fx-text-fill: #000;
 }
+
 .top-button:hover {
 	-fx-background-color: #808080;
 	-fx-text-fill: #000;
 }
 
 /*顶栏按钮被点击后*/
-.top-clicked{
+.top-clicked {
 	-fx-background-radius: 0;
 	-fx-background-color: #fff;
 	-fx-text-fill: #000;
 	-fx-border-color: #fff;
-}
-.top-clicked:hover{
-	-fx-background-radius: 0;
-	-fx-background-color: #fff;
-	-fx-text-fill: #000;
-	-fx-border-color: #fff;
-}
-.login-button{
-	-fx-padding:5 80 5 80 ;
-	-fx-background-radius: 25; /*圆角弧度*/
-}
-.text-field{
-	-fx-background-radius: 25; /*圆角弧度*/
-	-fx-border-radius: 25;
-} 
-.msg-bar{
-/*	-fx-fill: linear-gradient(to bottom,#FF8C00,#FFD700);  渐变色把握不好太丑了*/ /*渐变色*/;
-	-fx-fill: #FF8C00;
 }
 
+.top-clicked:hover {
+	-fx-background-radius: 0;
+	-fx-background-color: #fff;
+	-fx-text-fill: #000;
+	-fx-border-color: #fff;
+}
+
+
+/*全局输入框*/
+.text-field {
+	-fx-background-radius: 25; /*圆角弧度*/
+	-fx-border-radius: 25;
+}
+
+/*消息栏*/
+.msg-bar {
+	/*	-fx-fill: linear-gradient(to bottom,#FF8C00,#FFD700);  渐变色把握不好太丑了*/ /*渐变色*/;
+	-fx-fill: #FF8C00;
+}

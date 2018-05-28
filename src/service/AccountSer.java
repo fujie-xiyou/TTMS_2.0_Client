@@ -15,11 +15,11 @@ public class AccountSer {
 	private static List<Account> accounts = null; 
 	Gson json = new Gson();
 	public Result login(Account account) {
-		CustomResp cr = httpCommon.doHttp("/login", "POST", json.toJson(account));
+		CustomResp cr = httpCommon.doHttp("/login",account);
 		Result result = json.fromJson(cr.getResultJSON(),Result.class);
 		if(result.isStatus()) {
 			LoginUser.setLoginUser(json.fromJson(cr.getObjectJSON(), Account.class));
-			view.Account.CurUser = json.fromJson(cr.getObjectJSON(), Account.class);
+			view.Account.CurUser = LoginUser.getLoginUser();
 		}
 		return result;
 	}
@@ -29,7 +29,7 @@ public class AccountSer {
 	public List<Account> fetchAll(){
 		//若isReload为true 则强制从服务器重新获取数据
 		if(accounts == null) {
-			CustomResp cr = httpCommon.doHttp("/account/fetchAll", "GET", null);
+			CustomResp cr = httpCommon.doHttp("/account/fetchAll");
 			accounts = json.fromJson(cr.getObjectJSON(), new TypeToken<List<Account>>(){
 
 				/**
@@ -40,11 +40,19 @@ public class AccountSer {
 		return accounts;
 	}
 	public Result add(Account account) {
-		CustomResp cr = httpCommon.doHttp("/account/add", "POST",json.toJson(account));
+		CustomResp cr = httpCommon.doHttp("/account/add",account);
 		Result result = json.fromJson(cr.getResultJSON(), Result.class);
 		if(result.isStatus()) {
 			accounts.add(json.fromJson(cr.getObjectJSON(), Account.class));
 			//添加成功
+		}
+		return result;
+	}
+	public Result delete(Account account) {
+		CustomResp cr = httpCommon.doHttp("/account/delete", account);
+		Result result = json.fromJson(cr.getResultJSON(), Result.class);
+		if(result.isStatus()) {
+			accounts.remove(account);
 		}
 		return result;
 	}

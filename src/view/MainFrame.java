@@ -1,17 +1,7 @@
 package view;
-
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-
 import java.util.List;
-
-import iview.AccountIf;
-import iview.MainIf;
-import iview.PlayIf;
-import iview.QueriesMenuIf;
-import iview.SaleIf;
-import iview.ScheduleIf;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -23,8 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -36,22 +24,23 @@ import javafx.util.Duration;
 import nodes.LeftButton;
 import service.AccountSer;
 
-public class MainFrame implements MainIf {
+public class MainFrame{
 	public static  ObservableList<Node> top;
 	public static ObservableList<Node> center;
 	public static ObservableList<Node> bottom;
 	public static double leftWidth; //左侧栏宽度
 	public static DoubleProperty centerWidth;//中部面板宽度
-	@Override
 	public void mainFrame() {
 		Stage stage = new Stage();//新建一个舞台(窗口)
 		stage.setResizable(false);//使窗口大小固定
+		stage.setTitle("HLW剧院票务管理系统");
 		stage.show();//使窗口可见
 		BorderPane mainPane = new BorderPane();//用于存放顶栏,中间面板,底栏(消息面板)
 		HBox topPane = new HBox();//顶栏
 		//设置顶栏背景色
-		topPane.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
-		
+		//移步到CSS文件
+		//topPane.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
+		topPane.getStyleClass().add("top-bar");
 		mainPane.setTop(topPane);//放置顶栏
 		
 		StackPane centerPane = new StackPane();//中间内容面板
@@ -62,8 +51,10 @@ public class MainFrame implements MainIf {
 		top = topPane.getChildren();//使用静态变量保存顶栏节点列表
 		VBox leftPane = new VBox();//左栏
 		//设置左栏背景色
-		leftPane.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, null, null)));
-		
+		//移动至CSS文件
+		//leftPane.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, null, null)));
+		//leftPane.setPadding(new Insets(0,5,0,5));
+		leftPane.getStyleClass().add("left-bar");
 		StackPane bottomPane = new StackPane();//底栏(用于显示提示消息)
 		mainPane.setBottom(bottomPane);
 		bottom = bottomPane.getChildren();
@@ -99,7 +90,7 @@ public class MainFrame implements MainIf {
 		//售票
 		sale.setOnAction(e -> {
 			sale.recover();
-			SaleIf saIf = new Sale();
+			Sale saIf = new Sale();
 			List<model.Play> plays = model.Play.getPlays();
 			List<model.Studio> studios = model.Studio.getStdios();
 			saIf.mgtEntry(studios ,plays);
@@ -108,7 +99,7 @@ public class MainFrame implements MainIf {
 		//账号管理
 		acc.setOnAction(e -> {
 			acc.recover();
-			AccountIf account = new Account();
+			Account account = new Account();
 			AccountSer.cleanList();
 			account.mhtEntry();
 		});
@@ -116,7 +107,7 @@ public class MainFrame implements MainIf {
 		//剧目管理
 		play.setOnAction(e -> {
 			play.recover();
-			PlayIf playif  = new Play();
+			Play playif  = new Play();
 			List<model.Play> plays = model.Play.getPlays();
 			playif.mgtEntry(plays);
 		});
@@ -124,13 +115,13 @@ public class MainFrame implements MainIf {
 		//查询
 		que.setOnAction(e -> {
 			que.recover();
-			QueriesMenuIf query = new QueriesMenu();
+			QueriesMenu query = new QueriesMenu();
 			query.queriseMenu();
 		});
 		//演出厅管理
 		sch.setOnAction(e->{
 			sch.recover();
-			ScheduleIf sche=new Schedule();
+			Schedule sche=new Schedule();
 			sche.mgtEntry(0);
 		});
 		//注销登录
@@ -164,7 +155,6 @@ public class MainFrame implements MainIf {
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
-					// TODO 自动生成的 catch 块
 					e.printStackTrace();
 				}
 				return null;

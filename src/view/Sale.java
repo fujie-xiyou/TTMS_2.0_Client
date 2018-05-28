@@ -2,8 +2,6 @@ package view;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import iview.SaleIf;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -24,9 +22,8 @@ import model.enums.SEAT_STATUS;
 import model.enums.TICKET_STATUS;
 import nodes.SeatRectangle;
 
-public class Sale implements SaleIf {
+public class Sale {
 
-	@Override
 	public void mgtEntry(List<model.Studio> studios,List<model.Play> plays) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
@@ -54,7 +51,6 @@ public class Sale implements SaleIf {
 		
 	}
 
-	@Override
 	public void showScheduler(List<model.Schedule> schs,List<model.Studio> studios,List<model.Play> plays, model.Play play) {
 		// TODO Auto-generated method stub
 		MainFrame.center.removeAll(MainFrame.center);
@@ -131,7 +127,6 @@ public class Sale implements SaleIf {
 
 	}
 
-	@Override
 	public void showTicket(List<model.Studio> studios, model.Schedule sch ,List<model.Schedule> schs ,List<model.Play> plays , model.Play play) {
 		// TODO Auto-generated method stub
 		model.Studio studio = sch.getStudioByID(studios, sch.getStudioID());
@@ -199,13 +194,12 @@ public class Sale implements SaleIf {
 			chosed(seat, chosedTicket);
 		});
 	}
-	@Override
+
 	public boolean sellTicket(List<Ticket> tickets, List<Seat> seats) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public void retrurnTicket() {
 		// TODO Auto-generated method stub
 

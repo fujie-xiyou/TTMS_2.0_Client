@@ -1,5 +1,8 @@
 package view;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import javafx.application.Application;
@@ -20,6 +23,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.Result;
 import service.AccountSer;
+import service.HttpCommon;
 
 public class Login extends Application {
 	public static Stage login;
@@ -57,9 +61,9 @@ public class Login extends Application {
 		msg.setFill(Color.RED);
 		pane.getChildren().addAll(title ,name, password, login,msg);
 		Scene scene = new Scene(pane);
+		//pane.setStyle("-fx-background-radius: 25;");
 		//scene.getStylesheets().add(getClass().getResource("MainStyle.css").toExternalForm());
-		scene.getStylesheets().add("file:Resource/MainStyle.css");
-
+		scene.getStylesheets().addAll("file:Resource/MainStyle.css","file:Resource/Login.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		login.setOnAction(e -> {		
@@ -111,6 +115,12 @@ public class Login extends Application {
 	}
 
 	public static void main(String[] args) {
+		if(!new File("/home/fujie/Desktop/ttms.txt").exists()) {
+			HttpCommon.url = "http://fujie.bid/TTMS";
+		}
+	
+		System.out.println("使用服务器："+HttpCommon.url);
+	
 		launch(args);
 	}
 

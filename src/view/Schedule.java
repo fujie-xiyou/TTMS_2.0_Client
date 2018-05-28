@@ -1,8 +1,6 @@
 package view;
 
 import java.util.List;
-
-import iview.ScheduleIf;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,9 +18,8 @@ import model.Play;
 import model.Studio;
 import nodes.TopButton;
 //
-public class Schedule implements ScheduleIf{
+public class Schedule{
 	
-	@Override
 	public void mgtEntry(int playID) {
 		// TODO Auto-generated method stub
 		TopButton add = new TopButton("添加"),
@@ -58,7 +55,7 @@ public class Schedule implements ScheduleIf{
 		});*/
 		
 	}
-	@Override
+
 	public boolean add(int playID) {
 		List<model.Studio> studios= model.Studio.getStdios();
 		
@@ -113,7 +110,7 @@ public class Schedule implements ScheduleIf{
 		return true;
 	}
 
-	@Override
+
 	public boolean modify(int id) {
 		// TODO Auto-generated method stub
 		VBox vpane=new VBox();
@@ -167,7 +164,7 @@ public class Schedule implements ScheduleIf{
 		return false;
 	}
 
-	@Override
+
 	public boolean delete(int id) {
 		// TODO Auto-generated method stub
 		List<model.Studio> studios1= model.Studio.getStdios();
@@ -204,7 +201,7 @@ public class Schedule implements ScheduleIf{
 		return false;
 	}
 
-	@Override
+
 	public boolean query(int id) {
 		// TODO Auto-generated method stub
 		VBox quepane=new VBox();
@@ -228,13 +225,13 @@ public class Schedule implements ScheduleIf{
 		return false;
 	}
 
-	@Override
+
 	public List<model.Schedule> listByPlay(Play play) {
 		// TODO Auto-generated method stub
 		return null;         //what???????????????????????????????????????????????????
 	}
 
-	@Override
+
 	public void listAll() {
 		// TODO Auto-generated method stub
 		                     //what???????????????????????????????????????????????????

@@ -1,11 +1,9 @@
 package view;
 
-import iview.QueriesMenuIf;
 import nodes.TopButton;
 
-public class QueriesMenu implements QueriesMenuIf {
+public class QueriesMenu  {
 
-	@Override
 	public void queriseMenu() {
 		// TODO Auto-generated method stub
 		TopButton queplay = new TopButton("查询剧目"),
