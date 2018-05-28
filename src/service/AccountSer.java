@@ -56,4 +56,8 @@ public class AccountSer {
 		}
 		return result;
 	}
+	public Result modify(Account account) {
+		CustomResp cr = httpCommon.doHttp("/account/modify",account);
+		return json.fromJson(cr.getResultJSON(), Result.class);
+	}
 }

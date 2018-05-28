@@ -1,8 +1,6 @@
 package view;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import javafx.application.Application;

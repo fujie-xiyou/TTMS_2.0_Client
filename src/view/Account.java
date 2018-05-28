@@ -209,15 +209,45 @@ public class Account {
 		centerPane.add(cla, 1, 4);
 		MainFrame.center.add(centerPane);
 		ok.setOnAction(e -> {
-			account.setUsername(name.getText());
-			account.setType(type.getValue());
-			String pass = password.getText();
-			if(!pass.isEmpty()) {
-				pass = Hashing.md5().newHasher().putString(password.getText(), Charsets.UTF_8).hash().toString();
-				account.setPassword(pass);
+			if(name.getText().isEmpty()) {
+				MainFrame.popupMessage("用户名不合法！");
+				return;
 			}
-			//后续要调用业务逻辑层的修改方法
-			mhtEntry();
+			model.Account newAcc = new model.Account();
+			newAcc.setUid(account.getUid());
+			newAcc.setPassword(account.getPassword());
+			newAcc.setUsername(name.getText());
+			newAcc.setType(type.getValue());
+			if(!password.getText().isEmpty()) {
+				String pass = Hashing.md5().newHasher().putString(password.getText(), Charsets.UTF_8).hash().toString();
+				newAcc.setPassword(pass);
+			}
+			new Thread(new Task<Result>() {
+				@Override
+				public Result call() {
+					return accountSer.modify(newAcc);
+				}
+				@Override
+				public void running() {
+					LoadingButton.setLoading(ok);
+				}
+				public void succeeded() {
+					LoadingButton.setNormal(ok);
+					mhtEntry();
+					Result result = getValue();
+					if(result.isStatus()) {
+						account.setType(newAcc.getType());
+						account.setUsername(newAcc.getUsername());
+						account.setPassword(newAcc.getPassword());
+						MainFrame.popupMessage("修改成功！");
+					}else {
+						MainFrame.popupMessage("修改失败: "+result.getReasons());
+					}
+					
+					
+				}
+			}).start();
+			
 		});
 		cla.setOnAction(e -> mhtEntry());
 	}

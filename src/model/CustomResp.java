@@ -17,10 +17,13 @@ public class CustomResp {
 		this.objectJSON = json.toJson(object);
 	}
 
-	public CustomResp() {
 
+	public CustomResp(Result result) {
+		this.resultJSON = json.toJson(result);
+		this.objectJSON = null;
 	}
 
+	
 	@Override
 	public String toString() {
 		return this.resultJSON + "\n" + objectJSON;

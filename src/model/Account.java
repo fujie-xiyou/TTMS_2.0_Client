@@ -13,6 +13,10 @@ public class Account {
 		this.username = username;
 		this.password = password;
 	}
+	public Account() {
+		
+	}
+	
 	@Override
 	public boolean equals(Object object) {
 		if(this == object) return true;
