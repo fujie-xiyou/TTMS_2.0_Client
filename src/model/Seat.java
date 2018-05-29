@@ -3,6 +3,14 @@ package model;
 import model.enums.SEAT_STATUS;
 
 public class Seat {
+
+	private int id;
+	private int roomID;
+	private int row;//行号
+	private int col;//列号
+	private SEAT_STATUS status;//状态
+	
+	
 	public Seat(int id, int roomID, int row, int col, SEAT_STATUS status) {
 		super();
 		this.id = id;
@@ -11,11 +19,6 @@ public class Seat {
 		this.col = col;
 		this.status = status;
 	}
-	private int id;
-	private int roomID;
-	private int row;//行号
-	private int col;//列号
-	private SEAT_STATUS status;//状态
 	public int getId() {
 		return id;
 	}

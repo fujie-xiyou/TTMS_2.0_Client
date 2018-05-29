@@ -14,9 +14,10 @@ public class Test1 extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.initStyle(StageStyle.TRANSPARENT);
-		Pane pane = new StackPane(new Text("撒大大说两句了"));
+		Pane pane = new StackPane(new Text("可把你牛逼坏了"));
 		Scene scene = new Scene(pane,200,300);
-		scene.setFill(Color.rgb(255, 100, 255, 0.5));
+		//pane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0, 0.2), null, null)));
+		scene.setFill(Color.rgb(255, 100, 255,0.2));
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
