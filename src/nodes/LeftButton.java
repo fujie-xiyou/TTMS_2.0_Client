@@ -24,8 +24,8 @@ public class LeftButton extends Button{
 		this.getStyleClass().add("left--button");
 		ScaleTransition enteredScaleTransition =   
                 new ScaleTransition(Duration.millis(200), this);  
-		enteredScaleTransition.setToX(1.5f);  
-		enteredScaleTransition.setToY(1.5f);  
+		enteredScaleTransition.setToX(1.2f);  
+		enteredScaleTransition.setToY(1.2f);  
 		//enteredScaleTransition.setCycleCount(1);
 		ScaleTransition exitedScaleTransition = new ScaleTransition(Duration.millis(200),this);
 		exitedScaleTransition.setToX(1);

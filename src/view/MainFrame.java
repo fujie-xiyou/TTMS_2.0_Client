@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import nodes.LeftButton;
 import service.AccountSer;
+import service.PlaySer;
 
 public class MainFrame{
 	public static  ObservableList<Node> top;
@@ -91,7 +92,7 @@ public class MainFrame{
 		sale.setOnAction(e -> {
 			sale.recover();
 			Sale saIf = new Sale();
-			List<model.Play> plays = model.Play.getPlays();
+			List<model.Play> plays = new PlaySer().fetchAll();
 			List<model.Studio> studios = model.Studio.getStdios();
 			saIf.mgtEntry(studios ,plays);
 			
@@ -108,8 +109,8 @@ public class MainFrame{
 		play.setOnAction(e -> {
 			play.recover();
 			Play playif  = new Play();
-			List<model.Play> plays = model.Play.getPlays();
-			playif.mgtEntry(plays);
+			PlaySer.cleanList();
+			playif.mgtEntry(null);
 		});
 		
 		//查询

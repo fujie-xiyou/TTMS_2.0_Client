@@ -35,8 +35,7 @@ public class Account {
 	public void mhtEntry() {
 		MainFrame.center.removeAll(MainFrame.center);
 		MainFrame.top.removeAll(MainFrame.top);
-		TopButton add = new TopButton("添加用户");
-		MainFrame.top.add(add);
+
 		/*		  mod = new TopButton("修改"),
 				  del = new TopButton("删除"),
 				  que = new TopButton("查询");
@@ -54,6 +53,8 @@ public class Account {
 			@Override 
 			public void succeeded() {
 				MainFrame.center.removeAll(MainFrame.center);
+				TopButton add = new TopButton("添加用户");
+				MainFrame.top.add(add);
 				List<model.Account> accounts = getValue();
 				add.setOnAction(e -> {
 					add.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性

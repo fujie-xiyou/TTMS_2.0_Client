@@ -1,9 +1,9 @@
 package model;
 
+import model.enums.SEAT_STATUS;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import model.enums.SEAT_STATUS;
 
 public class Studio {
 	private int id ;
@@ -11,31 +11,9 @@ public class Studio {
 	private int row;
 	private int col;
 	private int count;
+	private String introduction;
 	private Seat[][] seats;
-	public Seat[][] getSeats() {
-		return seats;
-	}
-	@Override
-	public String toString() {
-		return name;
-	}
-	public static List<Studio> getStdios(){
-		List<Studio> studios=new LinkedList<>();
-		studios.add(new Studio(1, "一号厅", 8, 7, 56));
-		studios.add(new Studio(2,"二号厅",5 ,6 , 30));
-		studios.add(new Studio(3,"三号厅",6,6,36));
-		return studios;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
+
 	public Studio(int id, String name, int row, int col, int count) {
 		this.id = id;
 		this.name = name;
@@ -50,6 +28,35 @@ public class Studio {
 			}
 		}
 	}
+	@Override
+	public String toString() {
+		return name;
+	}	
+
+	public void setSeats(Seat[][] seats) {
+		this.seats = seats;
+	}	
+	public Seat[][] getSeats() {
+		return seats;
+	}	
+	public static List<Studio> getStdios(){
+		List<Studio> studios=new LinkedList<>();
+		studios.add(new Studio(1, "一号厅", 8, 7, 56));
+		studios.add(new Studio(2,"二号厅",5 ,6 , 30));
+		studios.add(new Studio(3,"三号厅",6,6,36));
+		return studios;
+	}
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+
 	public Studio() {
 		
 	}
@@ -73,6 +80,13 @@ public class Studio {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 
 

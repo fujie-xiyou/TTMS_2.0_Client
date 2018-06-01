@@ -5,16 +5,16 @@ import model.enums.SEAT_STATUS;
 public class Seat {
 
 	private int id;
-	private int roomID;
+	private int studioID;
 	private int row;//行号
 	private int col;//列号
 	private SEAT_STATUS status;//状态
 	
 	
-	public Seat(int id, int roomID, int row, int col, SEAT_STATUS status) {
+	public Seat(int id, int studioID, int row, int col, SEAT_STATUS status) {
 		super();
 		this.id = id;
-		this.roomID = roomID;
+		this.studioID = studioID;
 		this.row = row;
 		this.col = col;
 		this.status = status;
@@ -25,11 +25,11 @@ public class Seat {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getRoomID() {
-		return roomID;
+	public int getstudioID() {
+		return studioID;
 	}
-	public void setRoomID(int roomID) {
-		this.roomID = roomID;
+	public void setstudioID(int studioID) {
+		this.studioID = studioID;
 	}
 	public int getRow() {
 		return row;

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.enums.TICKET_STATUS;
+import service.PlaySer;
 
 public class Schedule {
 	//演出计划类型
@@ -57,7 +58,7 @@ public class Schedule {
 		Schedule schedule = new model.Schedule(1, 1, 1, new Date());
 		Studio studio = schedule.getStudioByID(Studio.getStdios(),schedule.getStudioID());
 		schedule.setSeatCount(studio.getCount());
-		Play play = schedule.getPlayByID(Play.getPlays(), schedule.getPlayID());
+		Play play = schedule.getPlayByID(new PlaySer().fetchAll(), schedule.getPlayID());
 		Seat[][] seats = studio.getSeats();
 		Ticket[][] tickets = new Ticket[studio.getRow()][studio.getCol()];
 		for(int i = 0; i < seats.length; i++) {
@@ -71,7 +72,7 @@ public class Schedule {
 		schedule = new model.Schedule(2, 1, 2, new Date());
 		studio = schedule.getStudioByID(Studio.getStdios(),schedule.getStudioID());
 		schedule.setSeatCount(studio.getCount());
-		play = schedule.getPlayByID(Play.getPlays(), schedule.getPlayID());
+		play = schedule.getPlayByID(new PlaySer().fetchAll(), schedule.getPlayID());
 		seats = studio.getSeats();
 		tickets = new Ticket[studio.getRow()][studio.getCol()];
 		for(int i = 0; i < seats.length; i++) {

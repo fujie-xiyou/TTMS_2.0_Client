@@ -1,14 +1,14 @@
 package view;
-
-import java.io.File;
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
+import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.CustomResp;
 import model.Result;
 import service.AccountSer;
 import service.HttpCommon;
@@ -113,10 +114,9 @@ public class Login extends Application {
 	}
 
 	public static void main(String[] args) {
-		if(!new File("/home/fujie/Desktop/ttms.txt").exists()) {
+		if(!new Gson().fromJson(new HttpCommon().doHttp("/login").getResultJSON(),Result.class).isStatus()) {
 			HttpCommon.url = "http://fujie.bid/TTMS";
-		}
-	
+		}	
 		System.out.println("使用服务器："+HttpCommon.url);
 	
 		launch(args);
