@@ -25,6 +25,7 @@ import javafx.scene.text.Text;
 import model.Result;
 import model.enums.PLAY_RATING;
 import model.enums.PLAY_TYPE;
+import nodes.LeftButton;
 import nodes.TopButton;
 import service.PlaySer;
 import tools.LoadingButton;
@@ -320,34 +321,34 @@ public class Play {
 		return false;
 	}
 
-	public boolean delece(List<model.Play> plays, model.Play play) {
-		// TODO Auto-generated method stub
-		GridPane grid = new GridPane();
-		grid.setHgap(5);
-		grid.setVgap(5);
-		Text delId = new Text("删除剧目:");
-		delId.setFill(Color.BLACK);
-		delId.setFont(new Font(20));
-		TextField IdField = new TextField();
-		IdField.setPromptText("请输入剧目ID:");
-		Button Del = new Button("删除");
-		grid.add(delId, 40, 40);
-		grid.add(IdField, 45, 40);
-		grid.add(Del, 50, 40);
-
-		MainFrame.center.add(grid);
-
-		Del.setOnAction(e -> {
-			// ??
-			if (!IdField.getText().isEmpty()) {
-
-				MainFrame.popupMessage("删除成功!");
-			} else {
-
-				MainFrame.popupMessage("请检查输入!");
+	public boolean delete(List<model.Play> plays, model.Play play,Button del) {
+		new Thread(new Task<Result>() {
+			@Override
+			public Result call() throws Exception{
+				return playSer.delete(play);
 			}
-		});
-		return false;
+			@Override
+			public void running(){
+				LoadingButton.setLoading(del);
+			}
+			@Override
+			public void succeeded(){
+				LoadingButton.setNormal(del);
+				Result result = getValue();
+				if(result.isStatus()){
+					mgtEntry(plays);
+					MainFrame.popupMessage("删除成功!");
+				}else {
+					MainFrame.popupMessage("删除失败: "+result.getReasons());
+				}
+			}
+			@Override
+			public void failed(){
+				MainFrame.popupMessage("删除失败: 服务器异常!");
+			}
+		}).start();
+		return true;
+
 	}
 
 	public boolean query(List<model.Play> plays, model.Play play) {
@@ -400,8 +401,7 @@ public class Play {
 			modify(plays, play);
 		});
 		del.setOnAction(e -> {
-			plays.remove(play);
-			mgtEntry(plays);
+			delete(plays,play,del);
 		});
 		ret.setOnAction(e -> mgtEntry(plays));
 		return false;
