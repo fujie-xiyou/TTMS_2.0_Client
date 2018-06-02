@@ -36,8 +36,8 @@ public class PlaySer {
 		}
 		return result;
 	}
-	public Result modify(Play play) {
-		CustomResp cr = httpCommon.doHttp("/play/modify");
+	public Result modify(model.Play play) {
+		CustomResp cr = httpCommon.doHttp("/play/modify",play);
 		return json.fromJson(cr.getResultJSON(), Result.class);
 		
 	}
@@ -54,5 +54,4 @@ public class PlaySer {
 		}
 		return plays;
 	}
-
 }

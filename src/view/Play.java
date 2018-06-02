@@ -28,6 +28,7 @@ import model.enums.PLAY_TYPE;
 import nodes.LeftButton;
 import nodes.TopButton;
 import service.PlaySer;
+import sun.applet.Main;
 import tools.LoadingButton;
 
 public class Play {
@@ -313,8 +314,37 @@ public class Play {
 			play.setEndDate(endDate.getValue());
 			play.setPrice(Integer.valueOf(price.getText()));
 			play.setImgUrl(imgUrl.getText());
-			MainFrame.popupMessage("修改剧目成功！");
-			query(plays, play);
+			new Thread(new Task<Result>(){
+			    @Override
+                public Result call() throws Exception{
+			        return playSer.modify(play);
+                }
+
+                @Override
+                protected void running() {
+			        LoadingButton.setLoading(save);
+                    super.running();
+                }
+                @Override
+                protected void succeeded() {
+			        LoadingButton.setNormal(save);
+			        Result result = getValue();
+                    if(result.isStatus()) {
+                        query(plays, play);
+                        MainFrame.popupMessage("修改成功!");
+                    }else {
+			            MainFrame.popupMessage("修改失败: "+result.getReasons());
+                    }
+                    super.succeeded();
+                }
+
+                @Override
+                protected void failed() {
+                    LoadingButton.setNormal(save);
+                    MainFrame.popupMessage("修改失败: 服务器异常!");
+                    super.failed();
+                }
+            }).start();
 		});
 		ret.setOnAction(e -> query(plays, play));
 
