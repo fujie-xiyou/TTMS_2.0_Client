@@ -23,7 +23,7 @@ public class ConfirmDel {
             @Override
             protected Void call() {
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(2000);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -34,9 +34,6 @@ public class ConfirmDel {
             protected void succeeded() {
                 del.setText(old);
                 del.setOnAction(e -> setConfirmDel(del,event));
-                FadeTransition fadeTransition1 = new FadeTransition(Duration.millis(500),del);
-                fadeTransition.setFromValue(0);
-                fadeTransition.setToValue(1);
                 fadeTransition.play();
                 super.succeeded();
             }
