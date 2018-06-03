@@ -14,7 +14,7 @@ public class PlaySer {
 	private HttpCommon httpCommon = new HttpCommon();
 	private Gson json = new Gson();
 
-	public static void cleanList() {
+	public static void clearList() {
 		PlaySer.plays = null;
 	}
 	

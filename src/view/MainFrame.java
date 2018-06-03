@@ -101,7 +101,7 @@ public class MainFrame{
 		acc.setOnAction(e -> {
 			acc.recover();
 			Account account = new Account();
-			AccountSer.cleanList();
+			AccountSer.clearList();
 			account.mhtEntry();
 		});
 		
@@ -109,7 +109,7 @@ public class MainFrame{
 		play.setOnAction(e -> {
 			play.recover();
 			Play playif  = new Play();
-			PlaySer.cleanList();
+			PlaySer.clearList();
 			playif.mgtEntry(null);
 		});
 		

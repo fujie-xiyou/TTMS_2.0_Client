@@ -23,7 +23,7 @@ public class AccountSer {
 		}
 		return result;
 	}
-	public static void cleanList() {
+	public static void clearList() {
 		accounts = null;
 	}
 	public List<Account> fetchAll(){
