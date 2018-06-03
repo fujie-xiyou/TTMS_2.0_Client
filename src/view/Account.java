@@ -27,6 +27,7 @@ import model.enums.ACCOUNT_TYPE;
 import nodes.TopButton;
 import service.AccountSer;
 import service.HttpCommon;
+import tools.ConfirmDel;
 import tools.LoadingButton;
 public class Account {
 	public static model.Account CurUser;
@@ -80,8 +81,11 @@ public class Account {
 					centerPane.add(new Text(account.getType().toString()),2 , row);
 					//centerPane.add(new Text(account.getPassword()),3 , row);
 					Button mod = new Button("修改") , del = new Button("删除");
+					del.getStyleClass().add("del-button");
 					mod.setOnAction(e -> modify(account));
-					del.setOnAction(e -> delete( account,del));
+					del.setOnAction(e -> {
+						ConfirmDel.setConfirmDel(del, ee -> delete(account,del));
+					});
 					centerPane.add(mod, 4, row);
 					centerPane.add(del, 5, row);
 					row++;

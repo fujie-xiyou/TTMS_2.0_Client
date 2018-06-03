@@ -118,7 +118,7 @@ public class Login extends Application {
 			HttpCommon.url = "http://fujie.bid/TTMS";
 		}	
 		System.out.println("使用服务器："+HttpCommon.url);
-	
+
 		launch(args);
 	}
 

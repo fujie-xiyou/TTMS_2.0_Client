@@ -10,6 +10,5 @@ public class Studio {
     public void mgtEntry(){
         studios = studioSer.fetchAll();
         MainFrame.top.remove(MainFrame.top);
-
     }
 }

@@ -28,6 +28,7 @@ import model.enums.PLAY_TYPE;
 import nodes.LeftButton;
 import nodes.TopButton;
 import service.PlaySer;
+import tools.ConfirmDel;
 import tools.LoadingButton;
 
 public class Play {
@@ -421,6 +422,7 @@ public class Play {
 		Button mod = new Button("修改");
 		Button del = new Button("删除");
 		Button ret = new Button("返回");
+		del.getStyleClass().add("del-button");
 		HBox hBoxButt = new HBox();
 		hBoxButt.setAlignment(Pos.CENTER);
 		hBoxButt.setSpacing(50);
@@ -430,7 +432,7 @@ public class Play {
 			modify(plays, play);
 		});
 		del.setOnAction(e -> {
-			delete(plays,play,del);
+			ConfirmDel.setConfirmDel(del,ee -> delete(plays,play,del));
 		});
 		ret.setOnAction(e -> mgtEntry(plays));
 		return false;
