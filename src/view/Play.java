@@ -28,7 +28,6 @@ import model.enums.PLAY_TYPE;
 import nodes.LeftButton;
 import nodes.TopButton;
 import service.PlaySer;
-import sun.applet.Main;
 import tools.LoadingButton;
 
 public class Play {
