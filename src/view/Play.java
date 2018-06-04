@@ -32,8 +32,8 @@ import tools.ConfirmDel;
 import tools.LoadingButton;
 
 public class Play {
-	List<model.Play> plays = null;
-	PlaySer playSer = new PlaySer();
+	private List<model.Play> plays = null;
+	private PlaySer playSer = new PlaySer();
 
 	public void mgtEntry(List<model.Play> playss) {
 		// TODO Auto-generated method stub
@@ -297,6 +297,7 @@ public class Play {
 		TextField imgUrl = new TextField(play.getImgUrl());
 		grid.add(imgUrl, 1, 9);
 		Button save = new Button("保存");
+		save.setDefaultButton(true);
 		Button ret = new Button("返回");
 		HBox hBoxButt = new HBox();
 		hBoxButt.setAlignment(Pos.CENTER);
@@ -348,7 +349,7 @@ public class Play {
 		});
 		ret.setOnAction(e -> query(plays, play));
 
-		return false;
+		return true;
 	}
 
 	public boolean delete(List<model.Play> plays, model.Play play,Button del) {

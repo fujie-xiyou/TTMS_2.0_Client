@@ -4,6 +4,7 @@
 	/*-fx-background-color: #520;  */ /*全局背景色*/
 	-fx-background-image: url("background.jpg"); /*全局背景图*/
 	-fx-background-size: cover;
+	-fx-font-size: 17;
 }
 
 /*全局按钮*/

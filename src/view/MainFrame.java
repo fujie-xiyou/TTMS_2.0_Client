@@ -61,7 +61,7 @@ public class MainFrame{
 		bottom = bottomPane.getChildren();
 		
 		Pane outerPane = new BorderPane(mainPane,null,null,null,leftPane);
-		LeftButton  sch = new LeftButton("演出厅管理"),
+		LeftButton  stu = new LeftButton("演出厅管理"),
 				play = new LeftButton("剧目管理"),
 				sale = new LeftButton("    售票    "),
 				ret = new LeftButton("    退票    "),
@@ -72,11 +72,11 @@ public class MainFrame{
 		if(Account.CurUser.getType().equals(model.enums.ACCOUNT_TYPE.CLERK)) {
 			leftPane.getChildren().addAll(sale,ret,out);
 		}else {
-			leftPane.getChildren().addAll(sch,play,que,ans,acc,out);
+			leftPane.getChildren().addAll(stu,play,que,ans,acc,out);
 		}
 		leftPane.setAlignment(Pos.TOP_CENTER);
 		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-		double width = bounds.getWidth()*0.5;
+		double width = bounds.getWidth()*0.66;
 		Scene scene = new Scene(outerPane, width,9.0/16 * width);
 		scene.getStylesheets().add("file:Resource/MainStyle.css"); 
 		stage.setScene(scene);
@@ -120,10 +120,10 @@ public class MainFrame{
 			query.queriseMenu();
 		});
 		//演出厅管理
-		sch.setOnAction(e->{
-			sch.recover();
-			Schedule sche=new Schedule();
-			sche.mgtEntry(0);
+		stu.setOnAction(e->{
+			stu.recover();
+			Studio studio =new Studio();
+			studio.mgtEntry();
 		});
 		//注销登录
 		out.setOnAction(e -> {
