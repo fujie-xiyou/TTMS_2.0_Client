@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.LoginUser;
 import nodes.LeftButton;
 import service.AccountSer;
 import service.PlaySer;
@@ -69,7 +70,7 @@ public class MainFrame{
 				ans = new LeftButton("排序和统计"),
 				acc = new LeftButton("账户管理"),
 				out = new LeftButton("退出登录");
-		if(Account.CurUser.getType().equals(model.enums.ACCOUNT_TYPE.CLERK)) {
+		if(LoginUser.getLoginUser().getType().equals(model.enums.ACCOUNT_TYPE.CLERK)) {
 			leftPane.getChildren().addAll(sale,ret,out);
 		}else {
 			leftPane.getChildren().addAll(stu,play,que,ans,acc,out);

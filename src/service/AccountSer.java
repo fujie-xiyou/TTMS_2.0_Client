@@ -19,7 +19,6 @@ public class AccountSer {
 		Result result = json.fromJson(cr.getResultJSON(),Result.class);
 		if(result.isStatus()) {
 			LoginUser.setLoginUser(json.fromJson(cr.getObjectJSON(), Account.class));
-			view.Account.CurUser = LoginUser.getLoginUser();
 		}
 		return result;
 	}
