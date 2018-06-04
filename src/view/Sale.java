@@ -165,7 +165,9 @@ public class Sale {
 		outer.setSpacing(30);
 		outer.getChildren().add(hBox);
 		Button buy = new Button("确认");
+		buy.setDefaultButton(true);
 		Button cal = new Button("返回");
+		cal.setCancelButton(true);
 		hBox.getChildren().addAll(buy,cal);
 		buy.setOnAction(e -> {
 			if(!chosedTicket.isEmpty()) {

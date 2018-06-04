@@ -1,19 +1,18 @@
 package view;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import model.Seat;
 import model.Studio;
-import model.Ticket;
 import model.enums.SEAT_STATUS;
-import model.enums.TICKET_STATUS;
-import nodes.SeatRectangle;
+import nodes.SeatManageRect;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.util.LinkedList;
-import java.util.List;
 
 public class SeatView {
     public void mgtEntry(Studio studio) {
@@ -33,37 +32,37 @@ public class SeatView {
         outer.setAlignment(Pos.CENTER);
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setVgap(20);
-        gridPane.setHgap(20);
+        gridPane.setVgap(30);
+        gridPane.setHgap(30);
         outer.getChildren().add(gridPane);
-        List<Seat> chosedSeat = new LinkedList<>();
+        Set<Seat> chosedSeats = new HashSet<>();
         for (int i = 0; i < seats.length; i++) {
             gridPane.add(new Text((i + 1) + ""), 0, i + 1);
             for (int j = 0; j < seats[0].length; j++) {
                 gridPane.add(new Text((j + 1) + ""), j + 1, 0);
-                if (!seats[i][j].getStatus().equals(SEAT_STATUS.BROKEN)) {
-                    SeatRectangle seat = new SeatRectangle(seats[i][j], 30, 20);
-                    seat.setFill(Color.GREEN);
-                    chosed(seat,chosedSeat);
-                    gridPane.add(seat, j + 1, i + 1);
-
+                if (seats[i][j] == null) {
+                    seats[i][j] = new Seat(-1,studio.getId(),i,j,SEAT_STATUS.NONE);
                 }
+                SeatManageRect seat = new SeatManageRect(seats[i][j], chosedSeats,50, 35);
+                gridPane.add(seat, j + 1, i + 1);
             }
         }
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setSpacing(100);
+        outer.setSpacing(50);
+        outer.getChildren().add(hBox);
+        Button ok = new Button("提交");
+        ok.setDefaultButton(true);
+        Button cal = new Button("返回");
+        cal.setCancelButton(true);
+        ok.setOnAction(e ->{
 
-    }
-    private void chosed(SeatRectangle seat ,List<Seat> chosedSeat) {
-        seat.setOnMouseClicked(e -> {
-            seat.setFill(Color.LIMEGREEN);
-            chosedSeat.add(seat.getSeat());
-            calened(seat, chosedSeat);
         });
-    }
-    private void calened(SeatRectangle seat , List<Seat> chosedSeat) {
-        seat.setOnMouseClicked(e -> {
-            seat.setFill(Color.WHITE);
-            chosedSeat.remove(seat.getSeat());
-            chosed(seat, chosedSeat);
+        cal.setOnAction(e -> {
+            //返回修改剧目或者新增剧目
+            return;
         });
+        hBox.getChildren().addAll(cal,ok);
     }
 }
