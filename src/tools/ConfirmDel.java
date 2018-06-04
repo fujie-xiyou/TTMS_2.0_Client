@@ -32,6 +32,7 @@ public class ConfirmDel {
 
                 @Override
                 protected void succeeded() {
+                    del.setOnMouseExited(null);
                     del.setText(old);
                     del.setOnAction(ee -> setConfirmDel(del, event));
                     fadeTransition.play();
