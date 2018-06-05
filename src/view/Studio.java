@@ -1,5 +1,6 @@
 package view;
 
+import model.Seat;
 import service.StudioSer;
 import tools.ConfirmDel;
 import tools.LoadingButton;
@@ -41,7 +42,7 @@ public class Studio {
 			public void running() {
 				MainFrame.center.add(new ImageView("file:Resource/loading1.gif"));
 			}
-			@Override 
+			@Override
 			public void succeeded() {
 				MainFrame.center.removeAll(MainFrame.center);
 				TopButton add = new TopButton("添加演出厅");
@@ -51,7 +52,7 @@ public class Studio {
 					add.recover();//初始化按钮以及界面 并且恢复上一个按钮的事件以及属性
 					add();//调用添加用户面板
 				});
-		
+
 				GridPane centerPane = new GridPane();
 				centerPane.setVgap(20);
 				centerPane.setHgap(30);
@@ -76,7 +77,7 @@ public class Studio {
 			/*		System.out.println("row="+row);
 					System.out.println("count="+studio.getCount());*/
 					row=row+2;
-					
+
 				}
 				centerPane.setAlignment(Pos.TOP_CENTER);
 				MainFrame.center.add(centerPane);
@@ -84,7 +85,7 @@ public class Studio {
 		}).start();
     }
     public void add() {
-    	
+
     	VBox centerPane = new VBox();
     	/*centerPane.setFillWidth(true);*/
     	centerPane.prefWidthProperty().bind(MainFrame.centerWidth);
@@ -94,7 +95,7 @@ public class Studio {
     	Text text = new Text("添加演出厅");
     	text.setFill(Color.DARKGRAY);
     	text.setFont(new Font(30));
-    	
+
     	Label name = new Label("演出厅名字：");
     	TextField nameField = new TextField();
     	nameField.setPromptText("演出厅名");
@@ -107,48 +108,26 @@ public class Studio {
     	/*Label  count= new Label("座位总数：");
     	TextField Count = new TextField();
     	Count.setPromptText("座位总个数");*/
-    	Button add = new Button("添加");
-    	add.setDefaultButton(true);
+    	Button next = new Button("下一步");
+    	next.setDefaultButton(true);
     	Button cla = new Button("返回");
-    	cla.setDefaultButton(true);
-    	HBox hBox = new HBox(add,cla);
+    	cla.setCancelButton(true);
+    	HBox hBox = new HBox(next,cla);
     	hBox.setSpacing(80);
     	hBox.setAlignment(Pos.CENTER);
     	centerPane.getChildren().addAll(text,name,nameField,row,Row,col,Col,hBox);
     	centerPane.setSpacing(30);
-    	
-    	add.setOnAction(e->{
-    		
-    		
+
+    	next.setOnAction(e->{
+
+
     		if(!nameField.getText().isEmpty() && !Row.getText().isEmpty() && !Col.getText().isEmpty()) {
     			model.Studio studio = new model.Studio();
         		studio.setName(nameField.getText());
         		studio.setRow(Integer.parseInt(Row.getText()));
         		studio.setCol(Integer.parseInt(Col.getText()));
         		studio.setCount(Integer.parseInt(Row.getText())*Integer.parseInt(Col.getText()));
-    			new Thread( new Task<Result>() {
-					@Override
-					public Result call() {
-						return studioSer.add(studio);
-					}
-					@Override 
-					public void running() {
-						LoadingButton.setLoading(add);
-					}
-					@Override 
-					public void succeeded() {
-						LoadingButton.setNormal(add);
-						mgtEntry();
-						Result result = getValue();
-						if (result.isStatus()) {
-							MainFrame.popupMessage("演出厅 " + name + " 新增成功!");
-							return;
-						} else {
-							MainFrame.popupMessage("新增演出厅失败:" + result.getReasons());
-						}
-						
-					}
-				}).start();
+    			new SeatView().mgtEntry(studio);
 
 			}else {
 				MainFrame.popupMessage("请检查输入!");
