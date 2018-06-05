@@ -20,13 +20,8 @@ public class Studio {
 		this.row = row;
 		this.col = col;
 		this.count = count;
-		this.seats = new Seat[row][col];
-		int seatid = 1;
-		for(int i=0; i<row ;i++) {
-			for(int j = 0; j<col; j ++) {
-				this.seats[i][j] = new Seat(seatid, id, i, j, SEAT_STATUS.GOOD);
-			}
-		}
+		this.seats = null;
+
 	}
 	@Override
 	public String toString() {
