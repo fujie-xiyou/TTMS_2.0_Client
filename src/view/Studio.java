@@ -2,9 +2,13 @@ package view;
 
 import service.StudioSer;
 import tools.ConfirmDel;
-
+import tools.LoadingButton;
 import javafx.scene.control.TextField;
+
+import java.awt.Window.Type;
 import java.util.List;
+
+import javax.print.attribute.standard.MediaSize.NA;
 
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
@@ -18,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.Result;
 import nodes.TopButton;
 
 public class Studio {
@@ -39,7 +44,7 @@ public class Studio {
 			@Override 
 			public void succeeded() {
 				MainFrame.center.removeAll(MainFrame.center);
-				TopButton add = new TopButton("添加用户");
+				TopButton add = new TopButton("添加演出厅");
 				MainFrame.top.add(add);
 				List<model.Studio> studios = getValue();
 				add.setOnAction(e -> {
@@ -99,21 +104,58 @@ public class Studio {
     	Label col = new Label("座位列数：");
     	TextField Col = new TextField();
     	Col.setPromptText("座位列数");
-    	Label  count= new Label("座位总数：");
+    	/*Label  count= new Label("座位总数：");
     	TextField Count = new TextField();
-    	Count.setPromptText("座位总个数");
+    	Count.setPromptText("座位总个数");*/
     	Button add = new Button("添加");
     	add.setDefaultButton(true);
     	Button cla = new Button("返回");
     	cla.setDefaultButton(true);
     	HBox hBox = new HBox(add,cla);
-    	hBox.setSpacing(20);
-    	centerPane.getChildren().addAll(text,name,nameField,row,Row,col,Col,count,Count,hBox);
+    	hBox.setSpacing(80);
+    	hBox.setAlignment(Pos.CENTER);
+    	centerPane.getChildren().addAll(text,name,nameField,row,Row,col,Col,hBox);
     	centerPane.setSpacing(30);
     	
-    	
-    	
-    	
+    	add.setOnAction(e->{
+    		
+    		
+    		if(!nameField.getText().isEmpty() && !Row.getText().isEmpty() && !Col.getText().isEmpty()) {
+    			model.Studio studio = new model.Studio();
+        		studio.setName(nameField.getText());
+        		studio.setRow(Integer.parseInt(Row.getText()));
+        		studio.setCol(Integer.parseInt(Col.getText()));
+        		studio.setCount(Integer.parseInt(Row.getText())*Integer.parseInt(Col.getText()));
+    			new Thread( new Task<Result>() {
+					@Override
+					public Result call() {
+						return studioSer.add(studio);
+					}
+					@Override 
+					public void running() {
+						LoadingButton.setLoading(add);
+					}
+					@Override 
+					public void succeeded() {
+						LoadingButton.setNormal(add);
+						mgtEntry();
+						Result result = getValue();
+						if (result.isStatus()) {
+							MainFrame.popupMessage("演出厅 " + name + " 新增成功!");
+							return;
+						} else {
+							MainFrame.popupMessage("新增演出厅失败:" + result.getReasons());
+						}
+						
+					}
+				}).start();
+
+			}else {
+				MainFrame.popupMessage("请检查输入!");
+			}
+			
+		});
+		cla.setOnAction(e -> mgtEntry());
     	
     }
     public void modify(model.Studio studio) {
