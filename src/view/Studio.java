@@ -1,5 +1,6 @@
 package view;
 
+import javafx.event.Event;
 import model.Seat;
 import service.StudioSer;
 import tools.ConfirmDel;
@@ -138,7 +139,40 @@ public class Studio {
     	
     }
     public void modify(model.Studio studio) {
-		
+		MainFrame.center.removeAll();
+		VBox vBox = new VBox();
+		vBox.prefWidthProperty().bind(MainFrame.centerWidth);
+        double width = vBox.getPrefWidth();
+        vBox.setPadding(new Insets(30,width*2.0/7,0,width*2.0/7));
+        MainFrame.center.add(vBox);
+        Text text = new Text("修改演出厅:");
+        text.setFill(Color.DARKGRAY);
+        Label name = new Label("演出厅名字:");
+        TextField Name = new TextField(studio.getName());
+        Label row  = new Label("座位行数:");
+        TextField Row = new TextField(studio.getRow()+"");
+        Label col = new Label("座位列数:");
+        TextField Col = new TextField(studio.getCol()+"");
+        Label count = new Label("座位总数");
+        Text Count = new Text(studio.getCount()+"");
+        Button save = new Button("保存");
+        save.setDefaultButton(true);
+        Button rtn = new Button("返回");
+        HBox hBox = new HBox(save,rtn);
+        hBox.setSpacing(50);
+        hBox.setAlignment(Pos.CENTER);
+
+        save.setOnAction(e-> {
+
+            studio.setName(Name.getText());
+            studio.setRow(Integer.parseInt(row.getText()));
+            studio.setCol(Integer.parseInt(row.getText()));
+            studio.setCount(Integer.parseInt(col.getText()));
+
+
+
+        });
+
 	}
     public void delete(model.Studio studio, Button del) {
 		

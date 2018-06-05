@@ -119,7 +119,7 @@ public class Play {
 		Button cleanBtn = new Button("清空");
 		Button backBtn = new Button("返回");
 		HBox buttonBox = new HBox(saveBtn, cleanBtn, backBtn);
-		buttonBox.setSpacing(50);
+		buttonBox.setSpacing(90);
 		saveBtn.setMaxWidth(Double.MAX_VALUE);
 		cleanBtn.setMaxWidth(Double.MAX_VALUE);
 		backBtn.setMaxWidth(Double.MAX_VALUE);
@@ -165,28 +165,29 @@ public class Play {
 		TextField covers = new TextField();
 		covers.setPromptText("输入网址");
 
-		// grid.add(id, 42, 7); // column=42, row=7
-		grid.add(name, 42, 8);
-		grid.add(type, 42, 9);
-		grid.add(area, 42, 10);
-		grid.add(rating, 42, 11);
-		grid.add(startDate, 42, 12);
-		grid.add(endDate, 42, 13);
-		grid.add(duration, 42, 14);
-		grid.add(price, 42, 15);
-		grid.add(cover, 42, 16);
+		// grid.add(id, 0, 7); // column=0, row=7
+		grid.add(name, 0, 8);
+		grid.add(type, 0, 9);
+		grid.add(area, 0, 10);
+		grid.add(rating, 0, 11);
+		grid.add(startDate, 0, 12);
+		grid.add(endDate, 0, 13);
+		grid.add(duration, 0, 14);
+		grid.add(price, 0, 15);
+		grid.add(cover, 0, 16);
 
-		// grid.add(ids, 43, 7); // column=43, row=7
-		grid.add(names, 43, 8);
-		grid.add(types, 43, 9);
-		grid.add(areas, 43, 10);
-		grid.add(ratings, 43, 11);
-		grid.add(startDates, 43, 12);
-		grid.add(endDates, 43, 13);
-		grid.add(durations, 43, 14);
-		grid.add(prices, 43, 15);
-		grid.add(covers, 43, 16);
-		grid.add(buttonBox, 42, 17, 2, 2);
+		// grid.add(ids, 1, 7); // column=1, row=7
+		grid.add(names, 1, 8);
+		grid.add(types, 1, 9);
+		grid.add(areas, 1, 10);
+		grid.add(ratings, 1, 11);
+		grid.add(startDates, 1, 12);
+		grid.add(endDates, 1, 13);
+		grid.add(durations, 1, 14);
+		grid.add(prices, 1, 15);
+		grid.add(covers, 1, 16);
+		grid.add(buttonBox, 0, 17, 2, 2);
+		grid.setAlignment(Pos.TOP_CENTER);
 		saveBtn.setOnAction(e -> {
 
 			String Name = names.getText();
