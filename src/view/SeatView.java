@@ -13,11 +13,11 @@ import model.Seat;
 import model.Studio;
 import model.enums.SEAT_STATUS;
 import nodes.SeatManageRect;
+import service.SeatSer;
 import service.StudioSer;
 import tools.LoadingButton;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class SeatView {
     StudioSer studioSer = new StudioSer();
@@ -102,10 +102,25 @@ public class SeatView {
 
     private Result addAll(Seat[][] seats, Studio studio) {
         studio.setSeats(seats);
+        if(studio.getId() > 0){
+            //演出厅id为合法id  因此不是新增演出厅(在修改演出厅时,如果更改了行号和列号,则会置空演出厅座位,重新生成)
+
+            //将原来演出厅的座位全部删除
+            deleteAll(studio);
+            //删除错误无法告知界面层,测试时注意
+            List<Seat> seatss = new ArrayList<>();
+            for(Seat[] seats1 : seats){
+                seatss.addAll(Arrays.asList(seats1));
+            }
+           return new SeatSer().addAll(seatss);
+        }
         return studioSer.add(studio);
     }
 
     private Result modify(Set<Seat> chosedSeats, Studio studio) {
         return studioSer.modify(studio);
+    }
+    private Result deleteAll(Studio studio){
+        return new SeatSer().deleteAll(studio);
     }
 }

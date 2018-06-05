@@ -19,47 +19,17 @@ import model.Studio;
 import nodes.TopButton;
 //
 public class Schedule{
-	
 	public void mgtEntry(int playID) {
-		// TODO Auto-generated method stub
-		TopButton add = new TopButton("添加"),
-				  mod = new TopButton("修改"),
-				  del = new TopButton("删除"),
-				  que = new TopButton("查询");
-		         // all = new TopButton("显示全部");
-		MainFrame.top.addAll(add,mod,del,que);
-//      添加事件···1
+		TopButton add = new TopButton("添加");
+		MainFrame.top.addAll(add);
 		add.setOnAction(e -> {
 			add.recover();
-			add(-1);
+			add(playID);
 		});
-		//修改
-		mod.setOnAction(e -> {
-			mod.recover();
-			modify(-1);}
-		);
-		//删除
-		del.setOnAction(e->{
-			del.recover();
-			delete(-1);
-		});
-		//查询演出计划
-		que.setOnAction(e->{
-			que.recover();
-			query(-1);
-		});
-		/*//显示所有演出计划信息
-		all.setOnAction(e->{
-			all.recover();
-			listAll();
-		});*/
-		
 	}
 
 	public boolean add(int playID) {
 		List<model.Studio> studios= model.Studio.getStdios();
-		
-		// TODO Auto-generated method stub
 	//	TextField stdio_id,
 		GridPane gPane=new GridPane();
 		gPane.setHgap(5);

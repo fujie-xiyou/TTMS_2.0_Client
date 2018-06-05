@@ -15,9 +15,8 @@ import view.SeatView;
 public class SeatTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LoginUser.setLoginUser(new Account(-1, ACCOUNT_TYPE.ADMIN, "假的", "00"));
+        LoginUser.setLoginUser(new Account(-1, ACCOUNT_TYPE.CLERK, "假的", "00"));
         new MainFrame().mainFrame();
-        new SeatView().mgtEntry(new Studio(-1,"测试",5,7,35),null);
     }
 
     public static void main(String[] args) {
