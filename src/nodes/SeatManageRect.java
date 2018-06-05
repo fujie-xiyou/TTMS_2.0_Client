@@ -3,6 +3,7 @@ package nodes;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.Seat;
+import model.Studio;
 import model.enums.SEAT_STATUS;
 import java.util.Set;
 
@@ -17,22 +18,24 @@ public class SeatManageRect extends Rectangle {
     public void setSeat(Seat seat) {
         this.seat = seat;
     }
-    public SeatManageRect(Seat seat , Set<Seat> chosedSeats, double w, double h) {
+    public SeatManageRect(Studio studio,Seat seat , Set<Seat> chosedSeats, double w, double h) {
         super(w, h);
         this.seat = seat;
         this.chosedSeats = chosedSeats;
         this.oldStatus = seat.getStatus();
         this.setColor();
         this.setOnMouseClicked(e -> {
-            setSeatStatus();
+            setSeatStatus(studio);
         });
 
     }
-    public void setSeatStatus(){
+    public void setSeatStatus(Studio studio){
         int index = seat.getStatus().getIndex();
         SEAT_STATUS[] statuses = SEAT_STATUS.values();
         int count = statuses.length;
-        seat.setStatus(statuses[(index + 1) % count]);
+        if(index == SEAT_STATUS.GOOD.getIndex()) studio.setCount(studio.getCount() - 1);
+        seat.setStatus(statuses[(++index) % count]);
+        if(index == SEAT_STATUS.GOOD.getIndex()) studio.setCount(studio.getCount() + 1);
         if(seat.getStatus().equals(oldStatus)) chosedSeats.remove(seat);
         else chosedSeats.add(seat);
         this.setColor();

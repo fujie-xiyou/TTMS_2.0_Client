@@ -6,12 +6,7 @@ import service.StudioSer;
 import tools.ConfirmDel;
 import tools.LoadingButton;
 import javafx.scene.control.TextField;
-
-import java.awt.Window.Type;
 import java.util.List;
-
-import javax.print.attribute.standard.MediaSize.NA;
-
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -124,11 +119,12 @@ public class Studio {
 
     		if(!nameField.getText().isEmpty() && !Row.getText().isEmpty() && !Col.getText().isEmpty()) {
     			model.Studio studio = new model.Studio();
+    			studio.setId(-1);
         		studio.setName(nameField.getText());
         		studio.setRow(Integer.parseInt(Row.getText()));
         		studio.setCol(Integer.parseInt(Col.getText()));
         		studio.setCount(Integer.parseInt(Row.getText())*Integer.parseInt(Col.getText()));
-    			new SeatView().mgtEntry(studio);
+    			new SeatView().mgtEntry(studio,centerPane);
 
 			}else {
 				MainFrame.popupMessage("请检查输入!");
