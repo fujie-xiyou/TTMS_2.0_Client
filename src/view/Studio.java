@@ -81,9 +81,10 @@ public class Studio {
     public void add() {
     	
     	VBox centerPane = new VBox();
+    	/*centerPane.setFillWidth(true);*/
     	centerPane.prefWidthProperty().bind(MainFrame.centerWidth);
     	double width = centerPane.getPrefWidth();
-    	centerPane.setPadding(new Insets(30,width*2.0/1,0,width*2.0/7));
+    	centerPane.setPadding(new Insets(30,width*2.0/7,0,width*2.0/7));
     	MainFrame.center.add(centerPane);
     	Text text = new Text("添加演出厅");
     	text.setFill(Color.DARKGRAY);
@@ -100,14 +101,18 @@ public class Studio {
     	Col.setPromptText("座位列数");
     	Label  count= new Label("座位总数：");
     	TextField Count = new TextField();
-    	Count.setPromptText("座位总数");
+    	Count.setPromptText("座位总个数");
     	Button add = new Button("添加");
     	add.setDefaultButton(true);
     	Button cla = new Button("返回");
     	cla.setDefaultButton(true);
     	HBox hBox = new HBox(add,cla);
     	hBox.setSpacing(20);
-    	centerPane.getChildren().addAll(text,nameField,Row,Col,Count,hBox);
+    	centerPane.getChildren().addAll(text,name,nameField,row,Row,col,Col,count,Count,hBox);
+    	centerPane.setSpacing(30);
+    	
+    	
+    	
     	
     	
     }
