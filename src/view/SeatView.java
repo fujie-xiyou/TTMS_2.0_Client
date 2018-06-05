@@ -10,22 +10,25 @@ import model.Seat;
 import model.Studio;
 import model.enums.SEAT_STATUS;
 import nodes.SeatManageRect;
+import service.StudioSer;
+
 import java.util.HashSet;
 import java.util.Set;
-
-
 public class SeatView {
+    StudioSer studioSer = new StudioSer();
     public void mgtEntry(Studio studio) {
-        if (studio.getSeats() == null) {
-            Seat[][] seats = new Seat[studio.getRow()][studio.getCol()];
+        Seat[][] seats = studio.getSeats();
+        if (seats == null) {
+            seats = new Seat[studio.getRow()][studio.getCol()];
             for (int i = 0; i < seats.length; i++) {
                 for (int j = 0; j < seats[i].length; j++) {
                     seats[i][j] = new Seat(-1, studio.getId(), i + 1, j + 1, SEAT_STATUS.GOOD);
                 }
             }
-            studio.setSeats(seats);
+            //       studio.setSeats(seats);
         }
-        Seat[][] seats = studio.getSeats();
+        Seat[][] seats1 = seats;
+        //直接在后面使用seats会报错(在lambda中只能使用类final值???)
         VBox outer = new VBox();
         MainFrame.center.removeAll(MainFrame.center);
         MainFrame.center.add(outer);
@@ -41,9 +44,9 @@ public class SeatView {
             for (int j = 0; j < seats[0].length; j++) {
                 gridPane.add(new Text((j + 1) + ""), j + 1, 0);
                 if (seats[i][j] == null) {
-                    seats[i][j] = new Seat(-1,studio.getId(),i,j,SEAT_STATUS.NONE);
+                    seats[i][j] = new Seat(-1, studio.getId(), i, j, SEAT_STATUS.NONE);
                 }
-                SeatManageRect seat = new SeatManageRect(seats[i][j], chosedSeats,50, 35);
+                SeatManageRect seat = new SeatManageRect(seats[i][j], chosedSeats, 50, 35);
                 gridPane.add(seat, j + 1, i + 1);
             }
         }
@@ -56,13 +59,27 @@ public class SeatView {
         ok.setDefaultButton(true);
         Button cal = new Button("返回");
         cal.setCancelButton(true);
-        ok.setOnAction(e ->{
-
+        ok.setOnAction(e -> {
+            if(studio.getSeats() == null){
+                addAll(seats1,studio);
+            }else {
+                modify(chosedSeats ,studio);
+            }
         });
         cal.setOnAction(e -> {
-            //返回修改剧目或者新增剧目
             return;
         });
-        hBox.getChildren().addAll(cal,ok);
+        hBox.getChildren().addAll(cal, ok);
+    }
+
+    private void addAll(Seat[][] seats,Studio studio) {
+        studio.setSeats(seats);
+        studioSer.add(studio);
+    }
+
+    private void modify(Set<Seat> chosedSeats,Studio studio) {
+        studioSer.modify(studio);
+
+
     }
 }
