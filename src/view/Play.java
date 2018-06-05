@@ -120,11 +120,13 @@ public class Play {
 		Button backBtn = new Button("返回");
 		HBox buttonBox = new HBox(saveBtn, cleanBtn, backBtn);
 		buttonBox.setSpacing(90);
+		buttonBox.setAlignment(Pos.CENTER);
 		saveBtn.setMaxWidth(Double.MAX_VALUE);
 		cleanBtn.setMaxWidth(Double.MAX_VALUE);
 		backBtn.setMaxWidth(Double.MAX_VALUE);
 
 		MainFrame.center.addAll(grid);
+		grid.setAlignment(Pos.TOP_CENTER);
 
 		// Label id = new Label("ID：");
 		// TextField ids = new TextField();
@@ -167,27 +169,26 @@ public class Play {
 
 		// grid.add(id, 0, 7); // column=0, row=7
 		grid.add(name, 0, 8);
-		grid.add(type, 0, 9);
-		grid.add(area, 0, 10);
-		grid.add(rating, 0, 11);
-		grid.add(startDate, 0, 12);
-		grid.add(endDate, 0, 13);
-		grid.add(duration, 0, 14);
-		grid.add(price, 0, 15);
-		grid.add(cover, 0, 16);
+		grid.add(type, 0, 10);
+		grid.add(area, 0, 12);
+		grid.add(rating, 0, 14);
+		grid.add(startDate, 0, 16);
+		grid.add(endDate, 0, 18);
+		grid.add(duration, 0, 20);
+		grid.add(price, 0, 22);
+		grid.add(cover, 0, 24);
 
 		// grid.add(ids, 1, 7); // column=1, row=7
 		grid.add(names, 1, 8);
-		grid.add(types, 1, 9);
-		grid.add(areas, 1, 10);
-		grid.add(ratings, 1, 11);
-		grid.add(startDates, 1, 12);
-		grid.add(endDates, 1, 13);
-		grid.add(durations, 1, 14);
-		grid.add(prices, 1, 15);
-		grid.add(covers, 1, 16);
-		grid.add(buttonBox, 0, 17, 2, 2);
-		grid.setAlignment(Pos.TOP_CENTER);
+		grid.add(types, 1, 10);
+		grid.add(areas, 1, 12);
+		grid.add(ratings, 1, 14);
+		grid.add(startDates, 1, 16);
+		grid.add(endDates, 1, 18);
+		grid.add(durations, 1, 20);
+		grid.add(prices, 1, 22);
+		grid.add(covers, 1, 24);
+		grid.add(buttonBox, 0, 30, 2, 2);
 		saveBtn.setOnAction(e -> {
 
 			String Name = names.getText();

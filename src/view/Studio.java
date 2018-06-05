@@ -23,7 +23,6 @@ import model.Result;
 import nodes.TopButton;
 
 public class Studio {
-
     private StudioSer studioSer = new StudioSer();
     public void mgtEntry(){
     	MainFrame.center.removeAll(MainFrame.center);
@@ -135,7 +134,7 @@ public class Studio {
     	
     }
     public void modify(model.Studio studio) {
-		MainFrame.center.removeAll();
+		MainFrame.center.removeAll(MainFrame.center);
 		VBox vBox = new VBox();
 		vBox.prefWidthProperty().bind(MainFrame.centerWidth);
         double width = vBox.getPrefWidth();
@@ -143,6 +142,7 @@ public class Studio {
         MainFrame.center.add(vBox);
         Text text = new Text("修改演出厅:");
         text.setFill(Color.DARKGRAY);
+        text.setFont(new Font(30));
         Label name = new Label("演出厅名字:");
         TextField Name = new TextField(studio.getName());
         Label row  = new Label("座位行数:");
@@ -151,27 +151,80 @@ public class Studio {
         TextField Col = new TextField(studio.getCol()+"");
         Label count = new Label("座位总数");
         Text Count = new Text(studio.getCount()+"");
-        Button save = new Button("保存");
-        save.setDefaultButton(true);
+        Button go = new Button("下一步");
+        go.setDefaultButton(true);
         Button rtn = new Button("返回");
-        HBox hBox = new HBox(save,rtn);
+        HBox hBox = new HBox(go,rtn);
         hBox.setSpacing(50);
         hBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().addAll(text,name,Name,row,Row,col,Col,count,Count,hBox);
+        vBox.setSpacing(30);
 
-        save.setOnAction(e-> {
 
+       go.setOnAction(e-> {
             studio.setName(Name.getText());
-            studio.setRow(Integer.parseInt(row.getText()));
-            studio.setCol(Integer.parseInt(row.getText()));
-            studio.setCount(Integer.parseInt(col.getText()));
+            studio.setRow(Integer.valueOf(Row.getText()));
+            studio.setCol(Integer.valueOf(Col.getText()));
+            studio.setCount(Integer.valueOf(Row.getText())*Integer.parseInt(Col.getText()));
+		    studio.setSeats(null);
+		   	new SeatView().mgtEntry(studio,vBox);
 
+           new Thread((new Task<Result>() {
+            	@Override
+				public Result call() throws Exception{
+            		return studioSer.modify(studio);
+				}
+				@Override
+				protected void running() {
+					LoadingButton.setLoading(go);
+					super.running();
+				}
+				protected  void succeeded(){
+					LoadingButton.setNormal(go);
+					Result result = getValue();
+					if(result.isStatus()) {
+						mgtEntry();
+						MainFrame.popupMessage("修改成功!");
+					}else {
+						MainFrame.popupMessage("修改失败: "+result.getReasons());
+					}
+            		super.succeeded();
 
+				}
+			})).start();
 
         });
+		rtn.setOnAction(e -> mgtEntry());
 
 	}
-    public void delete(model.Studio studio, Button del) {
-		
+    public  boolean delete(model.Studio studio, Button del) {
+
+		new Thread(new Task<Result>() {
+			@Override
+			public Result call() throws Exception{
+				return studioSer.delete(studio);
+			}
+			@Override
+			public void running(){
+				LoadingButton.setLoading(del);
+			}
+			@Override
+			public void succeeded(){
+				LoadingButton.setNormal(del);
+				Result result = getValue();
+				if(result.isStatus()){
+					mgtEntry();
+					MainFrame.popupMessage("删除成功!");
+				}else {
+					MainFrame.popupMessage("删除失败: "+result.getReasons());
+				}
+			}
+			@Override
+			public void failed(){
+				MainFrame.popupMessage("删除失败: 服务器异常!");
+			}
+		}).start();
+		return true;
 	}
     
 }
