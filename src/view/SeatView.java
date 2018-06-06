@@ -25,7 +25,7 @@ public class SeatView {
         mgtEntry(studio,origin,null);
     }
     public void mgtEntry(Studio studio, Pane origin,Studio oldStudio) {
-        System.out.println(oldStudio.getSeats()[0][0].getStatus());
+   /*     System.out.println(oldStudio.getSeats()[0][0].getStatus());*/
         Seat[][] seats = studio.getSeats();
         if (seats == null) {
             seats = new Seat[studio.getRow()][studio.getCol()];
