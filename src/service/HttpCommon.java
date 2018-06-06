@@ -74,7 +74,7 @@ public class HttpCommon {
 				br.close();
 				return cr;
 			} else {
-				// System.out.println(code);
+				 System.out.println(path);
 				return new CustomResp(new Gson().toJson(new Result("服务器响应异常(HTTP响应码:" + code + ")")), null);
 			}
 		} catch (MalformedURLException e) {

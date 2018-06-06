@@ -163,10 +163,14 @@ public class Studio {
 
        go.setOnAction(e-> {
             studio.setName(Name.getText());
-            studio.setRow(Integer.valueOf(Row.getText()));
-            studio.setCol(Integer.valueOf(Col.getText()));
-            studio.setCount(Integer.valueOf(Row.getText())*Integer.parseInt(Col.getText()));
-		    studio.setSeats(null);
+            int newRow = Integer.valueOf(Row.getText());
+            int newCol = Integer.valueOf(Col.getText());
+            if(newCol != studio.getCol() || newRow != studio.getRow()){
+            	studio.setRow(newRow);
+            	studio.setCol(newCol);
+				studio.setCount(newRow*newCol);
+				studio.setSeats(null);
+			}
 		   	new SeatView().mgtEntry(studio,vBox);
         });
 		rtn.setOnAction(e -> mgtEntry());

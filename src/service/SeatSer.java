@@ -17,7 +17,7 @@ public class SeatSer {
     HttpCommon httpCommon = new HttpCommon();
     Gson json = new Gson();
     public Result addAll(List<Seat> seats){
-        CustomResp cr = httpCommon.doHttp("/seat/addAll");
+        CustomResp cr = httpCommon.doHttp("/seat/addAll",seats);
         Result result = json.fromJson(cr.getResultJSON(),Result.class);
         if(result.isStatus()){
             List<Seat> seats1 = json.fromJson(cr.getObjectJSON(),new TypeToken<List<Seat>>(){}.getType());
