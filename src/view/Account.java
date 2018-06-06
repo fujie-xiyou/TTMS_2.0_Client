@@ -238,9 +238,9 @@ public class Account {
 				}
 				public void succeeded() {
 					LoadingButton.setNormal(ok);
-					mhtEntry();
 					Result result = getValue();
 					if(result.isStatus()) {
+						//mhtEntry();
 						account.setType(newAcc.getType());
 						account.setUsername(newAcc.getUsername());
 						account.setPassword(newAcc.getPassword());
@@ -248,7 +248,6 @@ public class Account {
 					}else {
 						MainFrame.popupMessage("修改失败: "+result.getReasons());
 					}
-					
 					
 				}
 			}).start();

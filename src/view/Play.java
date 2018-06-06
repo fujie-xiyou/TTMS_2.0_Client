@@ -333,12 +333,12 @@ public class Play {
 			        LoadingButton.setNormal(save);
 			        Result result = getValue();
                     if(result.isStatus()) {
-                        query(plays, play);
                         MainFrame.popupMessage("修改成功!");
                     }else {
 			            MainFrame.popupMessage("修改失败: "+result.getReasons());
                     }
-                    super.succeeded();
+					query(plays, play);
+					super.succeeded();
                 }
 
                 @Override
