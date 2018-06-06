@@ -50,6 +50,20 @@ public class Schedule {
 	public void setTicketCount(int ticketCount) {
 		this.ticketCount = ticketCount;
 	}
+	public Ticket[][] getTickets() {
+		return tickets;
+	}
+	public void setTickets(Ticket[][] tickets) {
+		this.tickets = tickets;
+	}
+	public void copyFrom(Schedule schedule){
+		this.id = schedule.id;
+		this.playID = schedule.playID;
+		this.studioID = schedule.studioID;
+		this.date = schedule.date;
+		this.ticketCount = schedule.ticketCount;
+		this.ticketCount = schedule.ticketCount;
+	}
 	public static List<Schedule> getSchedules(){
 		int id = 1;
 		List<Schedule> schedules = new LinkedList<>();
@@ -99,10 +113,5 @@ public class Schedule {
 		}
 		return null;
 	}
-	public Ticket[][] getTickets() {
-		return tickets;
-	}
-	public void setTickets(Ticket[][] tickets) {
-		this.tickets = tickets;
-	}
+
 }

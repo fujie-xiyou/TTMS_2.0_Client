@@ -30,6 +30,7 @@ import nodes.TopButton;
 import service.PlaySer;
 import tools.ConfirmDel;
 import tools.LoadingButton;
+import tools.LoadingPage;
 
 public class Play {
 	private List<model.Play> plays = null;
@@ -53,7 +54,8 @@ public class Play {
 
 			@Override
 			public void running() {
-				MainFrame.center.add(new ImageView("file:Resource/loading1.gif"));
+				LoadingPage.loadingPage(this);
+				super.running();
 			}
 
 			@Override

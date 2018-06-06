@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,23 +10,83 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.Play;
+import model.Result;
 import model.Studio;
 import nodes.TopButton;
+import service.ScheduleSer;
+import tools.ConfirmDel;
+import tools.LoadingPage;
+
 //
 public class Schedule{
+	private ScheduleSer scheduleSer = new ScheduleSer();
 	public void mgtEntry() {
-		TopButton add = new TopButton("添加");
-		MainFrame.top.addAll(add);
-		add.setOnAction(e -> {
-			add.recover();
-			add();
-		});
+		MainFrame.center.removeAll(MainFrame.center);
+		MainFrame.top.removeAll(MainFrame.top);
+		new Thread(new Task<List<model.Schedule>>() {
+			@Override
+			protected List<model.Schedule> call() {
+				return scheduleSer.fetchAll();
+			}
+
+			@Override
+			protected void running() {
+				LoadingPage.loadingPage(this);
+				super.running();
+			}
+
+			@Override
+			protected void succeeded() {
+				TopButton add = new TopButton("添加");
+				MainFrame.top.addAll(add);
+				add.setOnAction(e -> {
+					add.recover();
+					add();
+				});
+				MainFrame.center.removeAll(MainFrame.center);
+				List<model.Schedule> schedules = getValue();
+				GridPane centerPane = new GridPane();
+				centerPane.setVgap(20);
+				centerPane.setHgap(30);
+				centerPane.setPadding(new Insets(30));
+				centerPane.add(new Text("计划ID"), 0, 0);
+				centerPane.add(new Text("剧目名"), 1, 0);
+				centerPane.add(new Text("演出厅"), 2, 0);
+				centerPane.add(new Text("演出时间"),3,0);
+				centerPane.add(new Text("余座"),4,0);
+				//centerPane.add(new Text("密码"), 3, 0);
+				int row = 1;
+				for(model.Schedule schedule : schedules) {
+					centerPane.add(new Text(schedule.getId()+""),0 , row);
+					centerPane.add(new Text(scheduleSer.getPlay(schedule).getName()),1 , row);
+					centerPane.add(new Text(scheduleSer.getStudio(schedule).getName()),2 , row);
+					//centerPane.add(new Text(schedule.getPassword()),3 , row);
+					centerPane.add(new Text(schedule.getDate().toString()),3,row);
+					centerPane.add(new Text(schedule.getTicketCount()+""),4,row);
+					Button mod = new Button("修改") , del = new Button("删除");
+					del.getStyleClass().add("del-button");
+					mod.setOnAction(e -> modify(schedule));
+					del.setOnAction(e -> {
+						ConfirmDel.setConfirmDel(del, ee -> delete(schedule,del));
+					});
+					centerPane.add(mod, 4, row);
+					centerPane.add(del, 5, row);
+					row++;
+				}
+				MainFrame.center.add(centerPane);
+				super.succeeded();
+			}
+		}).start();
+
+
 	}
 
 	public boolean add() {
@@ -81,7 +142,7 @@ public class Schedule{
 	}
 
 
-	public boolean modify(int id) {
+	public boolean modify(model.Schedule schedule) {
 		// TODO Auto-generated method stub
 		VBox vpane=new VBox();
 		vpane.prefWidthProperty().bind(MainFrame.centerWidth);//将面板首选宽度与预留面板的宽度绑定
@@ -135,7 +196,7 @@ public class Schedule{
 	}
 
 
-	public boolean delete(int id) {
+	public boolean delete(model.Schedule schedule ,Button del) {
 		// TODO Auto-generated method stub
 		List<model.Studio> studios1= model.Studio.getStdios();
 		ComboBox<Studio> studioss1=new ComboBox<>(FXCollections.observableArrayList(studios1));

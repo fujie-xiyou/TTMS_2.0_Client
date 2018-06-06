@@ -29,6 +29,8 @@ import service.AccountSer;
 import service.HttpCommon;
 import tools.ConfirmDel;
 import tools.LoadingButton;
+import tools.LoadingPage;
+
 public class Account {
 	public static model.Account CurUser;
 	private AccountSer accountSer = new AccountSer(); 
@@ -49,7 +51,8 @@ public class Account {
 			}
 			@Override
 			public void running() {
-				MainFrame.center.add(new ImageView("file:Resource/loading1.gif"));
+				LoadingPage.loadingPage(this);
+				super.running();
 			}
 			@Override 
 			public void succeeded() {
