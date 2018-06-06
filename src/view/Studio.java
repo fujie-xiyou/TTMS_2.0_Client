@@ -168,31 +168,6 @@ public class Studio {
             studio.setCount(Integer.valueOf(Row.getText())*Integer.parseInt(Col.getText()));
 		    studio.setSeats(null);
 		   	new SeatView().mgtEntry(studio,vBox);
-
-           new Thread((new Task<Result>() {
-            	@Override
-				public Result call() throws Exception{
-            		return studioSer.modify(studio);
-				}
-				@Override
-				protected void running() {
-					LoadingButton.setLoading(go);
-					super.running();
-				}
-				protected  void succeeded(){
-					LoadingButton.setNormal(go);
-					Result result = getValue();
-					if(result.isStatus()) {
-						mgtEntry();
-						MainFrame.popupMessage("修改成功!");
-					}else {
-						MainFrame.popupMessage("修改失败: "+result.getReasons());
-					}
-            		super.succeeded();
-
-				}
-			})).start();
-
         });
 		rtn.setOnAction(e -> mgtEntry());
 
