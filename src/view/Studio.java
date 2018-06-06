@@ -162,16 +162,19 @@ public class Studio {
 
 
        go.setOnAction(e-> {
-            studio.setName(Name.getText());
+       		model.Studio newStudio = new model.Studio();
+       		newStudio.copyFrom(studio);
+		   System.out.println(newStudio.getCount());
+            newStudio.setName(Name.getText());
             int newRow = Integer.valueOf(Row.getText());
             int newCol = Integer.valueOf(Col.getText());
-            if(newCol != studio.getCol() || newRow != studio.getRow()){
-            	studio.setRow(newRow);
-            	studio.setCol(newCol);
-				studio.setCount(newRow*newCol);
-				studio.setSeats(null);
+            if(newCol != newStudio.getCol() || newRow != newStudio.getRow()){
+            	newStudio.setRow(newRow);
+            	newStudio.setCol(newCol);
+				newStudio.setCount(newRow*newCol);
+				newStudio.setSeats(null);
 			}
-		   	new SeatView().mgtEntry(studio,vBox);
+		   	new SeatView().mgtEntry(newStudio,vBox,studio);
         });
 		rtn.setOnAction(e -> mgtEntry());
 

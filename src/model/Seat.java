@@ -2,8 +2,7 @@ package model;
 
 import model.enums.SEAT_STATUS;
 
-public class Seat {
-
+public class Seat implements Cloneable{
 	private int id;
 	private int studioID;
 	private int row;//行号
@@ -48,5 +47,12 @@ public class Seat {
 	public void setStatus(SEAT_STATUS status) {
 		this.status = status;
 	}
-	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Seat seat = (Seat) super.clone();
+		return seat;
+	}
+	public Seat copy(){
+		return new Seat(this.getId(),this.getstudioID(),this.getRow(),this.getCol(),this.getStatus());
+	}
 }

@@ -21,7 +21,11 @@ import java.util.*;
 
 public class SeatView {
     StudioSer studioSer = new StudioSer();
-    public void mgtEntry(Studio studio, Pane origin) {
+    public void mgtEntry(Studio studio ,Pane origin){
+        mgtEntry(studio,origin,null);
+    }
+    public void mgtEntry(Studio studio, Pane origin,Studio oldStudio) {
+        System.out.println(oldStudio.getSeats()[0][0].getStatus());
         Seat[][] seats = studio.getSeats();
         if (seats == null) {
             seats = new Seat[studio.getRow()][studio.getCol()];
@@ -83,6 +87,7 @@ public class SeatView {
                     LoadingButton.setNormal(ok);
                     Result result = getValue();
                     if(result.isStatus()){
+                        if(oldStudio != null) oldStudio.copyFrom(studio);
                         new view.Studio().mgtEntry();
                         MainFrame.popupMessage("添加成功!");
                     }else {
@@ -94,6 +99,7 @@ public class SeatView {
 
         });
         cal.setOnAction(e -> {
+
             MainFrame.center.removeAll(MainFrame.center);
             MainFrame.center.add(origin);
         });
@@ -118,8 +124,11 @@ public class SeatView {
     }
 
     private Result modify(Set<Seat> chosedSeats, Studio studio) {
-
-        return studioSer.modify(studio);
+        if(new SeatSer().modifyAll(new ArrayList<>(chosedSeats)).isStatus()){
+            return studioSer.modify(studio);
+        }else {
+            return new Result("座位修改异常");
+        }
     }
     private Result deleteAll(Studio studio){
         return new SeatSer().deleteAll(studio);
