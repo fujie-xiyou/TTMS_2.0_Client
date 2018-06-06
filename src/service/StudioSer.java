@@ -12,7 +12,7 @@ public class StudioSer {
     private static List<Studio> studios = null;
     private HttpCommon httpCommon = new HttpCommon();
     private Gson json = new Gson();
-    private static void clearList(){
+    public static void clearList(){
         StudioSer.studios = null;
     }
     public List<Studio> fetchAll(){

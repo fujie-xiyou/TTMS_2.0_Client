@@ -118,6 +118,7 @@ public class SeatView {
     }
 
     private Result modify(Set<Seat> chosedSeats, Studio studio) {
+
         return studioSer.modify(studio);
     }
     private Result deleteAll(Studio studio){

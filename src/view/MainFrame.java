@@ -25,6 +25,7 @@ import model.LoginUser;
 import nodes.LeftButton;
 import service.AccountSer;
 import service.PlaySer;
+import service.StudioSer;
 
 public class MainFrame{
 	public static  ObservableList<Node> top;
@@ -124,6 +125,7 @@ public class MainFrame{
 		stu.setOnAction(e->{
 			stu.recover();
 			Studio studio =new Studio();
+			StudioSer.clearList();
 			studio.mgtEntry();
 		});
 		//注销登录
