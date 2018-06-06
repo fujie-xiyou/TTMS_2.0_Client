@@ -64,6 +64,7 @@ public class MainFrame{
 		
 		Pane outerPane = new BorderPane(mainPane,null,null,null,leftPane);
 		LeftButton  stu = new LeftButton("演出厅管理"),
+				sch = new LeftButton("演出计划"),
 				play = new LeftButton("剧目管理"),
 				sale = new LeftButton("    售票    "),
 				ret = new LeftButton("    退票    "),
@@ -74,7 +75,7 @@ public class MainFrame{
 		if(LoginUser.getLoginUser().getType().equals(model.enums.ACCOUNT_TYPE.CLERK)) {
 			leftPane.getChildren().addAll(sale,ret,out);
 		}else {
-			leftPane.getChildren().addAll(stu,play,que,ans,acc,out);
+			leftPane.getChildren().addAll(stu,sch,play,que,ans,acc,out);
 		}
 		leftPane.setAlignment(Pos.TOP_CENTER);
 		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
@@ -127,6 +128,12 @@ public class MainFrame{
 			Studio studio =new Studio();
 			StudioSer.clearList();
 			studio.mgtEntry();
+		});
+		//演出计划
+		sch.setOnAction(e->{
+			sch.recover();
+			Schedule schedule = new Schedule();
+			schedule.mgtEntry();
 		});
 		//注销登录
 		out.setOnAction(e -> {
