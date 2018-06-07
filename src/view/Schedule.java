@@ -66,19 +66,19 @@ public class Schedule{
 				int row = 1;
 				for(model.Schedule schedule : schedules) {
 					centerPane.add(new Text(schedule.getId()+""),0 , row);
-					centerPane.add(new Text(scheduleSer.getPlay(schedule).getName()),1 , row);
-					centerPane.add(new Text(scheduleSer.getStudio(schedule).getName()),2 , row);
+					centerPane.add(new Text(schedule.getPlay().getName()),1 , row);
+					centerPane.add(new Text(schedule.getStudio().getName()),2 , row);
 					//centerPane.add(new Text(schedule.getPassword()),3 , row);
 					centerPane.add(new Text(schedule.getDate().toString()),3,row);
 					centerPane.add(new Text(schedule.getTicketCount()+""),4,row);
 					Button mod = new Button("修改") , del = new Button("删除");
 					del.getStyleClass().add("del-button");
-					mod.setOnAction(e -> modify(schedule));
+					//mod.setOnAction(e -> modify(schedule));
 					del.setOnAction(e -> {
 						ConfirmDel.setConfirmDel(del, ee -> delete(schedule,del));
 					});
-					centerPane.add(mod, 4, row);
-					centerPane.add(del, 5, row);
+					//centerPane.add(mod, 5, row);
+					centerPane.add(del, 6, row);
 					row++;
 				}
 				MainFrame.center.add(centerPane);

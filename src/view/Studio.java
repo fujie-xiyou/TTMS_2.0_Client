@@ -2,6 +2,7 @@ package view;
 
 import javafx.event.Event;
 import model.Seat;
+import service.SeatSer;
 import service.StudioSer;
 import tools.ConfirmDel;
 import tools.LoadingButton;
@@ -173,7 +174,6 @@ public class Studio {
         go.setOnAction(e -> {
             model.Studio newStudio = new model.Studio();
             newStudio.copyFrom(studio);
-            System.out.println(newStudio.getCount());
             newStudio.setName(Name.getText());
             int newRow = Integer.valueOf(Row.getText());
             int newCol = Integer.valueOf(Col.getText());
@@ -182,8 +182,35 @@ public class Studio {
                 newStudio.setCol(newCol);
                 newStudio.setCount(newRow * newCol);
                 newStudio.setSeats(null);
+                new SeatView().mgtEntry(newStudio, vBox, studio);
+            }else {
+                new Thread(new Task<Result>() {
+                    @Override
+                    protected Result call() {
+                        return new SeatSer().fetchAll(studio);
+                    }
+
+                    @Override
+                    protected void running() {
+                        LoadingButton.setLoading(go);
+                        super.running();
+                    }
+
+                    @Override
+                    protected void succeeded() {
+                        LoadingButton.setNormal(go);
+                        new SeatView().mgtEntry(newStudio, vBox, studio);
+                        super.succeeded();
+                    }
+
+                    @Override
+                    protected void failed() {
+                        LoadingButton.setNormal(go);
+                        MainFrame.popupMessage("座位获取失败: 服务器异常");
+                        super.failed();
+                    }
+                }).start();
             }
-            new SeatView().mgtEntry(newStudio, vBox, studio);
         });
         rtn.setOnAction(e -> mgtEntry());
 

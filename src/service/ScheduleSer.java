@@ -10,9 +10,13 @@ public class ScheduleSer {
     private static List<Schedule> schedules;
     HttpCommon httpCommon = new HttpCommon();
     Gson json = new Gson();
+    public static void clearList(){
+        schedules = null;
+    }
     public List<Schedule> fetchAll(){
         if(schedules == null){
             CustomResp cr = httpCommon.doHttp("/schedule/fetchAll");
+            System.out.println(cr.getObjectJSON());
             schedules =  json.fromJson(cr.getObjectJSON(),new TypeToken<List<Schedule>>(){}.getType());
         }
         return schedules;
@@ -41,21 +45,5 @@ public class ScheduleSer {
         }
         return result;
     }
-    public Play getPlay(Schedule schedule){
-        List<Play> plays = new PlaySer().fetchAll();
-        for(Play play : plays){
-            if(play.getId() == schedule.getPlayID())
-                return play;
-        }
-        return null;
-    }
-    public Studio getStudio(Schedule schedule){
-        List<Studio> studios = new StudioSer().fetchAll();
-        for(Studio studio : studios){
-            if(studio.getId() == schedule.getStudioID()){
-                return studio;
-            }
-        }
-        return null;
-    }
+
 }

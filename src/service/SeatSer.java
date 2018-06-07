@@ -16,6 +16,19 @@ public class SeatSer {
 
     HttpCommon httpCommon = new HttpCommon();
     Gson json = new Gson();
+    public Result fetchAll(Studio studio){
+        CustomResp cr = httpCommon.doHttp("/seat/fetchAll",studio);
+        Result result = json.fromJson(cr.getResultJSON(),Result.class);
+        if(result.isStatus()){
+            Seat[][] seats = new Seat[studio.getRow()][studio.getCol()];
+            List<Seat> seats1 = json.fromJson(cr.getObjectJSON(),new TypeToken<List<Seat>>(){}.getType());
+            for (Seat seat : seats1){
+                seats[seat.getRow()-1][seat.getCol()-1] = seat;
+            }
+            studio.setSeats(seats);
+        }
+        return result;
+    }
     public Result addAll(List<Seat> seats){
         CustomResp cr = httpCommon.doHttp("/seat/addAll",seats);
         Result result = json.fromJson(cr.getResultJSON(),Result.class);

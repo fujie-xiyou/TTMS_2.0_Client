@@ -26,7 +26,6 @@ public class SeatManageRect extends Rectangle {
         this.setColor();
         this.setOnMouseClicked(e -> {
             setSeatStatus(studio);
-            System.out.println("Rect: "+studio.getCount());
         });
 
     }

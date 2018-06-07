@@ -25,6 +25,7 @@ import model.LoginUser;
 import nodes.LeftButton;
 import service.AccountSer;
 import service.PlaySer;
+import service.ScheduleSer;
 import service.StudioSer;
 
 public class MainFrame{
@@ -133,6 +134,7 @@ public class MainFrame{
 		sch.setOnAction(e->{
 			sch.recover();
 			Schedule schedule = new Schedule();
+			ScheduleSer.clearList();
 			schedule.mgtEntry();
 		});
 		//注销登录

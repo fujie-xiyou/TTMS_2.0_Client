@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import model.CustomResp;
 import model.Result;
+import model.Studio;
 
 public class HttpCommon {
 	public static String url = "http://localhost:8080";
@@ -77,8 +78,7 @@ public class HttpCommon {
 				br.close();
 				return cr;
 			} else {
-				 System.out.println(path);
-				return new CustomResp(new Gson().toJson(new Result("服务器响应异常(HTTP响应码:" + code + ")")), null);
+				return new CustomResp(new Result("服务器响应异常(HTTP响应码:" + code + ")"));
 			}
 		} catch (MalformedURLException e) {
 			// TODO 自动生成的 catch 块
@@ -92,9 +92,12 @@ public class HttpCommon {
 
 	// 测试用
 	public static void main(String[] args) {
-		String json = "{\"uid\":0,\"type\":\"ADMIN\",\"username\":\"fujie\",\"password\":\"7c32841c18f635e5eed4bcf07afec757\"}";
-		cookie = "JSESSIONID=76DABB69998ACC48522BDBD3F9894A16";
-		CustomResp cr = new HttpCommon().doHttp("/test", "POST", json);
+		Studio studio = new Studio();
+		studio.setId(18);
+		String json = new Gson().toJson(studio);
+		System.out.println(json);
+		//cookie = "JSESSIONID=76DABB69998ACC48522BDBD3F9894A16";
+		CustomResp cr = new HttpCommon().doHttp("/seat/fetchAll", "POST", json);
 		System.out.println(cr.getResultJSON());
 		System.out.println(cr.getObjectJSON());
 	}

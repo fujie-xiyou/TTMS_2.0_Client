@@ -36,7 +36,7 @@ public class Sale {
 		flowPane.setPadding(new Insets(w/30));
 		centerPane.setFitToWidth(true);
 		centerPane.setContent(flowPane);
-		List<model.Schedule> schs = model.Schedule.getSchedules();
+		List<model.Schedule> schs = null;
 		for(model.Play play : plays) {
 			VBox vBox = new VBox();
 			ImageView image = new ImageView(new Image(play.getImgUrl(), w/5, 0, true, true));
@@ -112,7 +112,7 @@ public class Sale {
 		schListPane.add(new Text("票价"), 3, 0);
 		int row = 1;
 		for(model.Schedule schedule : schs) {
-			schListPane.add(new Text(schedule.getStudioByID(studios, schedule.getStudioID()).getName()),0,row);
+			schListPane.add(new Text(schedule.getStudioByID(studios, schedule.getStudio().getId()).getName()),0,row);
 			schListPane.add(new Text(schedule.getDate().toString()), 1, row);
 			schListPane.add(new Text(schedule.getTicketCount()+""), 2, row);
 			schListPane.add(new Text("￥"+schedule.getPlayByID(plays, schedule.getId()).getPrice()+""), 3, row);
@@ -129,7 +129,7 @@ public class Sale {
 
 	public void showTicket(List<model.Studio> studios, model.Schedule sch ,List<model.Schedule> schs ,List<model.Play> plays , model.Play play) {
 		// TODO Auto-generated method stub
-		model.Studio studio = sch.getStudioByID(studios, sch.getStudioID());
+		model.Studio studio = sch.getStudioByID(studios, sch.getStudio().getId());
 		model.Seat[][] seats = studio.getSeats();
 		VBox outer = new VBox();
 		MainFrame.center.removeAll(MainFrame.center);

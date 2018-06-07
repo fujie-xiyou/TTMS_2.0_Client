@@ -104,14 +104,14 @@ public class Studio {
         this.setCol(studio.getCol());
         this.setCount(studio.getCount());
         this.setIntroduction(studio.getIntroduction());
-        this.setSeats(new Seat[studio.getRow()][studio.getCol()]);
-        Seat[][] seats = this.getSeats();
-        Seat[][] oldSeats = studio.getSeats();
-        for (int i = 0; i < seats.length; i++) {
-            for (int j = 0; j < seats[0].length; j++) {
-                seats[i][j] = oldSeats[i][j].copy();
-            }
-        }
+//        this.setSeats(new Seat[studio.getRow()][studio.getCol()]);
+//        Seat[][] seats = this.getSeats();
+//        Seat[][] oldSeats = studio.getSeats();
+//        for (int i = 0; i < seats.length; i++) {
+//            for (int j = 0; j < seats[0].length; j++) {
+//                seats[i][j] = oldSeats[i][j].copy();
+//            }
+//        }
 
     }
 
