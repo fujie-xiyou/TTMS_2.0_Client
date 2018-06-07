@@ -75,7 +75,7 @@ public class MainFrame{
 		if(LoginUser.getLoginUser().getType().equals(model.enums.ACCOUNT_TYPE.CLERK)) {
 			leftPane.getChildren().addAll(sale,ret,out);
 		}else {
-			leftPane.getChildren().addAll(stu,play,que,ans,acc,out);
+			leftPane.getChildren().addAll(stu,sch,play,que,ans,acc,out);
 		}
 		leftPane.setAlignment(Pos.TOP_CENTER);
 		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
