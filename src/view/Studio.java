@@ -57,32 +57,31 @@ public class Studio {
                 });
 
                 GridPane centerPane = new GridPane();
-                centerPane.setVgap(20);
-                centerPane.setHgap(30);
-                centerPane.setPadding(new Insets(30));
+                centerPane.setVgap(20*2);
+                centerPane.setHgap(30*3);
+                centerPane.setPadding(new Insets(30,30,30,90));
                 centerPane.add(new Text("演出厅ID"), 0, 0);
-                centerPane.add(new Text("演出厅名字"), 3, 0);
-                centerPane.add(new Text("座位总数"), 6, 0);
+                centerPane.add(new Text("演出厅名字"), 1, 0);
+                centerPane.add(new Text("座位总数"), 2, 0);
 
                 int row = 1;
                 for (model.Studio studio : studios) {
                     centerPane.add(new Text(studio.getId() + ""), 0, row);
-                    centerPane.add(new Text(studio.getName()), 3, row);
-                    centerPane.add(new Text(studio.getCount() + ""), 6, row);
+                    centerPane.add(new Text(studio.getName()), 1, row);
+                    centerPane.add(new Text(studio.getCount() + ""), 2, row);
                     Button mod = new Button("修改"), del = new Button("删除");
                     del.getStyleClass().add("del-button");
                     mod.setOnAction(e -> modify(studio));
                     del.setOnAction(e -> {
                         ConfirmDel.setConfirmDel(del, ee -> delete(studio, del));
                     });
-                    centerPane.add(mod, 9, row);
-                    centerPane.add(del, 11, row);
+                    centerPane.add(mod, 3, row);
+                    centerPane.add(del, 4, row);
 			/*		System.out.println("row="+row);
 					System.out.println("count="+studio.getCount());*/
-                    row = row + 2;
+                    row = row + 1;
 
                 }
-                centerPane.setAlignment(Pos.TOP_CENTER);
                 MainFrame.center.add(centerPane);
             }
         }).start();
