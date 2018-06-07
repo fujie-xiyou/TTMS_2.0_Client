@@ -12,6 +12,7 @@ import model.Result;
 import model.Seat;
 import model.Studio;
 import model.enums.SEAT_STATUS;
+import nodes.SeatManageImg;
 import nodes.SeatManageRect;
 import service.SeatSer;
 import service.StudioSer;
@@ -51,7 +52,8 @@ public class SeatView {
             gridPane.add(new Text((i + 1) + ""), 0, i + 1);
             for (int j = 0; j < seats[0].length; j++) {
                 gridPane.add(new Text((j + 1) + ""), j + 1, 0);
-                SeatManageRect seat = new SeatManageRect(studio, seats[i][j], chosedSeats, 50, 35);
+//                SeatManageRect seat = new SeatManageRect(studio, seats[i][j], chosedSeats, 50, 35);
+                SeatManageImg seat = new SeatManageImg(studio, seats[i][j], chosedSeats);
                 gridPane.add(seat, j + 1, i + 1);
             }
         }

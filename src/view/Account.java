@@ -70,18 +70,18 @@ public class Account {
 					modify(accounts);
 				});*/
 				GridPane centerPane = new GridPane();
-				centerPane.setVgap(20);
-				centerPane.setHgap(30);
-				centerPane.setPadding(new Insets(30));
+				centerPane.setVgap(20*2);
+				centerPane.setHgap(30*3);
+				centerPane.setPadding(new Insets(30,30,30,90));
 				centerPane.add(new Text("用户ID"), 0, 0);
-				centerPane.add(new Text("用户名"), 4, 0);
-				centerPane.add(new Text("用户类型"), 8, 0);
+				centerPane.add(new Text("用户名"), 1, 0);
+				centerPane.add(new Text("用户类型"), 2, 0);
 				//centerPane.add(new Text("密码"), 3, 0);
 				int row = 1;
 				for(model.Account account : accounts) {
 					centerPane.add(new Text(account.getUid()+""),0 , row);
-					centerPane.add(new Text(account.getUsername()),4 , row);
-					centerPane.add(new Text(account.getType().toString()),8, row);
+					centerPane.add(new Text(account.getUsername()),1 , row);
+					centerPane.add(new Text(account.getType().toString()),2, row);
 					//centerPane.add(new Text(account.getPassword()),3 , row);
 					Button mod = new Button("修改") , del = new Button("删除");
 					del.getStyleClass().add("del-button");
@@ -89,11 +89,10 @@ public class Account {
 					del.setOnAction(e -> {
 						ConfirmDel.setConfirmDel(del, ee -> delete(account,del));
 					});
-					centerPane.add(mod, 11, row);
-					centerPane.add(del, 13, row);
-					row=row+2;
+					centerPane.add(mod, 3, row);
+					centerPane.add(del, 4, row);
+					row=row+1;
 				}
-				centerPane.setAlignment(Pos.TOP_CENTER);
 				MainFrame.center.add(centerPane);
 			}
 		}).start();
