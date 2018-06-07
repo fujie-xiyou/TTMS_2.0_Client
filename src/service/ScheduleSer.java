@@ -16,7 +16,6 @@ public class ScheduleSer {
     public List<Schedule> fetchAll(){
         if(schedules == null){
             CustomResp cr = httpCommon.doHttp("/schedule/fetchAll");
-            System.out.println(cr.getObjectJSON());
             schedules =  json.fromJson(cr.getObjectJSON(),new TypeToken<List<Schedule>>(){}.getType());
         }
         return schedules;
