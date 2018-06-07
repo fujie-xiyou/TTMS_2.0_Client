@@ -18,6 +18,9 @@ import model.Result;
 public class HttpCommon {
 	public static String url = "http://localhost:8080";
 	private static String cookie = null;
+	public HttpCommon(){
+
+	}
 
 	public static void setCookie(String cookie) {
 		HttpCommon.cookie = cookie;

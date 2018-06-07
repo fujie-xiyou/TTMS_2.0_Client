@@ -114,7 +114,7 @@ public class Sale {
 		for(model.Schedule schedule : schs) {
 			schListPane.add(new Text(schedule.getStudioByID(studios, schedule.getStudioID()).getName()),0,row);
 			schListPane.add(new Text(schedule.getDate().toString()), 1, row);
-			schListPane.add(new Text(schedule.getSeatCount()+""), 2, row);
+			schListPane.add(new Text(schedule.getTicketCount()+""), 2, row);
 			schListPane.add(new Text("￥"+schedule.getPlayByID(plays, schedule.getId()).getPrice()+""), 3, row);
 			Button buy = new Button("购买");
 			FlowPane buyButt = new FlowPane();

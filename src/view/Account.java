@@ -29,6 +29,8 @@ import service.AccountSer;
 import service.HttpCommon;
 import tools.ConfirmDel;
 import tools.LoadingButton;
+import tools.LoadingPage;
+
 public class Account {
 	public static model.Account CurUser;
 	private AccountSer accountSer = new AccountSer(); 
@@ -49,7 +51,8 @@ public class Account {
 			}
 			@Override
 			public void running() {
-				MainFrame.center.add(new ImageView("file:Resource/loading1.gif"));
+				LoadingPage.loadingPage(this);
+				super.running();
 			}
 			@Override 
 			public void succeeded() {
@@ -239,9 +242,9 @@ public class Account {
 				}
 				public void succeeded() {
 					LoadingButton.setNormal(ok);
-					mhtEntry();
 					Result result = getValue();
 					if(result.isStatus()) {
+						//mhtEntry();
 						account.setType(newAcc.getType());
 						account.setUsername(newAcc.getUsername());
 						account.setPassword(newAcc.getPassword());
@@ -249,7 +252,6 @@ public class Account {
 					}else {
 						MainFrame.popupMessage("修改失败: "+result.getReasons());
 					}
-					
 					
 				}
 			}).start();

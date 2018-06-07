@@ -1,19 +1,16 @@
 package model;
-
-import java.util.Date;
+import model.enums.TICKET_STATUS;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
-
-import model.enums.TICKET_STATUS;
-import service.PlaySer;
 
 public class Schedule {
 	//演出计划类型
 	private int id;
 	private int playID;//剧目id
 	private int studioID; //演出厅ID
-	private Date date; //演出时间
-	private int seatCount;//剩余座位数量
+	private LocalDate date; //演出时间
+	private int ticketCount;//剩余座位数量
 	private Ticket[][] tickets;
 	public int getId() {
 		return id;
@@ -27,12 +24,13 @@ public class Schedule {
 	public void setPlayID(int playID) {
 		this.playID = playID;
 	}
-	public Schedule(int id, int playID, int studioID, Date date) {
+	public Schedule(int id, int playID, int studioID, LocalDate date,int ticketCount) {
 		super();
 		this.id = id;
 		this.playID = playID;
 		this.studioID = studioID;
 		this.date = date;
+		this.ticketCount = ticketCount;
 	}
 	public int getStudioID() {
 		return studioID;
@@ -40,25 +38,39 @@ public class Schedule {
 	public void setStudioID(int studioID) {
 		this.studioID = studioID;
 	}
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	public int getSeatCount() {
-		return seatCount;
+	public int getTicketCount() {
+		return ticketCount;
 	}
-	public void setSeatCount(int seatCount) {
-		this.seatCount = seatCount;
+	public void setTicketCount(int ticketCount) {
+		this.ticketCount = ticketCount;
 	}
-	public static List<model.Schedule> getSchedules(){
+	public Ticket[][] getTickets() {
+		return tickets;
+	}
+	public void setTickets(Ticket[][] tickets) {
+		this.tickets = tickets;
+	}
+	public void copyFrom(Schedule schedule){
+		this.id = schedule.id;
+		this.playID = schedule.playID;
+		this.studioID = schedule.studioID;
+		this.date = schedule.date;
+		this.ticketCount = schedule.ticketCount;
+		this.ticketCount = schedule.ticketCount;
+	}
+	public static List<Schedule> getSchedules(){
 		int id = 1;
-		List<model.Schedule> schedules = new LinkedList<>();
-		Schedule schedule = new model.Schedule(1, 1, 1, new Date());
+		List<Schedule> schedules = new LinkedList<>();
+		Schedule schedule = new Schedule(1, 1, 1, LocalDate.now(),18);
 		Studio studio = schedule.getStudioByID(Studio.getStdios(),schedule.getStudioID());
-		schedule.setSeatCount(studio.getCount());
-		Play play = schedule.getPlayByID(new PlaySer().fetchAll(), schedule.getPlayID());
+		schedule.setTicketCount(studio.getCount());
+		Play play = schedule.getPlayByID(null, schedule.getPlayID());
 		Seat[][] seats = studio.getSeats();
 		Ticket[][] tickets = new Ticket[studio.getRow()][studio.getCol()];
 		for(int i = 0; i < seats.length; i++) {
@@ -69,10 +81,10 @@ public class Schedule {
 		}
 		schedule.setTickets(tickets);
 		schedules.add(schedule);
-		schedule = new model.Schedule(2, 1, 2, new Date());
+		schedule = new Schedule(2, 1, 2, LocalDate.now(),18);
 		studio = schedule.getStudioByID(Studio.getStdios(),schedule.getStudioID());
-		schedule.setSeatCount(studio.getCount());
-		play = schedule.getPlayByID(new PlaySer().fetchAll(), schedule.getPlayID());
+		schedule.setTicketCount(studio.getCount());
+		play = schedule.getPlayByID(null, schedule.getPlayID());
 		seats = studio.getSeats();
 		tickets = new Ticket[studio.getRow()][studio.getCol()];
 		for(int i = 0; i < seats.length; i++) {
@@ -85,7 +97,7 @@ public class Schedule {
 		schedules.add(schedule);
 		return schedules;
 	}
-	
+
 	public Studio getStudioByID(List<Studio> studios ,int id) {
 		//根据ID获取演出厅
 		for(Studio studio : studios) {
@@ -101,10 +113,5 @@ public class Schedule {
 		}
 		return null;
 	}
-	public Ticket[][] getTickets() {
-		return tickets;
-	}
-	public void setTickets(Ticket[][] tickets) {
-		this.tickets = tickets;
-	}
+
 }
