@@ -187,7 +187,7 @@ public class Studio {
                 new Thread(new Task<Result>() {
                     @Override
                     protected Result call() {
-                        return new SeatSer().fetchAll(studio);
+                        return new SeatSer().fetchAll(newStudio);
                     }
 
                     @Override

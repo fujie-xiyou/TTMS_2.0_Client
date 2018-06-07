@@ -117,7 +117,9 @@ public class SeatView {
             for(Seat[] seats1 : seats){
                 seatss.addAll(Arrays.asList(seats1));
             }
-           return new SeatSer().addAll(seatss);
+           if(new SeatSer().addAll(seatss).isStatus()){
+                return studioSer.modify(studio);
+           }
         }
         return studioSer.add(studio);
     }

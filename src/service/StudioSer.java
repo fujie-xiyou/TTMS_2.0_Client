@@ -41,8 +41,6 @@ public class StudioSer {
     public Result modify(Studio studio){
         CustomResp cr = httpCommon.doHttp("/studio/modify",studio);
         Result result = json.fromJson(cr.getResultJSON(),Result.class);
-        System.out.println(result.isStatus());
-        System.out.println(result.getReasons());
         return result;
     }
 
