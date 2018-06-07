@@ -19,16 +19,16 @@ import model.Studio;
 import nodes.TopButton;
 //
 public class Schedule{
-	public void mgtEntry(int playID) {
+	public void mgtEntry() {
 		TopButton add = new TopButton("添加");
 		MainFrame.top.addAll(add);
 		add.setOnAction(e -> {
 			add.recover();
-			add(playID);
+			add();
 		});
 	}
 
-	public boolean add(int playID) {
+	public boolean add() {
 		List<model.Studio> studios= model.Studio.getStdios();
 	//	TextField stdio_id,
 		GridPane gPane=new GridPane();
