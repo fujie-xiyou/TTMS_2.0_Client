@@ -310,9 +310,9 @@ public class Schedule {
             }
 
             @Override
-            public void running() {
+            protected void running() {
                 LoadingButton.setLoading(del);
-                super.run();
+                super.running();
             }
 
             @Override
@@ -320,6 +320,7 @@ public class Schedule {
                 LoadingButton.setNormal(del);
                 Result result = getValue();
                 if (result.isStatus()) {
+                    mgtEntry();
                     MainFrame.popupMessage("删除成功！");
                 }else {
                     MainFrame.popupMessage("删除失败： "+result.getReasons());
@@ -333,7 +334,6 @@ public class Schedule {
                 super.failed();
             }
         }).start();
-        scheduleSer.delete(schedule);
         return false;
     }
 

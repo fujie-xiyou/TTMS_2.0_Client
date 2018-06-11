@@ -24,7 +24,7 @@ public class ScheduleSer {
         CustomResp cr = httpCommon.doHttp("/schedule/add",schedule);
         Result result = json.fromJson(cr.getResultJSON(),Result.class);
         if(result.isStatus()){
-            schedules.add(schedule);
+            schedules.add(json.fromJson(cr.getObjectJSON(),Schedule.class));
         }
         return result;
     }
