@@ -31,6 +31,7 @@ import nodes.TopButton;
 import service.PlaySer;
 import service.ScheduleSer;
 import service.StudioSer;
+import sun.applet.Main;
 import tools.ConfirmDel;
 import tools.LoadingButton;
 import tools.LoadingPage;
@@ -190,6 +191,7 @@ public class Schedule {
         gPane.add(studiotime, 0, 3);  //时间label
         gPane.add(studiotimefild, 1, 3);  //填入时间
         Button ok = new Button("确认");
+        Button cal = new Button("取消");
         ok.setOnAction(e -> {
             Instant calendar = studiotimefild.getCalendar().getTime().toInstant();
             LocalTime localTime = LocalDateTime.ofInstant(calendar,ZoneId.systemDefault()).toLocalTime();
@@ -231,10 +233,13 @@ public class Schedule {
                     super.failed();
                 }
             }).start();
-            System.out.println(calendar);
+        });
+        cal.setOnAction(e -> {
+            mgtEntry();
         });
 
         gPane.add(ok, 1, 4);
+        gPane.add(cal,2,4);
         //类型转换
 	/*	Studio studiostr =studioss.getValue();
 		LocalDate studiodatepickerstr=studiodatepicker.getValue();
@@ -298,38 +303,37 @@ public class Schedule {
 
 
     public boolean delete(model.Schedule schedule, Button del) {
-        // TODO Auto-generated method stub
-        List<model.Studio> studios1 = model.Studio.getStdios();
-        ComboBox<Studio> studioss1 = new ComboBox<>(FXCollections.observableArrayList(studios1));
-        VBox vBox = new VBox();
+        new Thread(new Task<Result>() {
+            @Override
+            protected Result call() {
+                return  scheduleSer.delete(schedule);
+            }
 
-        MainFrame.center.add(vBox);
+            @Override
+            public void running() {
+                LoadingButton.setLoading(del);
+                super.run();
+            }
 
+            @Override
+            protected void succeeded() {
+                LoadingButton.setNormal(del);
+                Result result = getValue();
+                if (result.isStatus()) {
+                    MainFrame.popupMessage("删除成功！");
+                }else {
+                    MainFrame.popupMessage("删除失败： "+result.getReasons());
+                }
+                super.succeeded();
+            }
 
-        vBox.setAlignment(Pos.TOP_LEFT);
-        vBox.prefWidthProperty().bind(MainFrame.centerWidth);//将面板首选宽度与预留面板的宽度绑定
-        double width = vBox.getPrefWidth();
-        vBox.setPadding(new Insets(30, width * 2.0 / 7, 0, width * 2.0 / 7));//面板上左右内边距
-        vBox.setSpacing(50);
-        Text text1 = new Text("删除演出计划：");
-        text1.setFont(new Font(25));
-        text1.setFill(Color.DARKGRAY);
-
-        studioss1.setPromptText("请选择演出厅..");
-
-        Button ok1 = new Button("确定");
-        vBox.getChildren().addAll(text1, studioss1, ok1);
-        ok1.setOnAction(e -> {
-            MainFrame.popupMessage("删除成功!");
-			/*if() {                                       //未判断??????????????????????????????????????????????????????????????
-				
-			}
-			else {
-				
-			}*/
-        });
-
-
+            @Override
+            protected void failed() {
+                MainFrame.popupMessage("删除失败： 服务器异常！");
+                super.failed();
+            }
+        }).start();
+        scheduleSer.delete(schedule);
         return false;
     }
 
