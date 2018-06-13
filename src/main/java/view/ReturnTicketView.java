@@ -60,6 +60,7 @@ public class ReturnTicketView {
                 protected void succeeded() {
                     LoadingButton.setNormal(ok);
                     if (getValue() == null) MainFrame.popupMessage("订单ID不存在");
+                    else if(getValue().getType().equals(ORDER_TYPE.REFUND)) MainFrame.popupMessage("订单不是有效的购票订单！");
                     else showOrder(getValue());
                     super.succeeded();
                 }
