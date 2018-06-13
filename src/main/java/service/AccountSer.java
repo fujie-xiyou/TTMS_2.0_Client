@@ -54,4 +54,8 @@ public class AccountSer {
 		CustomResp cr = httpCommon.doHttp("/account/modify",account);
 		return json.fromJson(cr.getResultJSON(), Result.class);
 	}
+	public Account fetchByID(int id){
+		CustomResp cr = httpCommon.doHttp("/account/fetchByID",id);
+		return json.fromJson(cr.getObjectJSON(),Account.class);
+	}
 }

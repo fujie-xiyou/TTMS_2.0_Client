@@ -6,6 +6,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import model.CustomResp;
+import model.Play;
 import model.Result;
 
 public class PlaySer {
@@ -44,5 +45,9 @@ public class PlaySer {
 			plays = json.fromJson(cr.getObjectJSON(), new TypeToken<List<model.Play>>() {}.getType());
 		}
 		return plays;
+	}
+	public Play fetchByID(int id){
+		CustomResp cr = httpCommon.doHttp("/play/fetchByID",id);
+		return json.fromJson(cr.getObjectJSON(),Play.class);
 	}
 }

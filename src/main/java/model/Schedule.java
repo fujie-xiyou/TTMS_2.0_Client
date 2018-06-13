@@ -8,8 +8,8 @@ import java.util.List;
 public class Schedule {
 	//演出计划类型
 	private int id;
-	private Play play;//剧目id
-	private Studio studio; //演出厅ID
+	private Play play;//剧目
+	private Studio studio; //演出厅
 	private LocalDate date; //演出日期
 	private LocalTime time;
 	private int ticketCount;//剩余座位数量

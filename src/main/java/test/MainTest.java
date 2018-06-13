@@ -13,7 +13,7 @@ import view.MainFrame;
 public class MainTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LoginUser.setLoginUser(new Account(-1,ACCOUNT_TYPE.ADMIN,"假的","00"));
+        LoginUser.setLoginUser(new Account(-1,ACCOUNT_TYPE.CLERK,"假的","00"));
         new MainFrame().mainFrame();
     }
     public static void main(String[] args){

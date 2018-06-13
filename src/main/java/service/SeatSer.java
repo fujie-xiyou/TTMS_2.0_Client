@@ -60,4 +60,8 @@ public class SeatSer {
         }
         return result;
     }
+    public Seat fetchByID(int id){
+        CustomResp cr = httpCommon.doHttp("/seat/fetchByID",id);
+        return json.fromJson(cr.getObjectJSON(),Seat.class);
+    }
 }

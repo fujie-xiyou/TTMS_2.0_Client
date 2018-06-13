@@ -43,5 +43,9 @@ public class StudioSer {
         Result result = json.fromJson(cr.getResultJSON(),Result.class);
         return result;
     }
+    public Studio fetchByID(int id){
+        CustomResp cr = httpCommon.doHttp("/studio/fetchByID",id);
+        return json.fromJson(cr.getObjectJSON(),Studio.class);
+    }
 
 }

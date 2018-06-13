@@ -78,6 +78,8 @@ public class HttpCommon {
 				br.close();
 				return cr;
 			} else {
+				System.out.println(path);
+				System.out.println(data);
 				return new CustomResp(new Result("服务器响应异常(HTTP响应码:" + code + ")"));
 			}
 		} catch (MalformedURLException e) {

@@ -20,6 +20,10 @@ public class ScheduleSer {
         }
         return schedules;
     }
+    public List<Schedule> fetchByPlay(Play play){
+        CustomResp cr = httpCommon.doHttp("/schedule/fetchByPlay",play);
+        return json.fromJson(cr.getObjectJSON(),new TypeToken<List<Schedule>>(){}.getType());
+    }
     public Result add(Schedule schedule){
         CustomResp cr = httpCommon.doHttp("/schedule/add",schedule);
         Result result = json.fromJson(cr.getResultJSON(),Result.class);
@@ -44,5 +48,12 @@ public class ScheduleSer {
         }
         return result;
     }
-
+    public void getTickets(Schedule schedule){
+        CustomResp cr = httpCommon.doHttp("/schedule/getTickets",schedule);
+        schedule.setTickets(json.fromJson(cr.getObjectJSON(),Ticket[][].class));
+    }
+    public Schedule fetchByID(int id){
+        CustomResp cr = httpCommon.doHttp("/schedule/fetchByID",id);
+        return json.fromJson(cr.getObjectJSON(),Schedule.class);
+    }
 }
