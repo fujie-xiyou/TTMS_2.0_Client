@@ -50,5 +50,8 @@
     <orderEntry type="library" name="Maven: org.jfxtras:jfxtras-controls:8.0-r6" level="project" />
     <orderEntry type="library" name="Maven: org.jfxtras:jfxtras-common:8.0-r6" level="project" />
     <orderEntry type="library" name="Maven: org.jfxtras:jfxtras-fxml:8.0-r6" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20180130" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.4" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:19.0" level="project" />
   </component>
 </module>
