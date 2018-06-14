@@ -104,7 +104,7 @@ public class MainFrame {
             saIf.mgtEntry();
         });
         ret.setOnAction(e -> {
-            sale.recover();
+            ret.recover();
             new ReturnTicketView().mgtEnter();
         });
         //账号管理

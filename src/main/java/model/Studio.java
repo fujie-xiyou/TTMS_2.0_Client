@@ -13,7 +13,7 @@ public class Studio {
     private int count;
     private String introduction;
     private Seat[][] seats;
-
+    private long theEndPlayTime;
     public Studio(int id, String name, int row, int col, int count) {
         this.id = id;
         this.name = name;
