@@ -97,6 +97,14 @@ public class Studio {
         this.introduction = introduction;
     }
 
+    public long getTheEndPlayTime() {
+        return theEndPlayTime;
+    }
+
+    public void setTheEndPlayTime(long theEndPlayTime) {
+        this.theEndPlayTime = theEndPlayTime;
+    }
+
     public void copyFrom(Studio studio) {
         this.setId(studio.getId());
         this.setName(studio.getName());
@@ -112,6 +120,7 @@ public class Studio {
 //                seats[i][j] = oldSeats[i][j].copy();
 //            }
 //        }
+
 
     }
 

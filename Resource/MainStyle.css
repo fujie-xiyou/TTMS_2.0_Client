@@ -2,7 +2,7 @@
 /*全局*/
 .root {
 	/*-fx-background-color: #520;  */ /*全局背景色*/
-	-fx-background-image: url("background.jpg"); /*全局背景图*/
+	-fx-background-image: url("background2.jpg"); /*全局背景图*/
 	-fx-background-size: cover;
 	-fx-font-size: 17;
 }
@@ -22,73 +22,75 @@
 
 /*左栏*/
 .left-bar{
-	-fx-background-color: rgb(220,220,220,0.5);
+	-fx-background-color: rgba(0, 0, 0, 0.2);
 	-fx-padding: 0;
+	-fx-spacing: 5;
 }
 /*左栏按钮的属性*/
 .left--button {
 	-fx-background-radius: 0;
-	-fx-background-color: rgb(255,255,255,0);
-	-fx-text-fill: #000;
-	-fx-border-color: rgb(255,255,255,0);
+	-fx-background-color: rgba(0, 128, 107, 0.3);
+	-fx-text-fill: #f6fffd;
+	-fx-border-color: rgba(255,255,255,0);
 }
 
 .left--button:hover {
-	-fx-background-color: #808080;
+	-fx-background-color: #00806b;
 	-fx-text-fill: #fff;
-	-fx-border-color: #808080;
+	-fx-border-color: #00806b;
 }
 /*左栏按钮被点击后*/
 .left-clicked {
 	-fx-background-radius: 0;
-	-fx-background-color: #fff;
+	-fx-border-color: #ffe393;
+	-fx-background-color: #ffe393;
 	-fx-text-fill: #000;
-	-fx-border-color: #fff;
 }
 
 .left-clicked:hover {
 	-fx-background-radius: 0;
-	-fx-background-color: #fff;
 	-fx-text-fill: #000;
-	-fx-border-color: #fff;
+	-fx-background-color: #ffe393;
+	-fx-border-color: #ffe393;
 }
 
 
 /*顶栏*/
 .top-bar{
-	-fx-background-color: rgb(169,169,169,0.5);
+	-fx-background-color: rgba(169,169,169,0.5);
 }
 /*顶栏按钮属性*/
 .top-button {
 	-fx-background-radius: 0;
-	-fx-background-color: rgb(255,255,255,0);
-	-fx-text-fill: #000;
+	-fx-background-color: rgba(0, 128, 107, 0.3);
+	-fx-text-fill: #f6fffd;
+	-fx-border-color: rgba(255,255,255,0);
 }
 
 .top-button:hover {
-	-fx-background-color: #808080;
-	-fx-text-fill: #000;
+	-fx-background-color: #00806b;
+	-fx-text-fill: #fff;
+	-fx-border-color: #00806b;
 }
 
 /*顶栏按钮被点击后*/
 .top-clicked {
 	-fx-background-radius: 0;
-	-fx-background-color: #fff;
+	-fx-background-color: #ffe393;
 	-fx-text-fill: #000;
-	-fx-border-color: #fff;
+	-fx-border-color: #ffe393;
 }
 
 .top-clicked:hover {
 	-fx-background-radius: 0;
-	-fx-background-color: #fff;
+	-fx-background-color: #ffe393;
 	-fx-text-fill: #000;
-	-fx-border-color: #fff;
+	-fx-border-color: #ffe393;
 }
 /*删除按钮*/
 .del-button {
 	-fx-text-fill: #fff;
 	-fx-background-color:#c30;
-	/*渐变色*/
 	-fx-background-radius: 10; /*圆角弧度*/
 }
 
@@ -101,6 +103,7 @@
 .text-field {
 	-fx-background-radius: 25; /*圆角弧度*/
 	-fx-border-radius: 25;
+	-fx-background-color: rgb(255, 245, 198);
 }
 
 /*消息栏*/
