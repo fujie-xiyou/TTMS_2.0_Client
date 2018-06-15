@@ -122,9 +122,14 @@ public class Studio {
         centerPane.setSpacing(30);
 
         next.setOnAction(e -> {
-
-
             if (!nameField.getText().isEmpty() && !Row.getText().isEmpty() && !Col.getText().isEmpty()) {
+                try {
+                    Integer.parseInt(Row.getText());
+                    Integer.parseInt(Col.getText());
+                }catch (NumberFormatException n){
+                    MainFrame.popupMessage("请检查输入!");
+                    return;
+                }
                 model.Studio studio = new model.Studio();
                 studio.setId(-1);
                 studio.setName(nameField.getText());

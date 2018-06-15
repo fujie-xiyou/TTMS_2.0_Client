@@ -73,7 +73,7 @@ public class Schedule {
                 centerPane.add(new Text("剧目名"), 1, 0);
                 centerPane.add(new Text("演出厅"), 2, 0);
                 centerPane.add(new Text("演出时间"), 3, 0);
-                centerPane.add(new Text("余座"), 4, 0);
+                centerPane.add(new Text("余票"), 4, 0);
                 //centerPane.add(new Text("密码"), 3, 0);
                 int row = 1;
                 for (model.Schedule schedule : schedules) {

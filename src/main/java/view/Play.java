@@ -204,9 +204,16 @@ public class Play {
 			String Covers = covers.getText();
 			// String Cover = covers.getText();
 			if (!Name.isEmpty() && Type != null &&!Area.isEmpty() && Rating != null && !Durations.isEmpty() && !Prices.isEmpty()) {
-				int DURATION = Integer.valueOf(Durations).intValue();
-				int PRICE = Integer.valueOf(Prices).intValue();
-
+				int DURATION = 0;
+				int PRICE = 0;
+				try{
+					DURATION = Integer.valueOf(Durations);
+					PRICE = Integer.valueOf(Prices);
+					new Image(Covers);
+				}catch (Exception n){
+					MainFrame.popupMessage("请检查输入!");
+					return;
+				}
 
 				model.Play play = new model.Play(-1, Name, Type, Area, Rating, DURATION,StartDate,EndDate,PRICE,Covers);
 				new Thread(new Task<Result>() {
@@ -308,16 +315,24 @@ public class Play {
 		hBoxButt.setSpacing(50);
 		hBoxButt.getChildren().addAll(save, ret);
 		outer.getChildren().addAll(grid, hBoxButt);
-
 		save.setOnAction(e -> {
+			int duraInt = 0 ,priceInt = 0;
+			try{
+				duraInt = Integer.valueOf(dura.getText());
+				Integer.valueOf(price.getText());
+				new Image(imgUrl.getText());
+			}catch (Exception n){
+				MainFrame.popupMessage("请检查输入！");
+				return;
+			}
 			play.setName(name.getText());
 			play.setType(type.getValue());
 			play.setArea(area.getText());
 			play.setRating(rating.getValue());
-			play.setDuration(Integer.valueOf(dura.getText()));
+			play.setDuration(duraInt);
 			play.setStartDate(strDate.getValue());
 			play.setEndDate(endDate.getValue());
-			play.setPrice(Integer.valueOf(price.getText()));
+			play.setPrice(priceInt);
 			play.setImgUrl(imgUrl.getText());
 			new Thread(new Task<Result>(){
 			    @Override
