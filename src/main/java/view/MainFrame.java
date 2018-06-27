@@ -86,7 +86,7 @@ public class MainFrame {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         double width = bounds.getWidth() * 0.66;
         Scene scene = new Scene(outerPane, width, 9.0 / 16 * width);
-        scene.getStylesheets().add("file:Resource/MainStyle.css");
+        scene.getStylesheets().add("MainStyle.css");
         stage.setScene(scene);
 
         //舞台加载完毕后 将左栏中按钮的宽度设置为左栏的宽度
@@ -158,7 +158,7 @@ public class MainFrame {
         rectangle.getStyleClass().add("msg-bar");
         rectangle.widthProperty().bind(pane.widthProperty());
         rectangle.heightProperty().bind(pane.heightProperty());
-        HBox hBox = new HBox(new ImageView(new Image("file:Resource/msg.png", 16, 16, true, true)), new Text(message));
+        HBox hBox = new HBox(new ImageView(new Image("msg.png", 16, 16, true, true)), new Text(message));
         hBox.setSpacing(10);
         pane.getChildren().addAll(rectangle, hBox);
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), pane);
