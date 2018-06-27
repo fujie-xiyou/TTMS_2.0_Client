@@ -17,7 +17,7 @@ public class LoadingPage {
             task.cancel();
             MainFrame.center.removeAll(MainFrame.center);
         });
-        vBox.getChildren().addAll(new ImageView("file:Resource/loading1.gif"), cal);
+        vBox.getChildren().addAll(new ImageView("loading1.gif"), cal);
         MainFrame.center.add(vBox);
     }
 }

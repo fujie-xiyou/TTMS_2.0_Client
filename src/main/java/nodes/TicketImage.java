@@ -19,11 +19,11 @@ public class TicketImage extends ImageView {
     private static Image[] images = {
             //new Image("",35,35,true,true),
             null,
-            new Image("file:Resource/seat/white.png", 35, 35, true, true),
-            new Image("file:Resource/seat/red.png", 35, 35, true, true),
-            new Image("file:Resource/seat/green.png", 35, 35, true, true),
-            new Image("file:Resource/seat/gray.png", 35, 35, true, true),
-            new Image("file:Resource/loading3.gif", 35, 35, true, true)
+            new Image("seat/white.png", 35, 35, true, true),
+            new Image("seat/red.png", 35, 35, true, true),
+            new Image("seat/green.png", 35, 35, true, true),
+            new Image("seat/gray.png", 35, 35, true, true),
+            new Image("loading3.gif", 35, 35, true, true)
     };
 
     public TicketImage(Ticket ticket, List<Ticket> tickets, Long timeStamp) {

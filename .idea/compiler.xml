@@ -9,8 +9,8 @@
         <module name="TTMS_2.0" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="TTMS_2.0" target="1.8" />
+    <bytecodeTargetLevel target="8">
+      <module name="TTMS_2.0" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

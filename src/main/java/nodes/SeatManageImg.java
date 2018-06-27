@@ -13,9 +13,9 @@ public class SeatManageImg extends ImageView {
     private SEAT_STATUS oldStatus;
     private Set<Seat> chosedSeats;
     private static Image[] images = {
-            new Image("file:Resource/seat/white_none.png",35,35,true,true),
-            new Image("file:Resource/seat/green.png",35,35,true,true),
-            new Image("file:Resource/seat/red.png",35,35,true,true),
+            new Image("seat/white_none.png",35,35,true,true),
+            new Image("seat/green.png",35,35,true,true),
+            new Image("seat/red.png",35,35,true,true),
     };
     public SeatManageImg(Studio studio,Seat seat , Set<Seat> chosedSeats){
         this.seat = seat;

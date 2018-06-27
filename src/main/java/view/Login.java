@@ -62,7 +62,7 @@ public class Login extends Application {
 		Scene scene = new Scene(pane);
 		//pane.setStyle("-fx-background-radius: 25;");
 		//scene.getStylesheets().add(getClass().getResource("MainStyle.css").toExternalForm());
-		scene.getStylesheets().addAll("file:Resource/MainStyle.css","file:Resource/Login.css");
+		scene.getStylesheets().addAll("MainStyle.css","Login.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		login.setOnAction(e -> {		
@@ -83,7 +83,7 @@ public class Login extends Application {
 					}
 					@Override
 					protected void running() {
-						login.setGraphic(new ImageView(new Image("file:Resource/loading2.gif", 12, 12, true, true)));
+						login.setGraphic(new ImageView(new Image("loading2.gif", 12, 12, true, true)));
 						login.setText("登录中");
 						super.running();
 					}
